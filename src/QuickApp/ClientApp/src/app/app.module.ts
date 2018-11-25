@@ -95,6 +95,8 @@ import { ChartsModule } from 'ng2-charts';
 import { IncidentChartComponentComponent } from './components/charts/incident.chart.component/incident.chart.component.component';
 import { EmployeeChartComponentComponent } from './components/charts/employee.chart.component/employee.chart.component.component';
 import { CommunicationComponent } from './components/operations/communication/communication.component';
+import { DeviceavailabilityComponent } from './components/charts/deviceavailability/deviceavailability.component';
+import { PatrolstatusComponent } from './components/charts/patrolstatus/patrolstatus.component';
 
 @NgModule({
   imports: [
@@ -161,7 +163,9 @@ import { CommunicationComponent } from './components/operations/communication/co
     IncidentsComponent,
     IncidentChartComponentComponent,
     EmployeeChartComponentComponent,
-    CommunicationComponent
+    CommunicationComponent,
+    DeviceavailabilityComponent,
+    PatrolstatusComponent
   ],
   providers: [
     { provide: 'BASE_URL', useFactory: getBaseUrl },

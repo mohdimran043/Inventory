@@ -1,7 +1,7 @@
 <div class="container">
-  <header class="pageHeader">
+  <!--<header class="pageHeader">
     <h3><i class="fa fa-charts" aria-hidden="true"></i> {{'pageHeader.Dashboard' | translate}}</h3>
-  </header>
+  </header>-->
   <div [@fadeInOut]>
     <div class="row">
       <div class="col-md-12">
@@ -19,6 +19,14 @@
     <div class="row">
       <div class="col-md-12">
         <hr class="last-separator-hr" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <app-deviceavailability></app-deviceavailability>
+      </div>
+      <div class="col-sm-6">
+        <app-patrolstatus></app-patrolstatus>
       </div>
     </div>
   </div>

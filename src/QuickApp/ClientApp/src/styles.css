@@ -8,7 +8,9 @@
 .sidebar-mini.sidebar-collapse .main-header .logo {
   width: 230px !important;
 }
-
+.sidebar-right-toggle {
+  float:left !important;
+}
 
 body {
   font-family: 'Times New Roman' !important;
