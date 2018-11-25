@@ -1,0 +1,84 @@
+
+<div class="container">
+
+  <form method="post" enctype="multipart/form-data">
+
+    <header class="pageHeader">
+      <h3><i class="fa fa-handshake-o fa-lg page-caption" aria-hidden="true"></i> Accessories</h3>
+    </header>
+
+
+    <dx-data-grid id="gridContainer"
+                  [width]="auto"
+                  [dataSource]="dataSource"
+                  [showBorders]="true"
+                  [rtlEnabled]="true"
+                  [hoverStateEnabled]="true"
+                  [selectedRowKeys]="[]"
+                  (onRowRemoved)="RowDelete($event)"
+                  (onRowInserted)="RowAdd($event)"
+                  (onRowUpdated)="RowUpdate($event)"
+                  (onToolbarPreparing)="onToolbarPreparing($event)"
+                  (onEditorPreparing)="PopupInitialize($event)"
+                  keyexpr="deviceid">
+      <dxo-paging [pageSize]="1"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="true"
+                 [allowedPageSizes]="[1, 50, 100]"
+                 [showInfo]="true">
+      </dxo-pager>
+
+      <dxo-editing mode="popup"
+                   [allowUpdating]="false"
+                   [allowDeleting]="true"
+                   [allowAdding]="true"
+                   [useIcons]="true">
+        <dxo-popup title="Device Info"
+                   [showTitle]="true"
+                   [width]="500"
+                   [height]="345"
+                   [position]="{ my: 'top', at: 'top'  }"
+                   [rtlEnabled]="true">
+        </dxo-popup>
+      </dxo-editing>
+
+      <dxo-selection mode="single"></dxo-selection>
+      <dxo-export [enabled]="true" fileName="Vehicle"></dxo-export>
+
+      <dxo-header-filter [visible]="true"></dxo-header-filter>
+      <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser>
+
+      <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-header-filter [visible]="true"></dxo-header-filter>
+      <dx-load-panel #loadPanel
+                     shadingColor="rgba(0,0,0,0.4)"
+                     [position]="{ of: '#gridContainer' }"
+                     [(visible)]="loadingVisible"
+                     [showIndicator]="true"
+                     [showPane]="true"
+                     [shading]="true"
+                     [closeOnOutsideClick]="false"
+                     (onShown)="onShown()">
+      </dx-load-panel>
+
+      <dxi-column dataField="devicenumber"></dxi-column>
+      <dxi-column dataField="type" editCellTemplate="typecelltemplate" [groupIndex]="1"></dxi-column>
+      <dxi-column dataField="model"></dxi-column>
+      <dxi-column dataField="barcode"></dxi-column>
+      <dxi-column dataField="defective"></dxi-column>
+      <dxi-column dataField="rental" editCellTemplate="dataCellTemplate"></dxi-column>
+      <div *dxTemplate="let data of 'dataCellTemplate'">
+        <dx-check-box [value]="0"
+                      (onValueChanged)="checkBoxToggled($event)"></dx-check-box>
+      </div>
+      <div *dxTemplate="let data of 'typecelltemplate'">
+
+      </div>
+    </dx-data-grid>
+
+
+
+  </form>
+
+</div>
+

@@ -1,0 +1,29 @@
+#map {
+  width: inherit;
+  height: 600px;
+  margin-top: 5px;
+}
+
+.marker {
+  display: block;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+}
+
+#menu {
+  background: #fff;
+  padding: 10px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.mapboxgl-canvas {
+  position: relative !important;
+}
+
+.maptbl tr td
+{
+  padding:8px;
+  
+}

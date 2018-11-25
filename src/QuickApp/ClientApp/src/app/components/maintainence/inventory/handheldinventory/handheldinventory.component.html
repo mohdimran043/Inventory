@@ -1,0 +1,53 @@
+<div class="container">
+  <form method="post" enctype="multipart/form-data">
+
+    <dx-data-grid id="gridContainer"
+                  [width]="auto"
+                  [dataSource]="dataSource"
+                  [showBorders]="true"
+                  [rtlEnabled]="true"
+                  [hoverStateEnabled]="true"
+                  [selectedRowKeys]="[]"
+                  (onToolbarPreparing)="onToolbarPreparing($event)"
+                  keyexpr="HandHeldCheckInOutID">
+      <dxo-paging [pageSize]="50"></dxo-paging>
+      <dxo-pager [showPageSizeSelector]="false"
+                 [allowedPageSizes]="[50, 100, 200]"
+                 [showInfo]="false">
+      </dxo-pager>
+      <dxo-export [enabled]="true" fileName="تقارير الاستلام والتسليم الدوريات"></dxo-export>
+
+      <!-- <dxo-header-filter
+      [visible]="true"></dxo-header-filter>
+      <dxo-column-chooser [enabled]="true" mode="select"></dxo-column-chooser> -->
+      <!-- <dxo-grouping [autoExpandAll]="true"></dxo-grouping> -->
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <!-- <dxo-header-filter [visible]="true"></dxo-header-filter> -->
+
+      <dx-load-panel #loadPanel
+                     shadingColor="rgba(0,0,0,0.4)"
+                     [position]="{ of: '#gridContainer' }"
+                     [(visible)]="loadingVisible"
+                     [showIndicator]="true"
+                     [showPane]="true"
+                     [shading]="true"
+                     [closeOnOutsideClick]="false"
+                     (onShown)="onShown()">
+      </dx-load-panel>
+      <dxi-column dataField="timestamp" caption="الوقت والتاريخ" width="200" [allowFiltering]="false" [format]="{ type: 'dd/MM/yyyy hh:mm:ss a' }"></dxi-column>
+      <dxi-column dataField="checkinoutstateid" caption="الحالة" width="150" cellTemplate="">
+        <dxo-lookup [dataSource]="statesrc"
+                    valueExpr="checkinoutstateid"
+                    displayExpr="name">
+        </dxo-lookup>
+      </dxi-column>
+      <div *dxTemplate="let data of 'CellTemplate'">
+        <div>{{data.value}}</div>
+      </div>
+      <dxi-column dataField="serial" caption="رقم الجهاز" width="150" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'"></dxi-column>
+      <dxi-column dataField="milnumber" caption="الرقم العسكري" width="150" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'"></dxi-column>
+      <dxi-column dataField="personrank" caption="الرتبه" width="150" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'"></dxi-column>
+      <dxi-column dataField="personname" caption="الاسم" width="300" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'"></dxi-column>
+    </dx-data-grid>
+  </form>
+</div>

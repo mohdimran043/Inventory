@@ -1,0 +1,30 @@
+
+modal {
+  display: none;
+  .modal-popup {
+    /* modal container fixed across whole screen */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2000;
+    overflow: auto;
+    .modal-body {
+      padding: 20px;
+      background: #fff;
+      margin: 40px;
+    }
+  }
+
+  .modal-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    opacity: 0.75;
+    z-index: 1900;
+  }
+}

@@ -1,0 +1,39 @@
+.maplnk{
+  background-image: "../../../../assets/images/haritayikaydir_r_glow.png"  ;
+  background-repeat: no-repeat;
+  display:block;
+  width: 2149px;
+  height: 49px;
+  padding: 0 0 0 10px;
+  border: 0px;
+  margin: 0px;
+}
+
+
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px; /* Adjusts for spacing */
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.errormsg {
+  color:red;
+  font-weight: bold;
+  }
+
+  .dx-datagrid-headers {
+    white-space: normal;
+  }

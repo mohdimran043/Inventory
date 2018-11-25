@@ -1,0 +1,14 @@
+:host {
+    background: #1a2580;
+    color: #fff;
+    position: fixed;
+    right: auto; 
+    right: 0;  
+    width: 15%;
+    min-width: 250px;
+    z-index: 9999;
+  }
+  li,a,span
+  {
+      color:white !important;
+  }

@@ -1,0 +1,15 @@
+.sidenav
+{
+    width: 320px;
+    height: 800px;
+    float: right;
+    background-color: rgba(53, 39, 39, 0);
+    direction:rtl;
+    text-align: right;
+}
+
+.topnav
+{
+background-color:#CCCCCC;   
+margin-top:10px; 
+}

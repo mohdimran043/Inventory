@@ -1,0 +1,67 @@
+
+<div class="form" style="width:400px;">
+  
+  <dx-tree-view
+      id="selection-treeview"
+      [items]="products"
+      [width]="320"
+      showCheckBoxesMode="normal"
+      (onItemSelectionChanged)="selectionChanged($event)"
+  >
+      
+  </dx-tree-view>
+
+</div>
+<div class="Simulate_Div">
+  <fieldset class="Simulate_fieldset"><legend class="Simulate_legend">Simulate</legend>
+<table class="tblsim">
+    <tr>
+      <td>
+<button style="width:120px;"   (click) = "SimulateDevices()" >Simulate Device</button>
+</td>
+<td><button style="width:120px;" (click) = "PauseSimulation()" >{{sim_txt}}</button></td>
+</tr>
+<tr>
+  <td colspa="2"><div data-role="rangeslider" class="slidecontainer"  >
+      <input type="range" width="200" min="2" max="10" class="slider" value="1" (input)="RngSlider_Simulate()" id="myRange" #ipt>
+    </div></td>
+</tr>
+<tr>
+  <td colspan="2"><button style="width:230px;" (click)="Simulate_By_Route_Device()">Simulate Device By Route</button></td>
+</tr>
+</table>
+
+</fieldset>
+</div>
+
+<div class="Route_Div">
+  <fieldset class="Route_fieldset"><legend class="Route_legend">Route History</legend>
+    <div class="row col-md-8 row-inline">
+        <label>Devices</label>
+      <select #RpdeviceLst>
+          <option value="26470">26470</option>
+          <option value="26570">26570</option>
+        </select>
+      </div>
+    <div class="row col-md-8 row-inline">
+
+      <label>From:</label>
+      <input class="form-control" placeholder="dd/mm/yyyy" name="Fromdp" />
+      </div>
+      <div class="row col-md-8 row-inline">
+          <label>To:</label>
+          <input class="form-control" placeholder="dd/mm/yyyy" name="Todp" />
+          </div>
+
+         
+
+          <div class="row col-md-8 row-inline">
+            <label>Options</label>
+          <select #slOptions>
+              <option value="M">Show On Map</option>
+              <option value="S">Animate On Map</option>
+            </select>
+            <button (click)="StartRoute()">Start</button>
+          </div>
+  </fieldset>
+</div>

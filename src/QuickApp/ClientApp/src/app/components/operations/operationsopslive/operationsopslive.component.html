@@ -1,0 +1,233 @@
+<div class="container">
+  <form method="post" enctype="multipart/form-data">
+    <table>
+      <tr>
+        <td style="width: 65%; vertical-align: top;">
+          <dx-data-grid id="gridContainer"
+                        [width]="auto"
+                        [dataSource]="dataSource"
+                        [showBorders]="true"
+                        [rtlEnabled]="true"
+                        [hoverStateEnabled]="false"
+                        [selectedRowKeys]="[]"
+                        (onToolbarPreparing)="onToolbarPreparing($event)"
+                        (onRowPrepared)="onRowPrepared($event)"
+                        (onCellPrepared)="onCellPrepared($event)"
+                        (onContextMenuPreparing)="onContextMenuprepare($event)"
+                        wordWrapEnabled="true"
+                        (onRowClick)="Rwclick($event)">
+            <dxo-paging [pageSize]="80"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true"
+                       [allowedPageSizes]="[80, 50, 10]"
+                       [showInfo]="true">
+            </dxo-pager>
+            <!-- onContextMenuPreparing)= "onContextMenuprepare($event)"  -->
+
+            <dxo-export [enabled]="true" fileName="Operations"></dxo-export>
+            <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxo-header-filter [visible]="true"></dxo-header-filter>
+
+            <dx-load-panel #loadPanel
+                           shadingColor="rgba(0,0,0,0.4)"
+                           [position]="{ of: '#gridContainer' }"
+                           [(visible)]="loadingVisible"
+                           [showIndicator]="true"
+                           [showPane]="true"
+                           [shading]="true"
+                           [closeOnOutsideClick]="false"
+                           [showBorders]="true"
+                           (onShown)="onShown()">
+            </dx-load-panel>
+
+            <dxi-column dataField="sectordesc" [groupIndex]="0" caption="القطاع"></dxi-column>
+            <dxi-column type="buttons" dataField="ahwalmappingid" caption="" [width]="110" cellTemplate="customButtonTemplate">
+            </dxi-column>
+            <div *dxTemplate="let data of 'customButtonTemplate'">
+              <dxi-button id="Away" (click)="customBtnclick('Away',data.value)" [visible]="checkvisibility(this,data.value)"> <img tooltip="بعيد عن الجهاز" src="../../../../assets/img/Away.png" />  </dxi-button>
+              <dxi-button id="Land" (click)="customBtnclick('Land',data.value)"> <img tooltip="بر" src="../../../../assets/img/Land.png" />  </dxi-button>
+              <dxi-button id="BackFromAway" (click)="customBtnclick('BackFromAway',data.value)"> <img tooltip="معاك على الخط" src="../../../../assets/img/Back.png" />  </dxi-button>
+              <dxi-button id="BackFromLand" (click)="customBtnclick('BackFromLand',data.value)"> <img tooltip="بحر" src="../../../../assets/img/Back.png" />  </dxi-button>
+              <dxi-button id="WalkingPatrol" (click)="customBtnclick('WalkingPatrol',data.value)"> <img tooltip="مترجله" src="../../../../assets/img/WalkingPatrol.png" />  </dxi-button>
+              <dxi-button id="BackFromWalking" (click)="customBtnclick('BackFromWalking',data.value)"> <img tooltip="عودة من مترجله" src="../../../../assets/img/Back.png" />  </dxi-button>
+
+            </div>
+            <dxi-column dataField="milnumber" width="60" caption="الرقم العسكري" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'"></dxi-column>
+            <dxi-column dataField="rankname" width="60" caption="الرتبه" [allowFiltering]="false"></dxi-column>
+            <dxi-column dataField="personname" width="60" caption="الاسم" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'">
+
+            </dxi-column>
+            <dxi-column dataField="patrolrolename" width="60" caption="المسؤولية" [allowFiltering]="false"></dxi-column>
+            <dxi-column dataField="citygroupname" [groupIndex]="1" caption="المنطقة"></dxi-column>
+
+            <dxi-column dataField="callerid" width="50" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'" caption="النداء"></dxi-column>
+            <dxi-column dataField="platenumber" width="70" [filterOperations]="['contains', '=']" caption="الدورية" [selectedFilterOperation]="'contains'"></dxi-column>
+            <dxi-column dataField="serial" width="70" [filterOperations]="['contains', '=']" caption="الجهاز" [selectedFilterOperation]="'contains'"></dxi-column>
+            <dxi-column dataField="patrolpersonstatename" width="50" caption="الحالة" [allowFiltering]="false"></dxi-column>
+            <dxi-column dataField="laststatechangetimestamp" width="100" [allowFiltering]="false" caption="وقت الحالة" dataType="date" [format]="{ type: 'dd/MM/yyyy hh:mm:ss a' }"></dxi-column>
+
+            <dxi-column dataField="personmobile" caption="الجوال" [filterOperations]="['contains', '=']" width="50" [selectedFilterOperation]="'contains'"></dxi-column>
+          </dx-data-grid>
+        </td>
+        <td style="width: 35%; vertical-align: top;">
+          <dx-data-grid #gridIncidents
+                        id="gridIncidents"
+                        [width]="auto"
+                        [dataSource]="incidentsrc"
+                        [showBorders]="true"
+                        [rtlEnabled]="true"
+                        [hoverStateEnabled]="false"
+                        wordWrapEnabled="true"
+                        (onRowPrepared)="onIncidentRowPrepared($event)">
+            <dx-load-panel #incidentloadPanel
+                           shadingColor="rgba(0,0,0,0.4)"
+                           [position]="{ of: '#gridIncidents' }"
+                           [(visible)]="incidentloadingVisible"
+                           [showIndicator]="true"
+                           [showPane]="true"
+                           [shading]="true"
+                           [closeOnOutsideClick]="false"
+                           (onShown)="onIncidentShown()"
+                           (onIncidentToolbarPreparing)="onIncidentToolbarPreparing">
+            </dx-load-panel>
+
+            <dxi-column dataField="incidentid" caption="" [allowFiltering]="false"></dxi-column>
+            <dxi-column dataField="incidentsourceid" [allowFiltering]="false" width="70" caption="جهة البلاغ">
+              <dxo-lookup [dataSource]="incidentsources"
+                          valueExpr="incidentsourceid"
+                          displayExpr="name">
+              </dxo-lookup>
+            </dxi-column>
+            <dxi-column dataField="incidentstypename" width="70" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'" caption="البلاغ"></dxi-column>
+            <dxi-column dataField="place" width="70" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'" caption="المكان"></dxi-column>
+            <dxi-column dataField="timeStamp" caption="وقت البلاغ" width="80" [allowFiltering]="false" dataType="date" [format]="{ type: 'dd/MM/yyyy hh:mm:ss a' }"></dxi-column>
+            <dxi-column dataField="lastupdate" dataType="date" width="80" [format]="{ type: 'dd/MM/yyyy hh:mm:ss a' }" caption="آخر تحديث" [allowFiltering]="false"></dxi-column>
+            <dxi-column dataField="incidentid" caption="" width="40" [allowFiltering]="false" cellTemplate="incidentTemplate"></dxi-column>
+            <div *dxTemplate="let data of 'incidentTemplate'">
+              <img src="../../../../assets/img/NewUpdate.png" />
+            </div>
+
+            <dxo-paging [pageSize]="80"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true"
+                       [allowedPageSizes]="[80, 50, 10]"
+                       [showInfo]="true">
+            </dxo-pager>
+            <dxo-export [enabled]="true" fileName="Operations"></dxo-export>
+            <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxo-header-filter [visible]="true"></dxo-header-filter>
+
+          </dx-data-grid>
+        </td>
+      </tr>
+    </table>
+    <dx-popup class="popup"
+              [width]="auto"
+              [height]="auto"
+              [showTitle]="true"
+              title=""
+              [showCloseButton]="true"
+              [dragEnabled]="true"
+              [closeOnOutsideClick]="true"
+              [(visible)]="contextPopupVisible">
+      <div *dxTemplate="let data of 'content'">
+        <table>
+          <tr>
+            <td>
+              البلاغ
+            </td>
+
+            <td>
+              <dx-select-box width="300"
+                             [dataSource]="incidentsources"
+                             showClearButton="true"
+                             valueExpr="incidentid"
+                             displayExpr="incidentsourcename"
+                             [value]="selIncidentId"
+                             searchEnabled="true"
+                             placeholder="Select an Incident"
+                             rtlEnabled="true"
+                             searchExpr="['incidentid', 'incidentsourcename']">
+                <div *dxTemplate="let item of 'content'">
+                  <dx-data-grid width="600" height="400" id="gridIncidentPopup" #gridIncidentPopupt
+                                [dataSource]="incidentsources"
+                                [columns]="[{caption:'رقم البلاغ ',dataField:'incidentid'},
+                                      {caption:'كاتب البلاغ',dataField:'username'},
+                                      {caption:'جهة البلاغ',dataField:'incidentsourcename'},
+                                      {caption:'البلاغ',dataField:'incidentstypename'},
+                                      {caption:'المكان',dataField:'place'},
+                                      {caption:'تاريخ البلاغ',dataField:'timestamp'}]"
+                                [selection]="{ mode: 'single' }"
+                                [hoverStateEnabled]="true"
+                                [paging]="{ enabled: true, pageSize: 10 }"
+                                [filterRow]="{ visible: false }"
+                                [rtlEnabled]="true"
+                                (onRowClick)="IncidentRwclick($event)">
+
+                  </dx-data-grid>
+                </div>
+              </dx-select-box>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button type="submit" (click)="AttahcIncidentSubmitButton_Click($event)" data-dismiss="modal" class="btn btn-primary">تسليم</button>
+
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!-- <dx-autocomplete [dataSource]="incidentsources"   [valueExpr]="person_displayExpr" itemTemplate="item" openOnFieldClick="true"
+                 rtlEnabled="true" dropDownButtonTemplate="item" showDropDownButton="true"
+                 showClearButton="true"  placeholder="Select an Incident" maxItemCount="1" width="300">
+                    <div *dxTemplate="let item of 'item'">
+                        <dx-data-grid width="300" height="400"
+                                [dataSource]="incidentsources"
+                                [columns]="[{caption:'الرقم ',dataField:'incidentsourceid'},{caption:'الاسم',dataField:'name'}]"
+                                [selection]="{ mode: 'single' }"
+                                [hoverStateEnabled]="true"
+                                [paging]="{ enabled: true, pageSize: 10 }"
+                                [filterRow]="{ visible: false }"
+                                [rtlEnabled]= "true"
+                                [keyExpr] ="incidentsourceid"
+                                [focusStateEnabled]="true">
+
+                        </dx-data-grid>
+                    </div>
+                 </dx-autocomplete>
+                           -->
+      <!-- <td>
+
+                <dx-lookup [dataSource]="incidentsources"
+                displayExpr = "name" width="200"
+                ></dx-lookup>
+
+        </td>
+      </tr>
+      <tr> -->
+    </dx-popup>
+
+    <dx-popup class="popup"
+              [width]="auto"
+              [height]="auto"
+              [showTitle]="true"
+              title=""
+              [showCloseButton]="true"
+              [dragEnabled]="true"
+              [closeOnOutsideClick]="true"
+              [(visible)]="statesPopupVisible">
+      <div *dxTemplate="let data of 'content'">
+        <dx-data-grid [dataSource]="state_src"
+                      [columns]="[{caption:'الحالة',dataField:'name'},{caption:'الوقت',dataField:'timestamp',dataType:'date',format: 'dd/MM/yyyy hh:mm:ss a' }]"
+                      [selection]="{ mode: 'single' }"
+                      [hoverStateEnabled]="false"
+                      [paging]="{ enabled: true, pageSize: 10 }"
+                      [filterRow]="{ visible: false }"
+                      [rtlEnabled]="true"
+                      [focusStateEnabled]="true"
+                      (onRowPrepared)="onStatesRowPrepared($event)">
+        </dx-data-grid>
+      </div>
+    </dx-popup>
+  </form>
+</div>

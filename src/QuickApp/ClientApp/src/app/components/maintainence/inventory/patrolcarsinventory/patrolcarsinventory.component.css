@@ -1,0 +1,20 @@
+.hdrcls td
+    {
+        text-align: center;
+    }
+
+    .tdcenter td
+    {
+        text-align: center;
+    }
+
+    .dx-widget .dx-rtl .dx-visibility-change-handler td
+    {
+        text-align: center;
+    }
+
+    .dx-datagrid-headers .dx-datagrid-nowrap td
+    {
+        text-align: center;
+        vertical-align: center;
+    }
