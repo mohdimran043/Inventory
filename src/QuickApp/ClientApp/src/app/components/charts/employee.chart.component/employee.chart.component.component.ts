@@ -62,7 +62,7 @@ export class EmployeeChartComponentComponent implements OnInit {
     const printContent = document.getElementById('barChartDataid');
     const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
     // tslint:disable-next-line:whitespace
-    //WindowPrt.document.write('<br><img src=\'' + printContent.toDataURL() + '\'/>');
+    // WindowPrt.document.write('<br><img src=\'' + printContent.toDataURL() + '\'/>');
     WindowPrt.document.close();
     WindowPrt.focus();
     WindowPrt.print();
