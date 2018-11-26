@@ -23,7 +23,7 @@ using System;
 using AppPermissions = DAL.Core.ApplicationPermissions;
 using MOI.Patrol;
 using System.Threading.Tasks;
-using MOI.Patrol.Core;
+using Core;
 using Microsoft.AspNetCore.SignalR;
 
 namespace AssetManagement

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MOI.Patrol.Core
+namespace Core
 {
     public class CallerTicker
     {
