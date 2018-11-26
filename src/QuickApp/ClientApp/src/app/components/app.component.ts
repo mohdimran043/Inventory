@@ -413,7 +413,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
 
   get fullName(): string {
-    return this.authService.currentUser ? this.authService.currentUser.fullName : '';
+    return this.authService.currentUser ? this.authService.currentUser.empDisplayName : '';
   }
 
 

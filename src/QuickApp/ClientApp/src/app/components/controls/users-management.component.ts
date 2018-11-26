@@ -165,7 +165,7 @@ export class UsersManagementComponent implements OnInit, AfterViewInit {
 
 
     onSearchChanged(value: string) {
-        this.rows = this.rowsCache.filter(r => Utilities.searchArray(value, false, r.userName, r.fullName, r.email, r.phoneNumber, r.jobTitle, r.roles));
+        this.rows = this.rowsCache.filter(r => Utilities.searchArray(value, false, r.userName, r.empDisplayName, r.userName, '','', r.roles));
     }
 
     onEditorModalHidden() {

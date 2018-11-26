@@ -284,8 +284,7 @@ export class UserInfoComponent implements OnInit {
 
         this.accountService.unblockUser(this.userEdit.id)
             .subscribe(response => {
-                this.isSaving = false;
-                this.userEdit.isLockedOut = false;
+                this.isSaving = false;             
                 this.alertService.stopLoadingMessage();
                 this.alertService.showMessage("Success", "User has been successfully unblocked", MessageSeverity.success);
             },

@@ -6,7 +6,7 @@
 import { Injectable } from '@angular/core';
 import { Router, NavigationExtras } from "@angular/router";
 import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, debounce } from 'rxjs/operators';
 
 import { LocalStoreManager } from './local-store-manager.service';
 import { EndpointFactory } from './endpoint-factory.service';
@@ -139,19 +139,23 @@ export class AuthService {
     let decodedIdToken = <IdToken>jwtHelper.decodeToken(response.id_token);
 
 
-    //console.log(decodedIdToken)
+    console.log(decodedIdToken)
     let permissions: PermissionValues[] = Array.isArray(decodedIdToken.permission) ? decodedIdToken.permission : [decodedIdToken.permission];
-
+     
     if (!this.isLoggedIn)
       this.configurations.import(decodedIdToken.configuration);
-
+    debugger;
     let user = new User(
       decodedIdToken.sub,
-      decodedIdToken.name,
-      decodedIdToken.fullname,
-      decodedIdToken.email,
-      decodedIdToken.jobtitle,
-      decodedIdToken.phone,
+      decodedIdToken.userName,
+      decodedIdToken.empDisplayName,
+      decodedIdToken.mNo,
+      decodedIdToken.empDeptCode,
+      decodedIdToken.empDeptName,
+      decodedIdToken.empRank,
+      decodedIdToken.empRankCode,
+      decodedIdToken.empProf,
+      decodedIdToken.empProfCode,
       Array.isArray(decodedIdToken.role) ? decodedIdToken.role : [decodedIdToken.role]);
     user.isEnabled = true;
 
@@ -201,6 +205,7 @@ export class AuthService {
       this.localStorage.savePermanentData(expiresIn, DBkeys.TOKEN_EXPIRES_IN);
       this.localStorage.savePermanentData(permissions, DBkeys.USER_PERMISSIONS);
       this.localStorage.savePermanentData(user, DBkeys.CURRENT_USER);
+
     }
     else {
       this.localStorage.saveSyncedSessionData(accessToken, DBkeys.ACCESS_TOKEN);

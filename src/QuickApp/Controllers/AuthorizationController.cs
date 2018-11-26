@@ -11,12 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using AspNet.Security.OpenIdConnect.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication;
-using AspNet.Security.OpenIdConnect.Server;
 using OpenIddict.Core;
 using AspNet.Security.OpenIdConnect.Primitives;
-using DAL.Models;
-using DAL.Core;
-using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using OpenIddict.Abstractions;
 using OpenIddict.Server;
@@ -185,6 +181,10 @@ namespace AssetManagement.Controllers
                 OpenIdConnectConstants.Destinations.AccessToken);
             identity.AddClaim(OpenIdConnectConstants.Claims.Name, "Immuuu11",
                 OpenIdConnectConstants.Destinations.AccessToken);
+
+            identity.AddClaim("empDisplayName", "Mohd Imran",
+             OpenIdConnectConstants.Destinations.AccessToken);
+
             identity.AddClaim("Configuration", "Configuration112",
                 OpenIdConnectConstants.Destinations.AccessToken);
             identity.AddClaim("Configuration2", "Immuuu22",

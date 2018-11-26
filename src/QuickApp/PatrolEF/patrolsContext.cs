@@ -2,11 +2,8 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using DAL.Models;
-using DAL.Models.Interfaces;
+using Core;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace MOI.Patrol
 {
