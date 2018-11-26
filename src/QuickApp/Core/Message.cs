@@ -1,4 +1,4 @@
-﻿namespace MOI.Patrol.Core
+﻿namespace Core
 {
     public class CallerInfo
     {

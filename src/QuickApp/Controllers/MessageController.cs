@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using MOI.Patrol.Core;
+using Core;
 using MOI.Patrol.Interface;
 using System;
 
