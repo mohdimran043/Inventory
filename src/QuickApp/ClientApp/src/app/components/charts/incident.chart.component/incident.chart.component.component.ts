@@ -14,8 +14,20 @@ import { ModalService } from '../../../services/modalservice';
 export class IncidentChartComponentComponent implements OnInit {
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
+    title: {
+      text: 'Incident Charts',
+      display: true
+    }
   };
+  public colors = [
+    {
+      backgroundColor: 'rgba(77,83,96,0.2)'
+    },
+    {
+      backgroundColor: 'rgba(30, 169, 224, 0.8)'
+    }
+  ];
   public barChartLabels: string[] = ['Jan', 'Feb', 'Mar', 'May', 'Jun', 'July', 'Aug'];
   public barChartType: string = 'bar';
   public barChartLegend: boolean = true;

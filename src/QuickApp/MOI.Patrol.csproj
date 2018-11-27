@@ -38,30 +38,36 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DAL\DAL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="Authorization\**" />
     <Compile Remove="ClientApp\src\app\components\operations\communications\**" />
     <Compile Remove="Logs\**" />
+    <Compile Remove="Migrations\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="Authorization\**" />
     <Content Remove="ClientApp\src\app\components\operations\communications\**" />
     <Content Remove="Logs\**" />
+    <Content Remove="Migrations\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Authorization\**" />
     <EmbeddedResource Remove="ClientApp\src\app\components\operations\communications\**" />
     <EmbeddedResource Remove="Logs\**" />
+    <EmbeddedResource Remove="Migrations\**" />
+    <None Remove="Authorization\**" />
     <None Remove="ClientApp\src\app\components\operations\communications\**" />
     <None Remove="Logs\**" />
+    <None Remove="Migrations\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\CustomerController.cs" />
     <Compile Remove="Controllers\Dispatch2Controller.cs" />
     <Compile Remove="Controllers\Dispatcher2Controller.cs" />
     <Compile Remove="Controllers\Maintainence2Controller.cs" />
+    <Compile Remove="DesignTimeDbContextFactory.cs" />
   </ItemGroup>
 
   <ItemGroup>

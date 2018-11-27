@@ -1,9 +1,6 @@
 using AspNet.Security.OpenIdConnect.Primitives;
 using AutoMapper;
-using DAL;
-using DAL.Core;
-using DAL.Core.Interfaces;
-using DAL.Models;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,12 +12,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OpenIddict.Abstractions;
-using AssetManagement.Authorization;
+
 using AssetManagement.Helpers;
 using AssetManagement.ViewModels;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
-using AppPermissions = DAL.Core.ApplicationPermissions;
+
 using MOI.Patrol;
 using System.Threading.Tasks;
 using Core;
@@ -128,16 +125,16 @@ namespace AssetManagement
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(Authorization.Policies.ViewPatrolCars, policy => policy.RequireClaim("ViewPatrolCars"));
-                options.AddPolicy(Authorization.Policies.ViewPatrolCarsRole, policy => policy.RequireClaim("ViewPatrolCarsRole"));
-                options.AddPolicy(Authorization.Policies.ViewAllUsersPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ViewUsers));
-                options.AddPolicy(Authorization.Policies.ManageAllUsersPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ManageUsers));
+                // options.AddPolicy(Authorization.Policies.ViewPatrolCars, policy => policy.RequireClaim("ViewPatrolCars"));
+                //   options.AddPolicy(Authorization.Policies.ViewPatrolCarsRole, policy => policy.RequireClaim("ViewPatrolCarsRole"));
+                //options.AddPolicy(Authorization.Policies.ViewAllUsersPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ViewUsers));
+                //options.AddPolicy(Authorization.Policies.ManageAllUsersPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ManageUsers));
 
-                options.AddPolicy(Authorization.Policies.ViewAllRolesPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ViewRoles));
-                options.AddPolicy(Authorization.Policies.ViewRoleByRoleNamePolicy, policy => policy.Requirements.Add(new ViewRoleAuthorizationRequirement()));
-                options.AddPolicy(Authorization.Policies.ManageAllRolesPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ManageRoles));
+                //options.AddPolicy(Authorization.Policies.ViewAllRolesPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ViewRoles));
+                //options.AddPolicy(Authorization.Policies.ViewRoleByRoleNamePolicy, policy => policy.Requirements.Add(new ViewRoleAuthorizationRequirement()));
+                //options.AddPolicy(Authorization.Policies.ManageAllRolesPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ManageRoles));
 
-                options.AddPolicy(Authorization.Policies.AssignAllowedRolesPolicy, policy => policy.Requirements.Add(new AssignRolesAuthorizationRequirement()));
+                //options.AddPolicy(Authorization.Policies.AssignAllowedRolesPolicy, policy => policy.Requirements.Add(new AssignRolesAuthorizationRequirement()));
             });
 
             //Mapper.Initialize(cfg =>
@@ -155,15 +152,15 @@ namespace AssetManagement
 
 
             // Repositories
-            services.AddScoped<IUnitOfWork, HttpUnitOfWork>();
-            services.AddScoped<IAccountManager, AccountManager>();
+            //services.AddScoped<IUnitOfWork, HttpUnitOfWork>();
+            //services.AddScoped<IAccountManager, AccountManager>();
             services.AddScoped<CallerHub, CallerHub>();
             services.AddHttpContextAccessor();
             // Auth Handlers
-            services.AddSingleton<IAuthorizationHandler, ViewUserAuthorizationHandler>();
-            services.AddSingleton<IAuthorizationHandler, ManageUserAuthorizationHandler>();
-            services.AddSingleton<IAuthorizationHandler, ViewRoleAuthorizationHandler>();
-            services.AddSingleton<IAuthorizationHandler, AssignRolesAuthorizationHandler>();
+            //services.AddSingleton<IAuthorizationHandler, ViewUserAuthorizationHandler>();
+            //services.AddSingleton<IAuthorizationHandler, ManageUserAuthorizationHandler>();
+            //services.AddSingleton<IAuthorizationHandler, ViewRoleAuthorizationHandler>();
+            //services.AddSingleton<IAuthorizationHandler, AssignRolesAuthorizationHandler>();
 
 
 
@@ -225,7 +222,7 @@ namespace AssetManagement
 
                 if (env.IsDevelopment())
                 {
-                     //spa.UseAngularCliServer(npmScript: "start");
+                    //spa.UseAngularCliServer(npmScript: "start");
                     spa.Options.StartupTimeout = TimeSpan.FromSeconds(60000); // Increase the timeout if angular app is taking longer to startup
                     spa.UseProxyToSpaDevelopmentServer("http://localhost:4200"); // Use this instead to use the angular cli server
                 }

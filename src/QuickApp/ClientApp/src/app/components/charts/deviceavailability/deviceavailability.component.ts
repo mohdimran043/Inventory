@@ -6,25 +6,25 @@ import { AlertService, DialogType, MessageSeverity } from '../../../services/ale
 import { ModalService } from '../../../services/modalservice';
 
 @Component({
-  selector: 'app-employee-chart',
-  templateUrl: './employee.chart.component.component.html',
-  styleUrls: ['./employee.chart.component.component.css']
+  selector: 'app-deviceavailability',
+  templateUrl: './deviceavailability.component.html',
+  styleUrls: ['./deviceavailability.component.css']
 })
-export class EmployeeChartComponentComponent implements OnInit {
+export class DeviceavailabilityComponent implements OnInit {
+
+
 
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true,
     title: {
-      text: 'Employee Charts',
+      text: 'Device availablity',
       display: true
     }
   };
-  
   public barChartLabels: string[] = ['Section1', 'Section2', 'Section3'];
-  public barChartType = 'bar';
-  
-  public barChartLegend  =true;
+  public barChartType: string = 'bar';
+  public barChartLegend: boolean = true;
 
   public barChartData: any[] = [
     { data: [100, 200, 49], label: 'On Duty', backgroundColor: ['#ff6384'] },
@@ -45,7 +45,7 @@ export class EmployeeChartComponentComponent implements OnInit {
 
   public randomize(): void {
     // Only Change 3 values
-    const data = [
+    let data = [
       Math.round(Math.random() * 100),
       59,
       80,
@@ -53,21 +53,11 @@ export class EmployeeChartComponentComponent implements OnInit {
       56,
       (Math.random() * 100),
       40];
-    const clone = JSON.parse(JSON.stringify(this.barChartData));
+    let clone = JSON.parse(JSON.stringify(this.barChartData));
     clone[0].data = data;
     this.barChartData = clone;
 
   }
-  public printstat() {
-    const printContent = document.getElementById('barChartDataid');
-    const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
-    // tslint:disable-next-line:whitespace
-    // WindowPrt.document.write('<br><img src=\'' + printContent.toDataURL() + '\'/>');
-    WindowPrt.document.close();
-    WindowPrt.focus();
-    WindowPrt.print();
-    WindowPrt.close();
-  }  ngOnInit() {
+  ngOnInit() {
   }
-
 }

@@ -1,6 +1,5 @@
-
 <div style="display: block">
-  <canvas baseChart id="barChartDataid"
+  <canvas baseChart
           [datasets]="barChartData"
           [labels]="barChartLabels"
           [options]="barChartOptions"
@@ -9,5 +8,3 @@
           (chartHover)="chartHovered($event)"
           (chartClick)="chartClicked($event)"></canvas>
 </div>
-<!--<button class="form-control" (click)="printstat()">PRINT</button>-->
-<!--<button class="form-control" (click)="randomize()">Refresh</button>--> 

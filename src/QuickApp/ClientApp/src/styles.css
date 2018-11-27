@@ -8,6 +8,9 @@
 .sidebar-mini.sidebar-collapse .main-header .logo {
   width: 230px !important;
 }
+.sidebar-right-toggle {
+  float:left !important;
+}
 
 .content,.container {
   width: 100% !important;

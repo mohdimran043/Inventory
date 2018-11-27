@@ -6,7 +6,7 @@
 import { Injectable } from '@angular/core';
 import { Router, NavigationExtras } from "@angular/router";
 import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, debounce } from 'rxjs/operators';
 
 import { LocalStoreManager } from './local-store-manager.service';
 import { EndpointFactory } from './endpoint-factory.service';
@@ -139,19 +139,23 @@ export class AuthService {
     let decodedIdToken = <IdToken>jwtHelper.decodeToken(response.id_token);
 
 
-    //console.log(decodedIdToken)
+    console.log(decodedIdToken)
     let permissions: PermissionValues[] = Array.isArray(decodedIdToken.permission) ? decodedIdToken.permission : [decodedIdToken.permission];
-
+     
     if (!this.isLoggedIn)
       this.configurations.import(decodedIdToken.configuration);
-
+    debugger;
     let user = new User(
       decodedIdToken.sub,
-      decodedIdToken.name,
-      decodedIdToken.fullname,
-      decodedIdToken.email,
-      decodedIdToken.jobtitle,
-      decodedIdToken.phone,
+      decodedIdToken.userName,
+      decodedIdToken.empDisplayName,
+      decodedIdToken.mNo,
+      decodedIdToken.empDeptCode,
+      decodedIdToken.empDeptName,
+      decodedIdToken.empRank,
+      decodedIdToken.empRankCode,
+      decodedIdToken.empProf,
+      decodedIdToken.empProfCode,
       Array.isArray(decodedIdToken.role) ? decodedIdToken.role : [decodedIdToken.role]);
     user.isEnabled = true;
 
@@ -164,7 +168,7 @@ export class AuthService {
 
   public loadLeftNavigation() {
     let sidebarLeftMenu = [
-      { label: 'Home', route: 'Home', iconClasses: 'fa fa-road' },
+      { label: 'الإحصاء', route: 'Home', iconClasses: 'fa fa-pie-chart' },
       {
         label: 'الصيانه', route: 'maintainence/patrolcars', iconClasses: 'fa fa-th-list', children: [
           { label: 'الدوريات', route: 'maintainence/patrolcars', iconClasses: 'fa fa-automobile' },
@@ -174,15 +178,15 @@ export class AuthService {
         ]
       },
       {
-        label: 'الأحوال', route: 'dispatcher/dispatcher', iconClasses: 'fa fa-eye', children: [
-          { label: 'كشف التوزيع', route: 'dispatcher/dispatcher', iconClasses: 'fa fa-calendar' }
+        label: 'الأحوال', route: 'dispatcher/dispatcher', iconClasses: 'fa fa-industry', children: [
+          { label: 'كشف التوزيع', route: 'dispatcher/dispatcher', iconClasses: 'fa fa-industry' }
         ]
       },
       {
-        label: 'العمليات', route: 'operations/operationsopslive', iconClasses: 'fa fa-arrows', children: [
-          { label: 'الكشف', route: 'operations/operationsopslive', iconClasses: 'fa fa-calendar' },
-          { label: 'البلاغات', route: 'operations/incidents', iconClasses: 'fa fa-user-secret' },
-          { label: 'Incident Type', route: 'operations/incidenttype', iconClasses: 'fa fa-user-secret' }
+        label: 'العمليات', route: 'operations/operationsopslive', iconClasses: 'fa fa-user-secret', children: [
+          { label: 'الكشف', route: 'operations/operationsopslive', iconClasses: 'fa fa-user-secret' },
+          { label: 'البلاغات', route: 'operations/incidents', iconClasses: 'fa  fa-file-text-o' },
+          { label: 'Incident Type', route: 'operations/incidenttype', iconClasses: 'fa fa-file-o' }
 
         ]
       }
@@ -201,6 +205,7 @@ export class AuthService {
       this.localStorage.savePermanentData(expiresIn, DBkeys.TOKEN_EXPIRES_IN);
       this.localStorage.savePermanentData(permissions, DBkeys.USER_PERMISSIONS);
       this.localStorage.savePermanentData(user, DBkeys.CURRENT_USER);
+
     }
     else {
       this.localStorage.saveSyncedSessionData(accessToken, DBkeys.ACCESS_TOKEN);
