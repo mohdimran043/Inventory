@@ -9,6 +9,9 @@
   width: 230px !important;
 }
 
+.content,.container {
+  width: 100% !important;
+}
 
 body {
   font-family: 'Times New Roman' !important;
@@ -414,6 +417,6 @@ i.page-caption {
 
 
 .errormsg {
-  color:red;
+  color: red;
   font-weight: bold;
-  }
+}
