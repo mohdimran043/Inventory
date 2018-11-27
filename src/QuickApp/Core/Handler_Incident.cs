@@ -216,7 +216,137 @@ namespace Core
                 }
             }
 
+
+
+
         }
+
+
+        public string Add_New_Comment(Users u, Incidentscomments c)//this transaction requires User_Role_Ahwal Permisson on this AhwalID
+        {
+            try
+            {
+                //first we have to check if this user is authorized to perform this transaction
+                Usersrolesmap permisson_esists = _context.Usersrolesmap.FirstOrDefault(r => r.Userid == u.Userid && r.Userroleid == Core.Handler_User.User_Role_Ops);
+
+                if (permisson_esists == null)
+                {
+                    Operationlogs ol_failed = new Operationlogs();
+                    ol_failed.Userid = u.Userid;
+                    ol_failed.Operationid = Handler_Operations.Opeartion_Incidents_NewComment;
+                    ol_failed.Statusid = Handler_Operations.Opeartion_Status_UnAuthorized;
+                    ol_failed.Text = "المستخدم لايملك صلاحية هذه العمليه";
+                    _oper.Add_New_Operation_Log(ol_failed);
+                    return ol_failed.Text;
+                }
+                c.Userid = u.Userid;
+                c.Timestamp = DateTime.Now;
+                _context.Incidentscomments.Add(c);
+
+                //we have to change the state of the incident now
+                var incident = _context.Incidents.FirstOrDefault<Incidents>(a => a.Incidentid == c.Incidentid);
+                incident.Incidentstateid = Core.Handler_Incidents.Incident_State_HasComments;
+                incident.Lastupdate = DateTime.Now;
+                _context.SaveChanges();
+                AddNewIncidentViewForAllExceptOriginalPoster(u, incident);
+                return "تم إدخاله بنجاح";
+            }
+            catch (Exception ex)
+            {
+                Operationlogs ol_failed = new Operationlogs();
+                ol_failed.Userid = u.Userid;
+                ol_failed.Operationid = Handler_Operations.Opeartion_Incidents_NewComment;
+                ol_failed.Statusid = Handler_Operations.Opeartion_Status_UnKnownError;
+                ol_failed.Text = ex.Message;
+                _oper.Add_New_Operation_Log(ol_failed);
+                return ol_failed.Text;
+            }
+            Operationlogs ol = new Operationlogs();
+            ol.Userid = u.Userid;
+            ol.Operationid = Handler_Operations.Opeartion_Incidents_NewComment;
+            ol.Statusid = Handler_Operations.Opeartion_Status_Success;
+            ol.Text = "تم اضافة تعليق جديد رقم: " + c.Incidentcommentid.ToString() + " على البلاغ رقم: " + c.Incidentid;
+            _oper.Add_New_Operation_Log(ol);
+            return ol.Text;
+        }
+
+        public Operationlogs Close_Incident(Users u, Incidents i)//this transaction requires User_Role_Ahwal Permisson on this AhwalID
+        {
+            try
+            {
+                //first we have to check if this Users is authorized to perform this transaction
+                Usersrolesmap permisson_esists = _context.Usersrolesmap.FirstOrDefault(r => r.Userid == u.Userid && r.Userroleid == Core.Handler_User.User_Role_Ops);
+
+                if (permisson_esists == null)
+                {
+                    Operationlogs ol_failed = new Operationlogs();
+                    ol_failed.Userid = u.Userid;
+                    ol_failed.Operationid = Handler_Operations.Opeartion_Incidents_Close;
+                    ol_failed.Statusid = Handler_Operations.Opeartion_Status_UnAuthorized;
+                    ol_failed.Text = "المستخدم لايملك صلاحية هذه العمليه";
+                    _oper.Add_New_Operation_Log(ol_failed);
+                    return ol_failed;
+                }
+                //next we need to search if there is a Users with same milnumber
+                Incidents incident_exists = _context.Incidents.FirstOrDefault(e => e.Incidentid.Equals(i.Incidentid));
+                if (incident_exists == null)
+                {
+                    Operationlogs ol_failed = new Operationlogs();
+                    ol_failed.Userid = u.Userid;
+                    ol_failed.Operationid = Handler_Operations.Opeartion_Incidents_Close;
+                    ol_failed.Statusid = Handler_Operations.Opeartion_Status_Failed;
+                    ol_failed.Text = "لم يتم العثور على البلاغ رقم: " + i.Incidentid.ToString();
+                    _oper.Add_New_Operation_Log(ol_failed);
+                    return ol_failed;
+                }
+                //we have to check first if there is someone holding this Incidents,so we automatically release the poor guy
+                var someonewithThisIncident = _context.Ahwalmapping.FirstOrDefault<Ahwalmapping>(a => a.Incidentid == incident_exists.Incidentid);
+                if (someonewithThisIncident != null)
+                {
+                    someonewithThisIncident.Incidentid = null;
+                    incident_exists.Lastupdate = DateTime.Now;
+                    var newIncidentCommentCancel = new Incidentscomments();
+                    newIncidentCommentCancel.Incidentid = incident_exists.Incidentid;
+                    newIncidentCommentCancel.Userid = u.Userid;
+                    newIncidentCommentCancel.Text = "قام بالغاء تسليم البلاغ للدورية صاحبة النداء: " + someonewithThisIncident.Callerid.ToString();
+                    newIncidentCommentCancel.Timestamp = DateTime.Now;
+                    _context.Incidentscomments.Add(newIncidentCommentCancel);
+                    _context.SaveChanges();
+                }
+                incident_exists.Incidentstateid = Core.Handler_Incidents.Incident_State_Closed;
+                incident_exists.Lastupdate = DateTime.Now;
+                _context.SaveChanges();
+                //again will add a comment for this
+                //create the opeartion log for it
+                var newIncidentComment = new Incidentscomments();
+                newIncidentComment.Incidentid = incident_exists.Incidentid;
+                newIncidentComment.Userid = u.Userid;
+                newIncidentComment.Text = "قام باغلاق البلاغ ";
+                newIncidentComment.Timestamp = DateTime.Now;
+                _context.Incidentscomments.Add(newIncidentComment);
+                _context.SaveChanges();
+                //add this to incidentview
+                AddNewIncidentViewForAllExceptOriginalPoster(u, i);
+            }
+            catch (Exception ex)
+            {
+                Operationlogs ol_failed = new Operationlogs();
+                ol_failed.Userid = u.Userid;
+                ol_failed.Operationid = Handler_Operations.Opeartion_Incidents_Close;
+                ol_failed.Statusid = Handler_Operations.Opeartion_Status_UnKnownError;
+                ol_failed.Text = ex.Message;
+                _oper.Add_New_Operation_Log(ol_failed);
+                return ol_failed;
+            }
+            Operationlogs ol = new Operationlogs();
+            ol.Userid = u.Userid;
+            ol.Operationid = Handler_Operations.Opeartion_Incidents_Close;
+            ol.Statusid = Handler_Operations.Opeartion_Status_Success;
+            ol.Text = "قام باغلاق البلاغ: " + i.Incidentid.ToString();
+            _oper.Add_New_Operation_Log(ol);
+            return ol;
+        }
+
 
     }
 }

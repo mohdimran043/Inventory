@@ -328,10 +328,36 @@ export class CommonService extends EndpointFactory {
     return this.http.post(this.api_url + '/api/operations/deleteincidenttypes', rqhdr, { responseType: 'text' });
   }
   public Addincidents(rqhdr: object) {
-    return this.http.post(this.api_url + '/api/operations/addincidents', null, { responseType: 'text' });
+    return this.http.post(this.api_url + '/api/operations/addincidents', rqhdr, { responseType: 'text' });
   }
 
   public GetIncidentById(rqhdr: object) {
-    return this.http.post(this.api_url + '/api/operations/incidentbyid', rqhdr, { responseType: 'json' });
+    return this.http.post(this.api_url + '/api/operations/incidentbyid', rqhdr, { responseType: 'text' });
+  }
+
+  public GetIncidentBySourceId(rqhdr:object)
+  {
+    return this.http.post(this.api_url + '/api/operations/incidentbysourceid',rqhdr, { responseType: 'json' });
+  }
+  public GetIncidentComments(rqhdr:object)
+  {
+    return this.http.post(this.api_url + '/api/operations/incidentcomments',rqhdr, { responseType: 'json' });
+
+  }
+
+  public CloseIncident(rqhdr:object)
+  {
+    return this.http.post(this.api_url + '/api/operations/closeincident',rqhdr, { responseType: 'text' });
+  }
+
+  public clearIncidentCommentsView(rqhdr:object)
+  {
+    return this.http.post(this.api_url + '/api/operations/clearincidentcommentsview',rqhdr, { responseType: 'text' });
+
+  }
+
+  public GetIncidentTypesList()
+  {
+    return this.http.post(this.api_url + '/api/operations/incidenttypes',null, { responseType: 'json' });
   }
 }

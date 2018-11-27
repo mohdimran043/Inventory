@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MOI.Patrol.Core
+namespace Core
 {
     public class CallerHub : Hub
     {

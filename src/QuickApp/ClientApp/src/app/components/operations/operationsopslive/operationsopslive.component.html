@@ -143,11 +143,13 @@
                              showClearButton="true"
                              valueExpr="incidentid"
                              displayExpr="incidentsourcename"
-                             [value]="selIncidentId"
+                             [(value)]="selIncidentId"
                              searchEnabled="true"
                              placeholder="Select an Incident"
                              rtlEnabled="true"
-                             searchExpr="['incidentid', 'incidentsourcename']">
+                             searchExpr= "[incidentid,username,incidentsourcename]"
+                             searchMode="contains"
+                             (onKeyDown) = "onValueChangedIncident($event)">
                 <div *dxTemplate="let item of 'content'">
                   <dx-data-grid width="600" height="400" id="gridIncidentPopup" #gridIncidentPopupt
                                 [dataSource]="incidentsources"
@@ -163,6 +165,7 @@
                                 [filterRow]="{ visible: false }"
                                 [rtlEnabled]="true"
                                 (onRowClick)="IncidentRwclick($event)">
+                                <dxo-search-panel [searchVisibleColumnsOnly] ="true" [text] = "valuechangetext" [visible]="false"></dxo-search-panel>
 
                   </dx-data-grid>
                 </div>

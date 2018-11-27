@@ -1,142 +1,230 @@
 <div class="container">
   <form method="post" enctype="multipart/form-data">
-    <dx-data-grid #gridIncidents
-                  id="gridIncidents"
-                  [width]="auto"
-                  [dataSource]="incidentsrc"
-                  [showBorders]="true"
-                  [rtlEnabled]="true"
-                  [hoverStateEnabled]="false"
-                  wordWrapEnabled="true"
-                  (onToolbarPreparing)="onIncidentToolbarPreparing($event)"
-                  (onRowPrepared)="onIncidentRowPrepared($event)">
-      <dx-load-panel #incidentloadPanel
-                     shadingColor="rgba(0,0,0,0.4)"
-                     [position]="{ of: '#gridIncidents' }"
-                     [(visible)]="incidentloadingVisible"
-                     [showIndicator]="true"
-                     [showPane]="true"
-                     [shading]="true"
-                     [closeOnOutsideClick]="false"
-                     (onShown)="onIncidentShown()"
-                     (onIncidentToolbarPreparing)="onIncidentToolbarPreparing">
-      </dx-load-panel>
+<dx-data-grid #gridIncidents
+id="gridIncidents"
+[dataSource]="incidentsrc"
+[showBorders]="true"
+[rtlEnabled]="true"
+[hoverStateEnabled]="false"
+wordWrapEnabled ="true"
+(onToolbarPreparing)="onIncidentToolbarPreparing($event)"
+(onRowPrepared)="onIncidentRowPrepared($event)"
+(onContextMenuPreparing)="onContextMenuprepare($event)"
+(onRowClick)="Rwclick($event)"
 
-      <dxi-column dataField="incidentid" caption="" [allowFiltering]="false"></dxi-column>
-      <dxi-column dataField="incidentsourceid" [allowFiltering]="false" caption="جهة البلاغ">
-        <dxo-lookup [dataSource]="incidentsources"
-                    valueExpr="incidentsourceid"
-                    displayExpr="name">
-        </dxo-lookup>
-      </dxi-column>
-      <dxi-column dataField="incidentstypename" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'" caption="البلاغ"></dxi-column>
-      <dxi-column dataField="place" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'" caption="المكان"></dxi-column>
-      <dxi-column dataField="timeStamp" caption="وقت البلاغ" [allowFiltering]="false" dataType="date" [format]="{ type: 'dd/MM/yyyy hh:mm:ss a' }"></dxi-column>
-      <dxi-column dataField="lastupdate" dataType="date" [format]="{ type: 'dd/MM/yyyy hh:mm:ss a' }" caption="آخر تحديث" [allowFiltering]="false"></dxi-column>
-      <dxi-column dataField="incidentid" caption="" [allowFiltering]="false" cellTemplate="incidentTemplate"></dxi-column>
-      <div *dxTemplate="let data of 'incidentTemplate'">
-        <img src="../../../../assets/img/NewUpdate.png" />
-      </div>
+>
+<dx-load-panel
+#incidentloadPanel
+shadingColor="rgba(0,0,0,0.4)"
+[position]="{ of: '#gridIncidents' }"
+[(visible)]="incidentloadingVisible"
+[showIndicator]="true"
+[showPane]="true"
+[shading]="true"
+[closeOnOutsideClick]="false"
+(onShown)="onIncidentShown()"
 
-      <dxo-paging [pageSize]="80"></dxo-paging>
-      <dxo-pager [showPageSizeSelector]="true"
-                 [allowedPageSizes]="[80, 50, 10]"
-                 [showInfo]="true">
-      </dxo-pager>
-      <dxo-export [enabled]="true" fileName="Operations"></dxo-export>
-      <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
-      <dxo-filter-row [visible]="true"></dxo-filter-row>
-      <dxo-header-filter [visible]="true"></dxo-header-filter>
+>
+</dx-load-panel>
 
-    </dx-data-grid>
-    <dx-popup class="popup"
-              [width]="500"
-              [height]="400"
-              [showTitle]="false"
-              title=""
-              [showCloseButton]="true"
-              [dragEnabled]="true"
-              [closeOnOutsideClick]="true"
-              [(visible)]="popupVisible">
-      <div *dxTemplate="let data of 'content'">
+<dxi-column dataField="incidentid" caption="" [allowFiltering]="false"></dxi-column>
+<dxi-column dataField="incidentsourceid" [allowFiltering]="false"   caption="جهة البلاغ">
+  <dxo-lookup
+  [dataSource]="incidentsrc"
+  valueExpr="incidentsourceid"
+  displayExpr="name">
+  </dxo-lookup>
+</dxi-column>
+<dxi-column dataField="incidentstypename"  [filterOperations]="['contains', '=']" [selectedFilterOperation] ="'contains'"  caption="البلاغ"></dxi-column>
+<dxi-column dataField="place"  [filterOperations]="['contains', '=']" [selectedFilterOperation] ="'contains'" caption="المكان"></dxi-column>
+<dxi-column dataField="timeStamp"  caption="وقت البلاغ"  [allowFiltering]="false" dataType="date" [format]="{ type: 'dd/MM/yyyy hh:mm:ss a' }"></dxi-column>
+<dxi-column dataField="lastupdate" dataType="date"  [format]="{ type: 'dd/MM/yyyy hh:mm:ss a' }" caption="آخر تحديث" [allowFiltering]="false"></dxi-column>
+<dxi-column dataField="incidentid" caption=""  [allowFiltering]="false" cellTemplate="incidentTemplate"></dxi-column>
+<div *dxTemplate="let data of 'incidentTemplate'">
+  <img   src="../../../../assets/img/NewUpdate.png"  />
+  </div>
+
+<dxo-paging [pageSize]="80"></dxo-paging>
+<dxo-pager
+[showPageSizeSelector]="true"
+[allowedPageSizes]="[80, 50, 10]"
+[showInfo]="true">
+</dxo-pager>
+<dxo-export [enabled]="true" fileName="Operations"></dxo-export>
+<dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+<dxo-filter-row [visible]="true"   ></dxo-filter-row>
+<dxo-header-filter [visible]="true"></dxo-header-filter>
+
+</dx-data-grid>
+<dx-popup
+class="popup"
+[width]="500"
+[height]="400"
+[showTitle]="true"
+title="اضافه بلاغ جديد"
+[showCloseButton]= "true"
+[dragEnabled]="false"
+[closeOnOutsideClick]="true"
+[(visible)]="popupVisible">
+<div *dxTemplate="let data of 'content'">
 
         <table>
-          <tr>
-            <td>
-              <label>جهة البلاغ</label>
-            </td>
-            <td>
-              <dx-select-box width="300"
-                             [dataSource]="incidentpopupsrc"
-                             showClearButton="true"
-                             valueExpr="incidentsourceid"
-                             displayExpr="name"
-                             [value]="selincidentSourceID"
-                             searchEnabled="true"
-                             placeholder=""
-                             rtlEnabled="true"
-                             searchExpr="['incidentid', 'name']"
-                             (onValueChanged)="incidentsourceValueChange($event)">
-              </dx-select-box>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label>نوع البلاغ</label>
-            </td>
-            <td>
-              <dx-select-box width="300"
-                             [dataSource]="incidenttypessrc"
-                             showClearButton="true"
-                             valueExpr="incidenttypeid"
-                             displayExpr="name"
-                             [value]="selIncidenttypeId"
-                             searchEnabled="true"
-                             placeholder=""
-                             rtlEnabled="true"
-                             searchExpr="['incidenttypeid', 'name']">
-              </dx-select-box>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label>المكان</label>
-            </td>
-            <td>
-              <input name="txtplace" [(ngModel)]="incidentplace">
-            </td>
-          </tr>
-          <tr>
-            <td>  <label name="lblextrainfo1" [(ngModel)]="lblinfo1"></label></td>
-            <td><input name="txtextrainfo1" [(ngModel)]="txtinfo1"></td>
-          </tr>
-          <tr>
-            <td>  <label name="lblextrainfo2" [(ngModel)]="lblinfo2"></label></td>
-            <td><input name="txtextrainfo2" [(ngModel)]="txtinfo2"></td>
-          </tr>
-          <tr>
-            <td>  <label name="lblextrainfo3" [(ngModel)]="lblinfo3"></label></td>
-            <td><input name="txtextrainfo3" [(ngModel)]="txtinfo3"></td>
-          </tr>
-          <tr>
-            <td>
+            <tr>
+                <td>  <label>جهة البلاغ</label>
+                </td>
+                <td>
+                  <dx-select-box
+                  width="300"
+                  [dataSource]="incidentpopupsrc"
+                  showClearButton="true"
+                  valueExpr="incidentsourceid"
+                  displayExpr="name"
+                  [value]="selincidentSourceID"
+                  searchEnabled="true"
+                  placeholder=""
+                  rtlEnabled="true"
+                  searchExpr= "['incidentid', 'name']"
+                  (onValueChanged)="incidentsourceValueChange($event)"
+                  >
+                  </dx-select-box>
+                </td>
+                </tr>
+                <tr>
+                    <td>  <label>نوع البلاغ</label>
+                    </td>
+                    <td>
+                      <dx-select-box
+                      width="300"
+                      [dataSource]="incidenttypessrc"
+                      showClearButton="true"
+                      valueExpr="incidenttypeid"
+                      displayExpr="name"
+                      [(value)]="selIncidenttypeId"
+                      searchEnabled="true"
+                      placeholder=""
+                      rtlEnabled="true"
+                      searchExpr= "['incidenttypeid', 'name']">
+                      </dx-select-box>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>  <label>المكان</label>
+                      </td>
+                      <td>
+                          <input type="text"  id="txtplace" name="txtplace" [(ngModel)]="incidentplace" >
+                      </td>
+                  </tr>
+                   <tr>
+                      <td>  <label  name="lblextrainfo1" ></label></td>
+                      <td><input  type="text"  name="txtextrainfo1" [(ngModel)]="txtinfo1"></td>
+                    </tr>
+                  <tr>
+                    <td>  <label name="lblextrainfo2" ></label></td>
+                    <td><input type="text"  name="txtextrainfo2" [(ngModel)]="txtinfo2"></td>
+                </tr>
+                <tr>
+                    <td>  <label  name="lblextrainfo3"></label></td>
+                    <td><input type="text"  name="txtextrainfo3" [(ngModel)]="txtinfo3"></td>
+                </tr>
+                  <tr>
+                    <td>
 
-              <button (click)=RowAdd($event) data-dismiss="modal" class="btn btn-primary">حفظ</button>
+            <button (click)= RowAdd($event)  data-dismiss="modal" class="btn btn-primary">حفظ</button>
             </td>
-            <td>
-              <button (click)="ClosePopup()" data-dismiss="modal" class="btn btn-default">إلغاء</button>
 
-            </td>
-          </tr>
-          <tr>
+                  </tr>
+                  <tr>
 
+                        <td colspan="2">
+                          <div class="errormsg"> {{incidents_statusLabel}} </div>
+                     </td>
+                      </tr>
+</table>
+
+</div>
+</dx-popup>
+
+<dx-popup
+class="popup"
+[width]="700"
+[height]="600"
+[showTitle]="true"
+title="التعليقات"
+[closeOnOutsideClick]="true"
+[(visible)]="comentPopupVisible"
+[showCloseButton]= "true"
+keyexpr="incidentcommentid"
+>
+<dxo-selection mode="single"></dxo-selection>
+<div *dxTemplate="let data of 'content'">
+    <table style="width: 100%; text-align: right">
+        <tr style="text-align: right">
             <td colspan="2">
-              <div class="errormsg"> {{incidents_statusLabel}} </div>
+                <label>كاتب البلاغ : </label>
             </td>
-          </tr>
+            <td>
+              <label>{{comments_incident_username}}</label>
+            </td>
+            <td>
+                <label>نوع البلاغ : </label>
+            </td>
+            <td>
+
+              <label>{{comments_incident_typename}}</label>
+            </td>
+            </tr>
+            <tr>
+            <td>
+                <label>جهة البلاغ : </label>
+            </td>
+            <td>
+              <label>{{comments_incident_sourcename}}</label>
+            </td>
+            <td>
+                <label>المكان : </label>
+            </td>
+            <td>
+              <label>{{comments_incident_commentplace}}</label>
+            </td>
+        </tr>
+        <tr style="text-align: right">
+            <td colspan="2" style="text-align: right">
+                <label>{{comments_incident_extra1name}} </label>
+            </td>
+            <td colspan="2" style="text-align: right">
+                <label>{{comments_incident_exxtra1value}}</label>
+            </td>
+            <td style="text-align: right">
+                <label>{{comments_incident_extra2name}}  </label>
+            </td>
+            <td style="text-align: right">
+                <label>{{comments_incident_exxtra2value}}</label>
+            </td>
+            </tr>
+            <tr>
+            <td style="text-align: right">
+                <label>{{comments_incident_extra3name}}</label>
+            </td>
+            <td style="text-align: right">
+                <label>{{comments_incident_exxtra3value}}</label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="9">
+                <dx-data-grid id="gridComments" width="100%" wordWrapEnabled="true"  rtlEnabled ="true"
+                [dataSource]="commentsincidentsscr"
+                (onToolbarPreparing)="onCommentsToolbarPreparing($event)">
+                    <dxo-paging   [pageSize]="5"></dxo-paging>
+                    <dxo-editing [useIcons]="true" mode="single" [allowUpdating]="false" [allowDeleting]="false" [allowAdding]="false"></dxo-editing>
+                  <dxi-column dataField="username" caption="الكاتب"></dxi-column>
+                  <dxi-column dataField="text" width="200" caption="التعليق"></dxi-column>
+                  <dxi-column dataField="timestamp"  dataType="date"  [format]="{ type: 'dd/MM/yyyy hh:mm:ss a' }" caption="الوقت والتاريخ"></dxi-column>
+                </dx-data-grid>
+              <td>
+              </tr>
         </table>
 
-      </div>
-    </dx-popup>
-  </form>
+</div>
+</dx-popup>
+</form>
 </div>

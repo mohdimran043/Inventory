@@ -579,7 +579,9 @@ export class OperationsopsliveComponent implements OnInit {
 
   ContextMenuClick(e) {
     if (e.itemData.text === 'تسليم بلاغ') {
-      this.contextPopupVisible = true
+      this.contextPopupVisible = true;
+      this.valuechangetext='';
+      this.selIncidentId=null;
     }
   }
   selIncidentId: any;
@@ -652,4 +654,18 @@ export class OperationsopsliveComponent implements OnInit {
       });
   }
 
+  valuechangetext: any;
+  onValueChangedIncident(e)
+  {
+    console.log( e.event.key);
+    if(e.event.key !=='' || e.event.key === 'Backspace')
+    {
+      this.valuechangetext = this.valuechangetext + e.event.key;
+    }
+    else{
+      this.valuechangetext ='';
+    }
+   // this.valuechangetext = this.valuechangetext + e.event.key;
+////console.log(this.selIncidentId);
+  }
 }
