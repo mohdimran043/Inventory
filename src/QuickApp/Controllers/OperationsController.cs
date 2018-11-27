@@ -410,38 +410,6 @@ namespace MOI.Patrol.Controllers
             return Ok(results);
         }
 
-        [HttpPost("closeincident")]
-        public ActionResult PostCloseIncident([FromBody]JObject RqHdr)
-        {
-            var incidentid = (Newtonsoft.Json.JsonConvert.DeserializeObject<string>(RqHdr["incidentid"].ToString(), new Newtonsoft.Json.JsonSerializerSettings { NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore }));
-            var userid = (Newtonsoft.Json.JsonConvert.DeserializeObject<Int16>(RqHdr["userid"].ToString(), new Newtonsoft.Json.JsonSerializerSettings { NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore }));
-
-
-            var incident = _context.Incidents.FirstOrDefault(em => em.Incidentid == Convert.ToInt64(incidentid));
-            //Session["CommentsIncidentID"] = incident.IncidentID;
-            //if incident already closed, just ignore this stupid user
-            if (incident.Incidentstateid == Core.Handler_Incidents.Incident_State_Closed)
-                return Ok(null);
-            Users user = new Users();
-            user.Userid = userid;
-            Operationlogs _ol = new Operationlogs();
-            _ol = _inc.Close_Incident(user, incident);
-            return Ok(_ol.Text);
-
-        }
-
-        [HttpPost("incidentbysourceid")]
-        public ActionResult PostIncidentBySourceId([FromBody]JObject RqHdr)
-        {
-            var userid = (Newtonsoft.Json.JsonConvert.DeserializeObject<Int32>(RqHdr["userid"].ToString(), new Newtonsoft.Json.JsonSerializerSettings { NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore }));
-            var incidentsourceid = (Newtonsoft.Json.JsonConvert.DeserializeObject<Int16>(RqHdr["incidentsourceid"].ToString(), new Newtonsoft.Json.JsonSerializerSettings { NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore }));
-
-            var source = _context.Incidentsources.FirstOrDefault<Incidentsources>(a => a.Incidentsourceid == incidentsourceid);
-
-            return Ok(source);
-        }
-
-
-        //[HttpPost("i
+       
     }
 }
