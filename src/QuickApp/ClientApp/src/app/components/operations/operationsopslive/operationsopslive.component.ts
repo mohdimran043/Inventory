@@ -321,20 +321,91 @@ export class OperationsopsliveComponent implements OnInit {
   }
 
 
-  onEditorPreparing(e) {
-    e.editorOptions.showClearButton = true;
-    // console.log('editor' + JSON.stringify(e.editorOptions));
+  ComandBtnVisible (buttonid,e) {
 
-  }
 
-  onCellPrepared(e) {
-    //console.log(e);
-  }
+    if (buttonid === 'Away')
+    {
+        if (e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_SunRise ||
+            e.key.patrolpersonstateid ===  handler_ahwalMapping.PatrolPersonState_Sea ||
+            e.key.patrolpersonstateid ===  handler_ahwalMapping.PatrolPersonState_Back ||
+            e.key.patrolpersonstateid ===  handler_ahwalMapping.PatrolPersonState_BackFromWalking)
+        {
+          return 'dispinline';
+        }
+        else
+        {
+          return 'dispnone';
+        }
 
-  checkvisibility(obj: any, personstateid: number) {
-    //console.log(obj);
-    //return false;
-  }
+    }
+
+    if (buttonid === 'Land')
+    {
+      if (e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_SunRise ||
+        e.key.patrolpersonstateid ===  handler_ahwalMapping.PatrolPersonState_Sea ||
+        e.key.patrolpersonstateid ===  handler_ahwalMapping.PatrolPersonState_Back ||
+        e.key.patrolpersonstateid ===  handler_ahwalMapping.PatrolPersonState_BackFromWalking)
+        {
+          return 'dispinline';
+        }
+        else
+        {
+             return 'dispnone';
+        }
+    }
+    if (buttonid === 'WalkingPatrol')
+    {
+      if (e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_SunRise ||
+        e.key.patrolpersonstateid ===  handler_ahwalMapping.PatrolPersonState_Sea ||
+        e.key.patrolpersonstateid ===  handler_ahwalMapping.PatrolPersonState_Back ||
+        e.key.patrolpersonstateid ===  handler_ahwalMapping.PatrolPersonState_BackFromWalking)
+        {
+            return 'dispinline';
+        }
+        else
+        {
+             return 'dispnone';
+        }
+    }
+    if (buttonid === 'BackFromAway')
+    {
+        if (e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_Away)
+        {
+            return 'dispinline';
+        }
+        else
+        {
+             return 'dispnone';
+        }
+    }
+    if (buttonid === 'BackFromLand')
+    {
+        if (e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_Land)
+        {
+            return 'dispinline';
+        }
+        else
+        {
+             return 'dispnone';
+        }
+    }
+    if (buttonid === 'BackFromWalking')
+    {
+        if (e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_WalkingPatrol)
+        {
+            return 'dispinline';
+        }
+        else
+        {
+             return 'dispnone';
+        }
+    }
+
+}
+
+
+
   customBtnclick(personstate: any, ahwalmappingId: number) {
     console.log(JSON.stringify(personstate));
     let rqhr: object = {
@@ -355,21 +426,9 @@ export class OperationsopsliveComponent implements OnInit {
   onRowPrepared(e) {
 
     if (e.rowType === 'data') {
-      // console.log(e.Row);
-      //console.log(e.rowElement.nativeElement);
 
-      //console.log(e.cells[0]);
-      // console.log(e.rowElement);
-      //let searchbtn = $( e.data.ID).dxButton("instance");
-      //console.log(searchbtn);
+      e.rowElement.bgColor = 'White';
 
-      //set default to white first
-      e.rowElement.bgColor = "White";
-      // e.rowElement.font = "Italic";
-      //e.rowElement.css('background', 'green');
-      // e.cells[0].cellElement.css("color", "red");
-      // e.rowElement.color="red";
-      //e.rowElement.Font.Bold = false;
       console.log(e.key.patrolpersonstateid);
       if (e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_SunRise ||
         e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_Sea ||
@@ -441,13 +500,8 @@ export class OperationsopsliveComponent implements OnInit {
   onStatesRowPrepared(e) {
     if (e.rowType === 'data') {
       console.log(e);
-      //set default to white first
-      e.rowElement.bgColor = "White";
-      // e.rowElement.font = "Italic";
-      //e.rowElement.css('background', 'green');
-      // e.cells[0].cellElement.css("color", "red");
-      // e.rowElement.color="red";
-      //e.rowElement.Font.Bold = false;
+
+      e.rowElement.bgColor = 'White';
 
       if (e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_SunRise ||
         e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_Sea ||
@@ -697,7 +751,7 @@ closeincident()
       }
 
   async  getIncidentImg(incidentId: number) {
-    return "../../../../assets/img/NewUpdate.png";
+    return '../../../../assets/img/NewUpdate.png';
 
 
   }

@@ -4,15 +4,13 @@
       <tr>
         <td style="width: 65%; vertical-align: top;">
           <dx-data-grid id="gridContainer"
-                        [width]="auto"
+                        [width]=""
                         [dataSource]="dataSource"
                         [showBorders]="true"
                         [rtlEnabled]="true"
                         [hoverStateEnabled]="false"
-                        [selectedRowKeys]="[]"
                         (onToolbarPreparing)="onToolbarPreparing($event)"
                         (onRowPrepared)="onRowPrepared($event)"
-                        (onCellPrepared)="onCellPrepared($event)"
                         (onContextMenuPreparing)="onContextMenuprepare($event)"
                         wordWrapEnabled="true"
                         (onRowClick)="Rwclick($event)">
@@ -44,12 +42,13 @@
             <dxi-column type="buttons" dataField="ahwalmappingid" caption="" [width]="110" cellTemplate="customButtonTemplate">
             </dxi-column>
             <div *dxTemplate="let data of 'customButtonTemplate'">
-              <dxi-button id="Away" (click)="customBtnclick('Away',data.value)" [visible]="checkvisibility(this,data.value)"> <img tooltip="بعيد عن الجهاز" src="../../../../assets/img/Away.png" />  </dxi-button>
-              <dxi-button id="Land" (click)="customBtnclick('Land',data.value)"> <img tooltip="بر" src="../../../../assets/img/Land.png" />  </dxi-button>
-              <dxi-button id="BackFromAway" (click)="customBtnclick('BackFromAway',data.value)"> <img tooltip="معاك على الخط" src="../../../../assets/img/Back.png" />  </dxi-button>
-              <dxi-button id="BackFromLand" (click)="customBtnclick('BackFromLand',data.value)"> <img tooltip="بحر" src="../../../../assets/img/Back.png" />  </dxi-button>
-              <dxi-button id="WalkingPatrol" (click)="customBtnclick('WalkingPatrol',data.value)"> <img tooltip="مترجله" src="../../../../assets/img/WalkingPatrol.png" />  </dxi-button>
-              <dxi-button id="BackFromWalking" (click)="customBtnclick('BackFromWalking',data.value)"> <img tooltip="عودة من مترجله" src="../../../../assets/img/Back.png" />  </dxi-button>
+
+              <dxi-button id="Away" [class]="ComandBtnVisible('Away',data)" (click)="customBtnclick('Away',data.value)"  > <img tooltip="بعيد عن الجهاز" src="../../../../assets/img/Away.png" />  </dxi-button>
+              <dxi-button id="Land" [class]="ComandBtnVisible('Land',data)"  (click)="customBtnclick('Land',data.value)" > <img tooltip="بر" src="../../../../assets/img/Land.png" />  </dxi-button>
+              <dxi-button id="BackFromAway" [class]="ComandBtnVisible('BackFromAway',data)"  (click)="customBtnclick('BackFromAway',data.value)"> <img tooltip="معاك على الخط" src="../../../../assets/img/Back.png" />  </dxi-button>
+              <dxi-button id="BackFromLand" [class]="ComandBtnVisible('BackFromLand',data)"  (click)="customBtnclick('BackFromLand',data.value)"> <img tooltip="بحر" src="../../../../assets/img/Back.png" />  </dxi-button>
+              <dxi-button id="WalkingPatrol" [class]="ComandBtnVisible('WalkingPatrol',data)"  (click)="customBtnclick('WalkingPatrol',data.value)"> <img tooltip="مترجله" src="../../../../assets/img/WalkingPatrol.png" />  </dxi-button>
+              <dxi-button id="BackFromWalking"  [class]="ComandBtnVisible('BackFromWalking',data)"   (click)="customBtnclick('BackFromWalking',data.value)"> <img tooltip="عودة من مترجله" src="../../../../assets/img/Back.png" />  </dxi-button>
 
             </div>
             <dxi-column dataField="milnumber" width="60" caption="الرقم العسكري" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'"></dxi-column>
@@ -92,7 +91,7 @@
                            [shading]="true"
                            [closeOnOutsideClick]="false"
                            (onShown)="onIncidentShown()"
-                           (onIncidentToolbarPreparing)="onIncidentToolbarPreparing">
+                           (onIncidentToolbarPreparing)="onIncidentToolbarPreparing($event)">
             </dx-load-panel>
 
             <dxi-column dataField="incidentid" caption="" [allowFiltering]="false"></dxi-column>
@@ -136,7 +135,7 @@
               [(visible)]="contextPopupVisible">
       <div *dxTemplate="let data of 'content'">
         <table>
-          <tr>
+         <!--  <tr>
             <td></td>
             <td>
                 <dx-autocomplete
@@ -167,7 +166,7 @@
                     </dx-data-grid>
                   </div>
             </dx-autocomplete>
-            </td>
+            </td> -->
 
           <tr>
             <td>

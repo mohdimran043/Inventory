@@ -37,3 +37,12 @@
   .dx-datagrid-headers {
     white-space: normal;
   }
+.dispnone{
+  display: none;
+}
+.dispinline{
+  display: '';
+}
+
+
+
