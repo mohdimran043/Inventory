@@ -100,7 +100,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
 
     this.toastaConfig.theme = 'bootstrap';
-    this.toastaConfig.position = 'top-right';
+    this.toastaConfig.position = 'top-left';
     this.toastaConfig.limit = 100;
     this.toastaConfig.showClose = true;
 
@@ -108,6 +108,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.subscribeToEvents();
     this.caller_details = "";
     this.callerid = "";
+
+    if (authService.isLoggedIn) {
+      authService.loadLeftNavigation();
+    }
   }
 
   private subscribeToEvents(): void {

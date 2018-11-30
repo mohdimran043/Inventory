@@ -1,4 +1,5 @@
 ﻿using MOI.Patrol.CustomModels;
+using MOI.Patrol.Helpers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace MOI.Patrol.DataAccessLayer
 {
     public static class PatrolUserManager
     {
-        private static patrolsContext _context = new patrolsContext();
+        private static PatrolsContext _context = new PatrolsContext();
         public static Users GetUserByUserName(string userName)
         {
             Users u = null;
@@ -53,22 +54,54 @@ namespace MOI.Patrol.DataAccessLayer
             }
 
             return JsonConvert.SerializeObject(lnLst.OrderBy(l => l.order));
+        }        
+
+        public static string GetUserPreferenceByUserId(long userid, List<string> roles)
+        {
+            Userpreference up = null;
+            if (userid > 0)
+            {
+                up = _context.Userpreference.FirstOrDefault(p => p.Userid == userid);
+            }
+            if (up == null)
+            {
+                up = new Userpreference();
+                up.Theme = "blue";
+                if (roles.Contains(PatrolConstants.ROLE_MANAGE_CHART))
+                {
+                    up.Defaulturl = "home";
+                }
+               else if (roles.Contains(PatrolConstants.ROLE_MANAGE_OPERATION))
+                {
+                    up.Defaulturl = "operations/operationsopslive";
+                }
+                else if (roles.Contains(PatrolConstants.ROLE_MANAGE_DISPATCHER))
+                {
+                    up.Defaulturl = "dispatcher/dispatcher";
+                }
+                else if (roles.Contains(PatrolConstants.ROLE_MANAGE_MAINTAINANCE))
+                {
+                    up.Defaulturl = "maintainence/patrolcars";
+                }
+            }
+            return JsonConvert.SerializeObject(up);
         }
+
         private static LeftNavigation FetchLeftNavigatioEntity(string role)
         {
             LeftNavigation ln = new LeftNavigation();
             switch (role)
             {
-                case "ManageCharts":
+                case PatrolConstants.ROLE_MANAGE_CHART:
                     ln.label = "الإحصاء";
-                    ln.route = "Home";
+                    ln.route = "home";
                     ln.iconClasses = "fa fa-pie-chart";
                     ln.order = 1;
                     break;
-                case "ManageOrganization":
+                case PatrolConstants.ROLE_MANAGE_ORGANISATION:
 
                     break;
-                case "ManageOperation":
+                case PatrolConstants.ROLE_MANAGE_OPERATION:
                     ln.label = "العمليات";
                     ln.route = "operations/operationsopslive";
                     ln.iconClasses = "fa fa-user-secret";
@@ -86,7 +119,7 @@ namespace MOI.Patrol.DataAccessLayer
                     child3.route = "operations/incidenttype";
                     child3.iconClasses = "fa fa-file-o";
 
-                   
+
 
                     ln.children = new List<LeftNavigation>();
                     ln.children.Add(child1);
@@ -95,7 +128,7 @@ namespace MOI.Patrol.DataAccessLayer
 
 
                     break;
-                case "ManageDispatcher":
+                case PatrolConstants.ROLE_MANAGE_DISPATCHER:
                     ln.label = "الأحوال";
                     ln.route = "dispatcher/dispatcher";
                     ln.iconClasses = "fa fa-industry";
@@ -108,7 +141,7 @@ namespace MOI.Patrol.DataAccessLayer
                     ln.children = new List<LeftNavigation>();
                     ln.children.Add(child4);
                     break;
-                case "ManageMaintainance":
+                case PatrolConstants.ROLE_MANAGE_MAINTAINANCE:
                     ln.label = "الصيانه";
                     ln.route = "maintainence/patrolcars";
                     ln.iconClasses = "fa fa-th-list";
@@ -136,7 +169,7 @@ namespace MOI.Patrol.DataAccessLayer
                     ln.children.Add(child7);
                     ln.children.Add(child8);
                     break;
-                case "ManageScheduling":
+                case PatrolConstants.ROLE_MANAGE_SCHEDULING:
                     break;
                 default:
                     break;
@@ -144,5 +177,6 @@ namespace MOI.Patrol.DataAccessLayer
 
             return ln;
         }
+
     }
 }

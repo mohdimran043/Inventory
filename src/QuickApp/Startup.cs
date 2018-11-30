@@ -39,7 +39,7 @@ namespace AssetManagement
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddEntityFrameworkNpgsql().AddDbContext<patrolsContext>(options =>
+            services.AddEntityFrameworkNpgsql().AddDbContext<PatrolsContext>(options =>
             {
                 options.UseNpgsql("server=localhost;Port=5432;User Id=postgres;password=12345;Database=Patrols;Pooling=true;");
                 options.UseOpenIddict();
@@ -56,7 +56,7 @@ namespace AssetManagement
             //    .AddDefaultTokenProviders();
 
             //services.AddIdentity<ApplicationUser, ApplicationRole>()
-            //    .AddEntityFrameworkStores<patrolsContext>()
+            //    .AddEntityFrameworkStores<PatrolsContext>()
             //    .AddDefaultTokenProviders();
 
             //// Configure Identity options and password complexity here
@@ -77,7 +77,7 @@ namespace AssetManagement
             services.AddOpenIddict()
                 .AddCore(options =>
                 {
-                    options.UseEntityFrameworkCore().UseDbContext<patrolsContext>();
+                    options.UseEntityFrameworkCore().UseDbContext<PatrolsContext>();
                 })
                 .AddServer(options =>
                 {

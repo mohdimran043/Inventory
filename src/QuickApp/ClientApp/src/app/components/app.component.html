@@ -64,13 +64,26 @@
 
 
           </dx-popup>
+          <ngx-toasta></ngx-toasta>
         </div>
       </div>
       <router-outlet></router-outlet>
     </mk-layout-content>
     <mk-layout-footer>
       <mk-layout-footer-left>
-
+        <div id="footer">
+          <div class="app-component navbar-fixed-bottom navbar-inner footer">
+            <div class="container">
+              <footer>
+                <div class="app-component vcenter_text center-block">
+                  <p class="text-center text-muted">
+                    <span class="appName" style="font-style:italic"></span><span class="appName">MOI</span> &copy; {{getYear()}}
+                  </p>
+                </div>
+              </footer>
+            </div>
+          </div>
+        </div>
       </mk-layout-footer-left>
       <mk-layout-footer-right>
 

@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace MOI.Patrol
 {
-    public partial class openiddictauthorizations
+    public partial class OpenIddictAuthorizations
     {
-        public openiddictauthorizations()
+        public OpenIddictAuthorizations()
         {
-            openiddicttokens = new HashSet<openiddicttokens>();
+            OpenIddictTokens = new HashSet<OpenIddictTokens>();
         }
 
-        public string Applicationid { get; set; }
-        public string Concurrencytoken { get; set; }
+        public string ApplicationId { get; set; }
+        public string ConcurrencyToken { get; set; }
         public string Id { get; set; }
         public string Properties { get; set; }
         public string Scopes { get; set; }
@@ -19,7 +19,7 @@ namespace MOI.Patrol
         public string Subject { get; set; }
         public string Type { get; set; }
 
-        public openiddictapplications Application { get; set; }
-        public ICollection<openiddicttokens> openiddicttokens { get; set; }
+        public OpenIddictApplications Application { get; set; }
+        public ICollection<OpenIddictTokens> OpenIddictTokens { get; set; }
     }
 }

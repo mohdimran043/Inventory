@@ -60,8 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Patrols" />
+    <None Include="Patrols_01December18" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="DBScripts.sql" />
+    <Build Include="ImportantCommand.sql" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace MOI.Patrol
 {
@@ -13,7 +12,7 @@ namespace MOI.Patrol
             Patrolcheckinout = new HashSet<Patrolcheckinout>();
             Patrolpersonstatelog = new HashSet<Patrolpersonstatelog>();
         }
-        [Key]
+
         public long Personid { get; set; }
         public long Ahwalid { get; set; }
         public long Milnumber { get; set; }

@@ -10,7 +10,7 @@ import { map, debounce } from 'rxjs/operators';
 
 import { LocalStoreManager } from './local-store-manager.service';
 import { EndpointFactory } from './endpoint-factory.service';
-import { ConfigurationService } from './configuration.service';
+import { ConfigurationService, UserConfiguration } from './configuration.service';
 import { DBkeys } from './db-Keys';
 import { JwtHelper } from './jwt-helper';
 import { Utilities } from './utilities';
@@ -18,6 +18,7 @@ import { LoginResponse, IdToken } from '../models/login-response.model';
 import { User } from '../models/user.model';
 import { Permission, PermissionNames, PermissionValues } from '../models/permission.model';
 import { LayoutStore } from '../../../node_modules/angular-admin-lte';
+import { alert } from 'devextreme/ui/dialog';
 
 
 @Injectable()
@@ -61,7 +62,7 @@ export class AuthService {
   redirectLoginUser() {
     let redirect = this.loginRedirectUrl && this.loginRedirectUrl != '/' && this.loginRedirectUrl != ConfigurationService.defaultHomeUrl ? this.loginRedirectUrl : this.homeUrl;
     this.loginRedirectUrl = null;
-
+    // alert(this.homeUrl + '' + redirect);
 
     let urlParamsAndFragment = Utilities.splitInTwo(redirect, '#');
     let urlAndParams = Utilities.splitInTwo(urlParamsAndFragment.firstPart, '?');
@@ -121,11 +122,10 @@ export class AuthService {
 
   private processLoginResponse(response: LoginResponse, rememberMe: boolean) {
 
-    let accessToken = response.access_token;
-
+    let accessToken = response.access_token;    
     if (accessToken == null)
       throw new Error("Received accessToken was empty");
-
+  
     let idToken = response.id_token;
     let refreshToken = response.refresh_token || this.refreshToken;
     let expiresIn = response.expires_in;
@@ -139,11 +139,12 @@ export class AuthService {
     let decodedIdToken = <IdToken>jwtHelper.decodeToken(response.id_token);
 
 
-    console.log(decodedIdToken)
+    //console.log(decodedIdToken)
     let permissions: PermissionValues[] = Array.isArray(decodedIdToken.permission) ? decodedIdToken.permission : [decodedIdToken.permission];
 
-    if (!this.isLoggedIn)
-      this.configurations.import(decodedIdToken.configuration);
+
+    this.configurations.import(decodedIdToken.configuration);
+
     let user = new User(
       decodedIdToken.sub,
       decodedIdToken.userName,
@@ -158,13 +159,16 @@ export class AuthService {
       Array.isArray(decodedIdToken.role) ? decodedIdToken.role : [decodedIdToken.role]);
     user.isEnabled = true;
 
-    console.log(user)
+    // console.log(user)
     let leftNavigationItems = decodedIdToken.userLeftNavigation;
+    let configuration = JSON.parse(decodedIdToken.configuration);
 
     this.saveUserDetails(user, permissions, accessToken, idToken, refreshToken, accessTokenExpiry, leftNavigationItems, rememberMe);
     this.loadLeftNavigation();
     this.reevaluateLoginStatus(user);
-
+    console.log(configuration)
+    //this.saveUserConfiguration(configuration, rememberMe);
+    this.redirectLoginUser();
     return user;
   }
 
@@ -172,7 +176,7 @@ export class AuthService {
     let sidebarLeftMenu = JSON.parse(this.leftNavigationMenu);
     if (typeof sidebarLeftMenu !== "undefined" && sidebarLeftMenu != null && sidebarLeftMenu != "") {
       this.layoutStore.setSidebarLeftMenu(sidebarLeftMenu);
-    }    
+    }
   }
   private saveUserDetails(user: User, permissions: PermissionValues[], accessToken: string, idToken: string, refreshToken: string, expiresIn: Date, leftNavigationItems: string, rememberMe: boolean) {
 
@@ -248,7 +252,7 @@ export class AuthService {
   }
 
 
-  get leftNavigationMenu(): string {    
+  get leftNavigationMenu(): string {
     return this.localStorage.getData(DBkeys.LEFT_NAVIGATION);
 
   }

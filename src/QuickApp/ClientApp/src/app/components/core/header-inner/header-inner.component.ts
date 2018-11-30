@@ -6,13 +6,16 @@ import { AccountService } from '../../../services/account.service';
   templateUrl: './header-inner.component.html'
 })
 export class HeaderInnerComponent implements OnInit {
-  UserDisplayName:string;
+  UserDisplayName: string;
 
   constructor(private accntService: AccountService) {
- 
+    if (typeof accntService.currentUser !== "undefined" && accntService.currentUser != null) {
+      this.UserDisplayName = accntService.currentUser.empDisplayName;
+    }
+
   }
 
   ngOnInit(): void {
-    
+
   }
 }

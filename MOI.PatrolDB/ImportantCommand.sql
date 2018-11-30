@@ -1,0 +1,2 @@
+﻿--dotnet ef dbcontext scaffold "Host=localhost;Database=Patrols;Username=postgres;Password=12345" Npgsql.EntityFrameworkCore.PostgreSQL -o PatrolEF -f
+--AFTER UPGRADING ENTITY FRAMEWORK please OpenIdDict in patrolContext from the backup since Entity framework is not properly able to update it

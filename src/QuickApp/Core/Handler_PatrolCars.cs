@@ -10,7 +10,7 @@ namespace Core
 {
     class Handler_PatrolCars //nothing done yet here
     {
-        private patrolsContext _context = new patrolsContext();
+        private PatrolsContext _context = new PatrolsContext();
         private Handler_User _user = new Handler_User();
 
         //all functions here require Ahwal Permssion

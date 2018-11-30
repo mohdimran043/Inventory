@@ -9,7 +9,7 @@ namespace Core
 {
     class Handler_Person
     {
-        private  patrolsContext _context  = new patrolsContext();
+        private  PatrolsContext _context  = new PatrolsContext();
         private  Handler_User _user = new Handler_User();
 
        

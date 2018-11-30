@@ -9,7 +9,7 @@ namespace Core
 {
     class Handler_HandHelds
     {
-        private patrolsContext _context = new patrolsContext();
+        private PatrolsContext _context = new PatrolsContext();
         private Handler_User _user = new Handler_User();
         private Handler_Operations _oper = new Handler_Operations();
 

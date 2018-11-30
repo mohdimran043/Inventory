@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace MOI.Patrol
 {
@@ -11,7 +10,7 @@ namespace MOI.Patrol
             Ahwalmapping = new HashSet<Ahwalmapping>();
             Patrolcheckinout = new HashSet<Patrolcheckinout>();
         }
-        [Key]
+
         public long Patrolid { get; set; }
         public long Ahwalid { get; set; }
         public string Platenumber { get; set; }
@@ -21,6 +20,7 @@ namespace MOI.Patrol
         public short Defective { get; set; }
         public short Rental { get; set; }
         public string Typecode { get; set; }
+        public char? Delflag { get; set; }
 
         public Ahwal Ahwal { get; set; }
         public ICollection<Ahwalmapping> Ahwalmapping { get; set; }

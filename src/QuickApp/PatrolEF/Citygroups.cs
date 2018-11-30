@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace MOI.Patrol
 {
@@ -10,7 +9,7 @@ namespace MOI.Patrol
         {
             Ahwalmapping = new HashSet<Ahwalmapping>();
         }
-        [Key]
+
         public long Citygroupid { get; set; }
         public long? Ahwalid { get; set; }
         public long? Sectorid { get; set; }

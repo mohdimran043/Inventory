@@ -5,7 +5,7 @@ namespace Core
 {
     public class Handler_IncidentTypes
     {
-        private patrolsContext _context = new patrolsContext();
+        private PatrolsContext _context = new PatrolsContext();
         private Handler_Operations _oper = new Handler_Operations();
 
         public Operationlogs AddUpdate_IncidentType(int incidenttypeid, string incidenttypename, Users u)

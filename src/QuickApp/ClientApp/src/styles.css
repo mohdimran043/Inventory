@@ -5,14 +5,19 @@
 @import 'app/assets/styles/ngx-datatable.css';
 @import 'app/assets/styles/themes.css';
 
+#toasta.toasta-position-top-left {
+  top: 45px !important;
+}
+
 .sidebar-mini.sidebar-collapse .main-header .logo {
   width: 230px !important;
 }
+
 .sidebar-right-toggle {
-  float:left !important;
+  float: left !important;
 }
 
-.content,.container {
+.content, .container {
   width: 100% !important;
 }
 

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace MOI.Patrol
 {
     public partial class Operationlogs
     {
-        [Key]
         public long Logid { get; set; }
         public long Userid { get; set; }
         public int Operationid { get; set; }

@@ -20,6 +20,7 @@ using MOI.Patrol;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using MOI.Patrol.DataAccessLayer;
+using Newtonsoft.Json;
 
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -41,8 +42,8 @@ namespace AssetManagement.Controllers
         //{
         //    _identityOptions = identityOptions;
         //}
-        private readonly patrolsContext _context;
-        public AuthorizationController(patrolsContext context,
+        private readonly PatrolsContext _context;
+        public AuthorizationController(PatrolsContext context,
             IHttpContextAccessor httpAccessor)
         {
             if (httpAccessor.HttpContext?.User.FindFirst(OpenIdConnectConstants.Claims.Subject) != null)
@@ -63,75 +64,16 @@ namespace AssetManagement.Controllers
                 IdentityUser user = new IdentityUser();
                 user.Email = "admin";
                 user.UserName = "admin";
-
-                //  var user = await _userManager.FindByEmailAsync(request.Username) ?? await _userManager.FindByNameAsync(request.Username);
-                //if (user == null)
-                //{
-                //    return BadRequest(new OpenIdConnectResponse
-                //    {
-                //        Error = OpenIdConnectConstants.Errors.InvalidGrant,
-                //        ErrorDescription = "Please check that your email and password is correct"
-                //    });
-                //}
-
-                //// Ensure the user is enabled.
-                //if (!user.IsEnabled)
-                //{
-                //    return BadRequest(new OpenIdConnectResponse
-                //    {
-                //        Error = OpenIdConnectConstants.Errors.InvalidGrant,
-                //        ErrorDescription = "The specified user account is disabled"
-                //    });
-                //}
-
-
-                //// Validate the username/password parameters and ensure the account is not locked out.
-                //var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, true);
-
-                //// Ensure the user is not already locked out.
-                //if (result.IsLockedOut)
-                //{
-                //    return BadRequest(new OpenIdConnectResponse
-                //    {
-                //        Error = OpenIdConnectConstants.Errors.InvalidGrant,
-                //        ErrorDescription = "The specified user account has been suspended"
-                //    });
-                //}
-
-                //// Reject the token request if two-factor authentication has been enabled by the user.
-                //if (result.RequiresTwoFactor)
-                //{
-                //    return BadRequest(new OpenIdConnectResponse
-                //    {
-                //        Error = OpenIdConnectConstants.Errors.InvalidGrant,
-                //        ErrorDescription = "Invalid login procedure"
-                //    });
-                //}
-
-                //// Ensure the user is allowed to sign in.
-                //if (result.IsNotAllowed)
-                //{
-                //    return BadRequest(new OpenIdConnectResponse
-                //    {
-                //        Error = OpenIdConnectConstants.Errors.InvalidGrant,
-                //        ErrorDescription = "The specified user is not allowed to sign in"
-                //    });
-                //}
-
-                //if (!result.Succeeded)
-                //{
-                //    return BadRequest(new OpenIdConnectResponse
-                //    {
-                //        Error = OpenIdConnectConstants.Errors.InvalidGrant,
-                //        ErrorDescription = "Please check that your email and password is correct"
-                //    });
-                //}
-
-
-
-                // Create a new authentication ticket.
-                //  var ticket = await CreateTicketAsync(request, user);
-                var ticket = await CreateTicketAsync(request, user);
+                Users _user = PatrolUserManager.GetUserByUserName(user.UserName);
+                if (_user == null)
+                {
+                    return BadRequest(new OpenIdConnectResponse
+                    {
+                        Error = OpenIdConnectConstants.Errors.AccessDenied,
+                        ErrorDescription = "Unauthorized Access"
+                    });
+                }
+                var ticket = await CreateTicketAsync(request, _user);
 
                 return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
 
@@ -142,10 +84,18 @@ namespace AssetManagement.Controllers
                 IdentityUser user = new IdentityUser();
                 user.Email = "admin";
                 user.UserName = "admin";
-
+                Users _user = PatrolUserManager.GetUserByUserName(user.UserName);
+                if (_user == null)
+                {
+                    return BadRequest(new OpenIdConnectResponse
+                    {
+                        Error = OpenIdConnectConstants.Errors.AccessDenied,
+                        ErrorDescription = "Unauthorized Access"
+                    });
+                }
                 // Create a new authentication ticket, but reuse the properties stored
                 // in the refresh token, including the scopes originally granted.
-                var ticket = await CreateTicketAsync(request, user);
+                var ticket = await CreateTicketAsync(request, _user);
 
                 return SignIn(ticket.Principal, ticket.Properties, ticket.AuthenticationScheme);
             }
@@ -156,7 +106,7 @@ namespace AssetManagement.Controllers
             });
         }
 
-        private async Task<AuthenticationTicket> CreateTicketAsync(OpenIdConnectRequest request, IdentityUser user)
+        private async Task<AuthenticationTicket> CreateTicketAsync(OpenIdConnectRequest request, Users _user)
         {
             // Create a new ClaimsPrincipal containing the claims that
             // will be used to create an id_token, a token or a code.
@@ -169,7 +119,8 @@ namespace AssetManagement.Controllers
             // Add a "sub" claim containing the user identifier, and attach
             // the "access_token" destination to allow OpenIddict to store it
             // in the access token, so it can be retrieved from your controllers.
-            Users _user = PatrolUserManager.GetUserByUserName(user.UserName);
+            //Users _user = PatrolUserManager.GetUserByUserName(user.UserName);
+
             identity.AddClaim(OpenIdConnectConstants.Claims.Subject,
                _user.Userid.ToString(),
                 OpenIdConnectConstants.Destinations.AccessToken);
@@ -179,12 +130,12 @@ namespace AssetManagement.Controllers
        OpenIdConnectConstants.Destinations.AccessToken);
             identity.AddClaim("empDisplayName", _user.Name,
              OpenIdConnectConstants.Destinations.AccessToken);
-         //   identity.AddClaim("mNO", "",
-         // OpenIdConnectConstants.Destinations.AccessToken);
-         //   identity.AddClaim("empDeptCode", "",
-         //OpenIdConnectConstants.Destinations.AccessToken);
-         //   identity.AddClaim("empDeptName", "",
-         //OpenIdConnectConstants.Destinations.AccessToken);
+            //   identity.AddClaim("mNO", "",
+            // OpenIdConnectConstants.Destinations.AccessToken);
+            //   identity.AddClaim("empDeptCode", "",
+            //OpenIdConnectConstants.Destinations.AccessToken);
+            //   identity.AddClaim("empDeptName", "",
+            //OpenIdConnectConstants.Destinations.AccessToken);
 
             var userRoles = PatrolUserManager.GetRolesByUserId(_user.Userid);
             foreach (var role in userRoles)
@@ -192,9 +143,13 @@ namespace AssetManagement.Controllers
                 identity.AddClaim(ClaimTypes.Role, role,
                    OpenIdConnectConstants.Destinations.AccessToken);
             }
-            var userLeftNavigation=
+            var userLeftNavigation =
             identity.AddClaim("userLeftNavigation", PatrolUserManager.FetchLeftNavigationByUserId(_user.Userid),
         OpenIdConnectConstants.Destinations.AccessToken);
+            identity.AddClaim("configuration", PatrolUserManager.GetUserPreferenceByUserId(_user.Userid, userRoles),
+      OpenIdConnectConstants.Destinations.AccessToken);
+            identity.AddClaim("role", JsonConvert.SerializeObject(userRoles),
+      OpenIdConnectConstants.Destinations.AccessToken);
             //identity.AddClaim(ClaimTypes.Role, "ViewPatrolCarsRole",
             //   OpenIdConnectConstants.Destinations.AccessToken);
             //identity.AddClaim(ClaimTypes.Role, "ViewPatrolCarsRole",

@@ -17,7 +17,7 @@ namespace MOI.Patrol.Controllers
         private Handler_PatrolCars _patrol = new Handler_PatrolCars();
         private Handler_HandHelds _handheld = new Handler_HandHelds();
         private Handler_AhwalMapping _ahwalmapping = new Handler_AhwalMapping();
-        private patrolsContext _context = new patrolsContext();
+        private PatrolsContext _context = new PatrolsContext();
 
         private String constr = "server=localhost;Port=5432;User Id=postgres;password=12345;Database=Patrols";
         private DataAccess DAL = new DataAccess();

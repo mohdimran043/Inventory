@@ -14,7 +14,7 @@ namespace Core
         public const int Incident_State_New = 10;
         public const int Incident_State_HasComments = 20;
         public const int Incident_State_Closed = 30;
-        private patrolsContext _context = new patrolsContext();
+        private PatrolsContext _context = new PatrolsContext();
         private Handler_Operations _oper = new Handler_Operations();
 
         //all functions here require Ahwal Permssion

@@ -1,36 +1,25 @@
 ﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Core;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+using MOI.Patrol;
 
 namespace MOI.Patrol
 {
-    public partial class patrolsContext : DbContext
+    public partial class PatrolsContext : DbContext
     {
-        public string CurrentUserId { get; set; }
-        public patrolsContext()
+        public PatrolsContext()
         {
         }
 
-        public patrolsContext(DbContextOptions<patrolsContext> options)
+        public PatrolsContext(DbContextOptions<PatrolsContext> options)
             : base(options)
         {
         }
 
         public virtual DbSet<Ahwal> Ahwal { get; set; }
         public virtual DbSet<Ahwalmapping> Ahwalmapping { get; set; }
-        //public virtual DbSet<Aspnetroleclaims> Aspnetroleclaims { get; set; }
-        //public virtual DbSet<Aspnetroles> Aspnetroles { get; set; }
-        //public virtual DbSet<Aspnetuserclaims> Aspnetuserclaims { get; set; }
-        //public virtual DbSet<Aspnetuserlogins> Aspnetuserlogins { get; set; }
-        //public virtual DbSet<Aspnetuserroles> Aspnetuserroles { get; set; }
-        //public virtual DbSet<Aspnetusers> Aspnetusers { get; set; }
-        //public virtual DbSet<Aspnetusertokens> Aspnetusertokens { get; set; }
         public virtual DbSet<Checkinoutstates> Checkinoutstates { get; set; }
         public virtual DbSet<Citygroups> Citygroups { get; set; }
-        public virtual DbSet<Efmigrationshistory> Efmigrationshistory { get; set; }
         public virtual DbSet<Handhelds> Handhelds { get; set; }
         public virtual DbSet<Handheldscheckinout> Handheldscheckinout { get; set; }
         public virtual DbSet<Incidents> Incidents { get; set; }
@@ -41,10 +30,10 @@ namespace MOI.Patrol
         public virtual DbSet<Incidentsview> Incidentsview { get; set; }
         public virtual DbSet<Livecallers> Livecallers { get; set; }
         public virtual DbSet<Livecallersunknown> Livecallersunknown { get; set; }
-        public virtual DbSet<openiddictapplications> openiddictapplications { get; set; }
-        public virtual DbSet<openiddictauthorizations> openiddictauthorizations { get; set; }
-        public virtual DbSet<openiddictscopes> openiddictscopes { get; set; }
-        public virtual DbSet<openiddicttokens> openiddicttokens { get; set; }
+        public virtual DbSet<OpenIddictApplications> OpenIddictApplications { get; set; }
+        public virtual DbSet<OpenIddictAuthorizations> OpenIddictAuthorizations { get; set; }
+        public virtual DbSet<OpenIddictScopes> OpenIddictScopes { get; set; }
+        public virtual DbSet<OpenIddictTokens> OpenIddictTokens { get; set; }
         public virtual DbSet<Operationlogs> Operationlogs { get; set; }
         public virtual DbSet<Operations> Operations { get; set; }
         public virtual DbSet<Operationsstatus> Operationsstatus { get; set; }
@@ -59,27 +48,26 @@ namespace MOI.Patrol
         public virtual DbSet<Sectors> Sectors { get; set; }
         public virtual DbSet<Shifts> Shifts { get; set; }
         public virtual DbSet<Sysdiagrams> Sysdiagrams { get; set; }
+        public virtual DbSet<Userpreference> Userpreference { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Usersroles> Usersroles { get; set; }
         public virtual DbSet<Usersrolesmap> Usersrolesmap { get; set; }
 
-        // Unable to generate entity type for table 'public.codemaster'. Please see the warning messages.
         // Unable to generate entity type for table 'public.devicescheckinout'. Please see the warning messages.
         // Unable to generate entity type for table 'public.devices'. Please see the warning messages.
+        // Unable to generate entity type for table 'public.codemaster'. Please see the warning messages.
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-
-                optionsBuilder.UseNpgsql("Host=localhost;Database=Patrols;Username=postgres;password=12345;Pooling=true;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseNpgsql("Host=localhost;Database=Patrols;Username=postgres;Password=12345");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            modelBuilder.HasDefaultSchema("public");
             modelBuilder.Entity<Ahwal>(entity =>
             {
                 entity.ToTable("ahwal");
@@ -200,232 +188,6 @@ namespace MOI.Patrol
                     .HasConstraintName("fk_ahwalmapping_shifts");
             });
 
-            //modelBuilder.Entity<Aspnetroleclaims>(entity =>
-            //{
-            //    entity.ToTable("aspnetroleclaims");
-
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("id")
-            //        .HasDefaultValueSql("nextval('aspnetroleclaims_seq'::regclass)");
-
-            //    entity.Property(e => e.Claimtype).HasColumnName("claimtype");
-
-            //    entity.Property(e => e.Claimvalue).HasColumnName("claimvalue");
-
-            //    entity.Property(e => e.Roleid)
-            //        .IsRequired()
-            //        .HasColumnName("roleid")
-            //        .HasMaxLength(450);
-
-            //    entity.HasOne(d => d.Role)
-            //        .WithMany(p => p.Aspnetroleclaims)
-            //        .HasForeignKey(d => d.Roleid)
-            //        .HasConstraintName("fk_aspnetroleclaims_aspnetroles_roleid");
-            //});
-
-            //modelBuilder.Entity<Aspnetroles>(entity =>
-            //{
-            //    entity.ToTable("aspnetroles");
-
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("id")
-            //        .HasMaxLength(450)
-            //        .ValueGeneratedNever();
-
-            //    entity.Property(e => e.Concurrencystamp).HasColumnName("concurrencystamp");
-
-            //    entity.Property(e => e.Createdby).HasColumnName("createdby");
-
-            //    entity.Property(e => e.Createddate)
-            //        .HasColumnName("createddate")
-            //        .HasColumnType("timestamp(6) without time zone");
-
-            //    entity.Property(e => e.Description).HasColumnName("description");
-
-            //    entity.Property(e => e.Name)
-            //        .HasColumnName("name")
-            //        .HasMaxLength(256);
-
-            //    entity.Property(e => e.Normalizedname)
-            //        .HasColumnName("normalizedname")
-            //        .HasMaxLength(256);
-
-            //    entity.Property(e => e.Updatedby).HasColumnName("updatedby");
-
-            //    entity.Property(e => e.Updateddate)
-            //        .HasColumnName("updateddate")
-            //        .HasColumnType("timestamp(6) without time zone");
-            //});
-
-            //modelBuilder.Entity<Aspnetuserclaims>(entity =>
-            //{
-            //    entity.ToTable("aspnetuserclaims");
-
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("id")
-            //        .HasDefaultValueSql("nextval('aspnetuserclaims_seq'::regclass)");
-
-            //    entity.Property(e => e.Claimtype).HasColumnName("claimtype");
-
-            //    entity.Property(e => e.Claimvalue).HasColumnName("claimvalue");
-
-            //    entity.Property(e => e.Userid)
-            //        .IsRequired()
-            //        .HasColumnName("userid")
-            //        .HasMaxLength(450);
-
-            //    entity.HasOne(d => d.User)
-            //        .WithMany(p => p.Aspnetuserclaims)
-            //        .HasForeignKey(d => d.Userid)
-            //        .HasConstraintName("fk_aspnetuserclaims_aspnetusers_userid");
-            //});
-
-            //modelBuilder.Entity<Aspnetuserlogins>(entity =>
-            //{
-            //    entity.HasKey(e => new { e.Loginprovider, e.Providerkey });
-
-            //    entity.ToTable("aspnetuserlogins");
-
-            //    entity.Property(e => e.Loginprovider)
-            //        .HasColumnName("loginprovider")
-            //        .HasMaxLength(450);
-
-            //    entity.Property(e => e.Providerkey)
-            //        .HasColumnName("providerkey")
-            //        .HasMaxLength(450);
-
-            //    entity.Property(e => e.Providerdisplayname).HasColumnName("providerdisplayname");
-
-            //    entity.Property(e => e.Userid)
-            //        .IsRequired()
-            //        .HasColumnName("userid")
-            //        .HasMaxLength(450);
-
-            //    entity.HasOne(d => d.User)
-            //        .WithMany(p => p.Aspnetuserlogins)
-            //        .HasForeignKey(d => d.Userid)
-            //        .HasConstraintName("fk_aspnetuserlogins_aspnetusers_userid");
-            //});
-
-            //modelBuilder.Entity<Aspnetuserroles>(entity =>
-            //{
-            //    entity.HasKey(e => new { e.Userid, e.Roleid });
-
-            //    entity.ToTable("aspnetuserroles");
-
-            //    entity.Property(e => e.Userid)
-            //        .HasColumnName("userid")
-            //        .HasMaxLength(450);
-
-            //    entity.Property(e => e.Roleid)
-            //        .HasColumnName("roleid")
-            //        .HasMaxLength(450);
-
-            //    entity.HasOne(d => d.Role)
-            //        .WithMany(p => p.Aspnetuserroles)
-            //        .HasForeignKey(d => d.Roleid)
-            //        .HasConstraintName("fk_aspnetuserroles_aspnetroles_roleid");
-
-            //    entity.HasOne(d => d.User)
-            //        .WithMany(p => p.Aspnetuserroles)
-            //        .HasForeignKey(d => d.Userid)
-            //        .HasConstraintName("fk_aspnetuserroles_aspnetusers_userid");
-            //});
-
-            //modelBuilder.Entity<Aspnetusers>(entity =>
-            //{
-            //    entity.ToTable("aspnetusers");
-
-            //    entity.Property(e => e.Id)
-            //        .HasColumnName("id")
-            //        .HasMaxLength(450)
-            //        .ValueGeneratedNever();
-
-            //    entity.Property(e => e.Accessfailedcount).HasColumnName("accessfailedcount");
-
-            //    entity.Property(e => e.Concurrencystamp).HasColumnName("concurrencystamp");
-
-            //    entity.Property(e => e.Configuration).HasColumnName("configuration");
-
-            //    entity.Property(e => e.Createdby).HasColumnName("createdby");
-
-            //    entity.Property(e => e.Createddate)
-            //        .HasColumnName("createddate")
-            //        .HasColumnType("timestamp(6) without time zone");
-
-            //    entity.Property(e => e.Email)
-            //        .HasColumnName("email")
-            //        .HasMaxLength(256);
-
-            //    entity.Property(e => e.Emailconfirmed).HasColumnName("emailconfirmed");
-
-            //    entity.Property(e => e.Fullname).HasColumnName("fullname");
-
-            //    entity.Property(e => e.Isenabled).HasColumnName("isenabled");
-
-            //    entity.Property(e => e.Jobtitle).HasColumnName("jobtitle");
-
-            //    entity.Property(e => e.Lockoutenabled).HasColumnName("lockoutenabled");
-
-            //    entity.Property(e => e.Lockoutend)
-            //        .HasColumnName("lockoutend")
-            //        .HasColumnType("timestamp(6) with time zone");
-
-            //    entity.Property(e => e.Normalizedemail)
-            //        .HasColumnName("normalizedemail")
-            //        .HasMaxLength(256);
-
-            //    entity.Property(e => e.Normalizedusername)
-            //        .HasColumnName("normalizedusername")
-            //        .HasMaxLength(256);
-
-            //    entity.Property(e => e.Passwordhash).HasColumnName("passwordhash");
-
-            //    entity.Property(e => e.Phonenumber).HasColumnName("phonenumber");
-
-            //    entity.Property(e => e.Phonenumberconfirmed).HasColumnName("phonenumberconfirmed");
-
-            //    entity.Property(e => e.Securitystamp).HasColumnName("securitystamp");
-
-            //    entity.Property(e => e.Twofactorenabled).HasColumnName("twofactorenabled");
-
-            //    entity.Property(e => e.Updatedby).HasColumnName("updatedby");
-
-            //    entity.Property(e => e.Updateddate)
-            //        .HasColumnName("updateddate")
-            //        .HasColumnType("timestamp(6) without time zone");
-
-            //    entity.Property(e => e.Username)
-            //        .HasColumnName("username")
-            //        .HasMaxLength(256);
-            //});
-
-            //modelBuilder.Entity<Aspnetusertokens>(entity =>
-            //{
-            //    entity.HasKey(e => new { e.Userid, e.Loginprovider, e.Name });
-
-            //    entity.ToTable("aspnetusertokens");
-
-            //    entity.Property(e => e.Userid)
-            //        .HasColumnName("userid")
-            //        .HasMaxLength(450);
-
-            //    entity.Property(e => e.Loginprovider)
-            //        .HasColumnName("loginprovider")
-            //        .HasMaxLength(450);
-
-            //    entity.Property(e => e.Name)
-            //        .HasColumnName("name")
-            //        .HasMaxLength(450);
-
-            //    entity.Property(e => e.Value).HasColumnName("value");
-
-            //    entity.HasOne(d => d.User)
-            //        .WithMany(p => p.Aspnetusertokens)
-            //        .HasForeignKey(d => d.Userid)
-            //        .HasConstraintName("fk_aspnetusertokens_aspnetusers_userid");
-            //});
-
             modelBuilder.Entity<Checkinoutstates>(entity =>
             {
                 entity.HasKey(e => e.Checkinoutstateid);
@@ -479,23 +241,6 @@ namespace MOI.Patrol
                     .WithMany(p => p.Citygroups)
                     .HasForeignKey(d => d.Sectorid)
                     .HasConstraintName("fk_citygroups_sectors");
-            });
-
-            modelBuilder.Entity<Efmigrationshistory>(entity =>
-            {
-                entity.HasKey(e => e.Migrationid);
-
-                entity.ToTable("__efmigrationshistory");
-
-                entity.Property(e => e.Migrationid)
-                    .HasColumnName("migrationid")
-                    .HasMaxLength(150)
-                    .ValueGeneratedNever();
-
-                entity.Property(e => e.Productversion)
-                    .IsRequired()
-                    .HasColumnName("productversion")
-                    .HasMaxLength(32);
             });
 
             modelBuilder.Entity<Handhelds>(entity =>
@@ -800,141 +545,82 @@ namespace MOI.Patrol
                 entity.Property(e => e.Timestamp).HasColumnName("timestamp");
             });
 
-            //modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictApplication", b =>
+            //modelBuilder.Entity<OpenIddictApplications>(entity =>
             //{
-            //    b.Property<string>("Id")
-            //        .ValueGeneratedOnAdd();
+            //    entity.Property(e => e.Id)
+            //        .HasMaxLength(450)
+            //        .ValueGeneratedNever();
 
-            //    b.Property<string>("ClientId")
-            //        .IsRequired();
+            //    entity.Property(e => e.ClientId)
+            //        .IsRequired()
+            //        .HasMaxLength(450);
 
-            //    b.Property<string>("ClientSecret");
-
-            //    b.Property<string>("ConcurrencyToken")
-            //        .IsConcurrencyToken();
-
-            //    b.Property<string>("ConsentType");
-
-            //    b.Property<string>("DisplayName");
-
-            //    b.Property<string>("Permissions");
-
-            //    b.Property<string>("PostLogoutRedirectUris");
-
-            //    b.Property<string>("Properties");
-
-            //    b.Property<string>("RedirectUris");
-
-            //    b.Property<string>("Type")
-            //        .IsRequired();
-
-            //    b.HasKey("Id");
-
-            //    b.HasIndex("ClientId")
-            //        .IsUnique();
-
-            //    b.ToTable("OpenIddictApplications");
+            //    entity.Property(e => e.Type).IsRequired();
             //});
-            //modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictAuthorization", b =>
+
+            //modelBuilder.Entity<OpenIddictAuthorizations>(entity =>
             //{
-            //    b.Property<string>("Id")
-            //        .ValueGeneratedOnAdd();
+            //    entity.Property(e => e.Id)
+            //        .HasMaxLength(450)
+            //        .ValueGeneratedNever();
 
-            //    b.Property<string>("ApplicationId");
+            //    entity.Property(e => e.ApplicationId).HasMaxLength(450);
 
-            //    b.Property<string>("ConcurrencyToken")
-            //        .IsConcurrencyToken();
+            //    entity.Property(e => e.Status).IsRequired();
 
-            //    b.Property<string>("Properties");
+            //    entity.Property(e => e.Subject).IsRequired();
 
-            //    b.Property<string>("Scopes");
+            //    entity.Property(e => e.Type).IsRequired();
 
-            //    b.Property<string>("Status")
-            //        .IsRequired();
-
-            //    b.Property<string>("Subject")
-            //        .IsRequired();
-
-            //    b.Property<string>("Type")
-            //        .IsRequired();
-
-            //    b.HasKey("Id");
-
-            //    b.HasIndex("ApplicationId");
-
-            //    b.ToTable("OpenIddictAuthorizations");
+            //    entity.HasOne(d => d.Application)
+            //        .WithMany(p => p.OpenIddictAuthorizations)
+            //        .HasForeignKey(d => d.ApplicationId)
+            //        .HasConstraintName("FK_OpenIddictAuthorizations_OpenIddictApplications_ApplicationI");
             //});
-            //modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictScope", b =>
+
+            //modelBuilder.Entity<OpenIddictScopes>(entity =>
             //{
-            //    b.Property<string>("Id")
-            //        .ValueGeneratedOnAdd();
+            //    entity.Property(e => e.Id)
+            //        .HasMaxLength(450)
+            //        .ValueGeneratedNever();
 
-            //    b.Property<string>("ConcurrencyToken")
-            //        .IsConcurrencyToken();
-
-            //    b.Property<string>("Description");
-
-            //    b.Property<string>("DisplayName");
-
-            //    b.Property<string>("Name")
-            //        .IsRequired();
-
-            //    b.Property<string>("Properties");
-
-            //    b.Property<string>("Resources");
-
-            //    b.HasKey("Id");
-
-            //    b.HasIndex("Name")
-            //        .IsUnique();
-
-            //    b.ToTable("OpenIddictScopes");
-            //});
-            //modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictToken", b =>
-            //{
-            //    b.Property<string>("Id")
-            //        .ValueGeneratedOnAdd();
-
-            //    b.Property<string>("ApplicationId");
-
-            //    b.Property<string>("AuthorizationId");
-
-            //    b.Property<string>("ConcurrencyToken")
-            //        .IsConcurrencyToken();
-
-            //    b.Property<DateTimeOffset?>("CreationDate");
-
-            //    b.Property<DateTimeOffset?>("ExpirationDate");
-
-            //    b.Property<string>("Payload");
-
-            //    b.Property<string>("Properties");
-
-            //    b.Property<string>("ReferenceId");
-
-            //    b.Property<string>("Status");
-
-            //    b.Property<string>("Subject")
-            //        .IsRequired();
-
-            //    b.Property<string>("Type")
-            //        .IsRequired();
-
-            //    b.HasKey("Id");
-
-            //    b.HasIndex("ApplicationId");
-
-            //    b.HasIndex("AuthorizationId");
-
-            //    b.HasIndex("ReferenceId")
-            //        .IsUnique()
-            //        .HasFilter("[ReferenceId] IS NOT NULL");
-
-            //    b.ToTable("OpenIddictTokens");
+            //    entity.Property(e => e.Name)
+            //        .IsRequired()
+            //        .HasMaxLength(450);
             //});
 
 
-            modelBuilder.Entity<openiddictapplications>(entity =>
+            //modelBuilder.Entity<OpenIddictTokens>(entity =>
+            //{
+            //    entity.Property(e => e.Id)
+            //        .HasMaxLength(450)
+            //        .ValueGeneratedNever();
+
+            //    entity.Property(e => e.ApplicationId).HasMaxLength(450);
+
+            //    entity.Property(e => e.AuthorizationId).HasMaxLength(450);
+
+            //    entity.Property(e => e.CreationDate).HasColumnType("timestamp(6) with time zone");
+
+            //    entity.Property(e => e.ExpirationDate).HasColumnType("timestamp(6) with time zone");
+
+            //    entity.Property(e => e.ReferenceId).HasMaxLength(450);
+
+            //    entity.Property(e => e.Subject).IsRequired();
+
+            //    entity.Property(e => e.Type).IsRequired();
+
+            //    entity.HasOne(d => d.Application)
+            //        .WithMany(p => p.OpenIddictTokens)
+            //        .HasForeignKey(d => d.ApplicationId);
+
+            //    entity.HasOne(d => d.Authorization)
+            //        .WithMany(p => p.OpenIddictTokens)
+            //        .HasForeignKey(d => d.AuthorizationId);
+            //});
+
+
+            modelBuilder.Entity<OpenIddictApplications>(entity =>
             {
                 entity.ToTable("openiddictapplications");
 
@@ -943,33 +629,33 @@ namespace MOI.Patrol
                     .HasMaxLength(450)
                     .ValueGeneratedNever();
 
-                entity.Property(e => e.Clientid)
+                entity.Property(e => e.ClientId)
                     .IsRequired()
                     .HasColumnName("clientid")
                     .HasMaxLength(450);
 
-                entity.Property(e => e.Clientsecret).HasColumnName("clientsecret");
+                entity.Property(e => e.ClientSecret).HasColumnName("clientsecret");
 
-                entity.Property(e => e.Concurrencytoken).HasColumnName("concurrencytoken");
+                entity.Property(e => e.ConcurrencyToken).HasColumnName("concurrencytoken");
 
-                entity.Property(e => e.Consenttype).HasColumnName("consenttype");
+                entity.Property(e => e.ConsentType).HasColumnName("consenttype");
 
-                entity.Property(e => e.Displayname).HasColumnName("displayname");
+                entity.Property(e => e.DisplayName).HasColumnName("displayname");
 
                 entity.Property(e => e.Permissions).HasColumnName("permissions");
 
-                entity.Property(e => e.Postlogoutredirecturis).HasColumnName("postlogoutredirecturis");
+                entity.Property(e => e.PostLogoutRedirectUris).HasColumnName("postlogoutredirecturis");
 
                 entity.Property(e => e.Properties).HasColumnName("properties");
 
-                entity.Property(e => e.Redirecturis).HasColumnName("redirecturis");
+                entity.Property(e => e.RedirectUris).HasColumnName("redirecturis");
 
                 entity.Property(e => e.Type)
                     .IsRequired()
                     .HasColumnName("type");
             });
 
-            modelBuilder.Entity<openiddictauthorizations>(entity =>
+            modelBuilder.Entity<OpenIddictAuthorizations>(entity =>
             {
                 entity.ToTable("openiddictauthorizations");
 
@@ -978,11 +664,11 @@ namespace MOI.Patrol
                     .HasMaxLength(450)
                     .ValueGeneratedNever();
 
-                entity.Property(e => e.Applicationid)
+                entity.Property(e => e.ApplicationId)
                     .HasColumnName("applicationid")
                     .HasMaxLength(450);
 
-                entity.Property(e => e.Concurrencytoken).HasColumnName("concurrencytoken");
+                entity.Property(e => e.ConcurrencyToken).HasColumnName("concurrencytoken");
 
                 entity.Property(e => e.Properties).HasColumnName("properties");
 
@@ -1001,12 +687,12 @@ namespace MOI.Patrol
                     .HasColumnName("type");
 
                 entity.HasOne(d => d.Application)
-                    .WithMany(p => p.openiddictauthorizations)
-                    .HasForeignKey(d => d.Applicationid)
+                    .WithMany(p => p.OpenIddictAuthorizations)
+                    .HasForeignKey(d => d.ApplicationId)
                     .HasConstraintName("fk_openiddictauthorizations_openiddictapplications_applicationi");
             });
 
-            modelBuilder.Entity<openiddictscopes>(entity =>
+            modelBuilder.Entity<OpenIddictScopes>(entity =>
             {
                 entity.ToTable("openiddictscopes");
 
@@ -1015,11 +701,11 @@ namespace MOI.Patrol
                     .HasMaxLength(450)
                     .ValueGeneratedNever();
 
-                entity.Property(e => e.Concurrencytoken).HasColumnName("concurrencytoken");
+                entity.Property(e => e.ConcurrencyToken).HasColumnName("concurrencytoken");
 
                 entity.Property(e => e.Description).HasColumnName("description");
 
-                entity.Property(e => e.Displayname).HasColumnName("displayname");
+                entity.Property(e => e.DisplayName).HasColumnName("displayname");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -1031,7 +717,7 @@ namespace MOI.Patrol
                 entity.Property(e => e.Resources).HasColumnName("resources");
             });
 
-            modelBuilder.Entity<openiddicttokens>(entity =>
+            modelBuilder.Entity<OpenIddictTokens>(entity =>
             {
                 entity.ToTable("openiddicttokens");
 
@@ -1040,21 +726,21 @@ namespace MOI.Patrol
                     .HasMaxLength(450)
                     .ValueGeneratedNever();
 
-                entity.Property(e => e.Applicationid)
+                entity.Property(e => e.ApplicationId)
                     .HasColumnName("applicationid")
                     .HasMaxLength(450);
 
-                entity.Property(e => e.Authorizationid)
+                entity.Property(e => e.AuthorizationId)
                     .HasColumnName("authorizationid")
                     .HasMaxLength(450);
 
-                entity.Property(e => e.Concurrencytoken).HasColumnName("concurrencytoken");
+                entity.Property(e => e.ConcurrencyToken).HasColumnName("concurrencytoken");
 
-                entity.Property(e => e.Creationdate)
+                entity.Property(e => e.CreationDate)
                     .HasColumnName("creationdate")
                     .HasColumnType("timestamp(6) with time zone");
 
-                entity.Property(e => e.Expirationdate)
+                entity.Property(e => e.ExpirationDate)
                     .HasColumnName("expirationdate")
                     .HasColumnType("timestamp(6) with time zone");
 
@@ -1062,7 +748,7 @@ namespace MOI.Patrol
 
                 entity.Property(e => e.Properties).HasColumnName("properties");
 
-                entity.Property(e => e.Referenceid)
+                entity.Property(e => e.ReferenceId)
                     .HasColumnName("referenceid")
                     .HasMaxLength(450);
 
@@ -1077,13 +763,13 @@ namespace MOI.Patrol
                     .HasColumnName("type");
 
                 entity.HasOne(d => d.Application)
-                    .WithMany(p => p.openiddicttokens)
-                    .HasForeignKey(d => d.Applicationid)
+                    .WithMany(p => p.OpenIddictTokens)
+                    .HasForeignKey(d => d.ApplicationId)
                     .HasConstraintName("fk_openiddicttokens_openiddictapplications_applicationid");
 
                 entity.HasOne(d => d.Authorization)
-                    .WithMany(p => p.openiddicttokens)
-                    .HasForeignKey(d => d.Authorizationid)
+                    .WithMany(p => p.OpenIddictTokens)
+                    .HasForeignKey(d => d.AuthorizationId)
                     .HasConstraintName("fk_openiddicttokens_openiddictauthorizations_authorizationid");
             });
 
@@ -1180,6 +866,8 @@ namespace MOI.Patrol
                     .HasMaxLength(50);
 
                 entity.Property(e => e.Defective).HasColumnName("defective");
+
+                entity.Property(e => e.Delflag).HasColumnName("delflag");
 
                 entity.Property(e => e.Model)
                     .HasColumnName("model")
@@ -1454,6 +1142,30 @@ namespace MOI.Patrol
                 entity.Property(e => e.Version).HasColumnName("version");
             });
 
+            modelBuilder.Entity<Userpreference>(entity =>
+            {
+                entity.ToTable("userpreference");
+
+                entity.Property(e => e.Userpreferenceid)
+                    .HasColumnName("userpreferenceid")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.Defaulturl)
+                    .HasColumnName("defaulturl")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Theme)
+                    .HasColumnName("theme")
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.Userid).HasColumnName("userid");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Userpreference)
+                    .HasForeignKey(d => d.Userid)
+                    .HasConstraintName("fk_userpreferenceid_users");
+            });
+
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasKey(e => e.Userid);
@@ -1563,10 +1275,6 @@ namespace MOI.Patrol
 
             modelBuilder.HasSequence("ahwalmapping_seq").StartsAt(10145);
 
-            modelBuilder.HasSequence("aspnetroleclaims_seq");
-
-            modelBuilder.HasSequence("aspnetuserclaims_seq");
-
             modelBuilder.HasSequence("handhelds_seq").StartsAt(10010);
 
             modelBuilder.HasSequence("handheldscheckinout_seq").StartsAt(10020);
@@ -1600,63 +1308,6 @@ namespace MOI.Patrol
             modelBuilder.HasSequence("sysdiagrams_seq").StartsAt(2);
 
             modelBuilder.HasSequence("users_seq").StartsAt(9);
-
-
-
-        }
-        public override int SaveChanges()
-        {
-            UpdateAuditEntities();
-            return base.SaveChanges();
-        }
-
-
-        public override int SaveChanges(bool acceptAllChangesOnSuccess)
-        {
-            UpdateAuditEntities();
-            return base.SaveChanges(acceptAllChangesOnSuccess);
-        }
-
-
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
-        {
-            UpdateAuditEntities();
-            return base.SaveChangesAsync(cancellationToken);
-        }
-
-
-        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            UpdateAuditEntities();
-            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
-        }
-
-
-        private void UpdateAuditEntities()
-        {
-            var modifiedEntries = ChangeTracker.Entries()
-                .Where(x => x.Entity is IAuditableEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
-
-
-            foreach (var entry in modifiedEntries)
-            {
-                var entity = (IAuditableEntity)entry.Entity;
-                DateTime now = DateTime.UtcNow;
-
-                if (entry.State == EntityState.Added)
-                {
-                    entity.CreatedDate = now;
-                    entity.CreatedBy = CurrentUserId;
-                }
-                else
-                {
-                    base.Entry(entity).Property(x => x.CreatedBy).IsModified = false;
-                    base.Entry(entity).Property(x => x.CreatedDate).IsModified = false;
-                }
-
-                entity.UpdatedDate = now;
-                entity.UpdatedBy = CurrentUserId;
-            }
         }
     }
 }

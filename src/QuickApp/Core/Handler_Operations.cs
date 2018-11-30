@@ -7,7 +7,7 @@ namespace Core
 {
     public class Handler_Operations
     {
-        private patrolsContext _context = new patrolsContext();
+        private PatrolsContext _context = new PatrolsContext();
 
         public const int Opeartion_AddUser = 1;
         public const int Opeartion_UpdateUser = 2;

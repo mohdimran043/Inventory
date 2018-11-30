@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace MOI.Patrol
 {
     public partial class Ahwalmapping
     {
-        [Key]
         public long Ahwalmappingid { get; set; }
         public long Ahwalid { get; set; }
         public int Shiftid { get; set; }

@@ -12,6 +12,7 @@ namespace MOI.Patrol
             Incidentsview = new HashSet<Incidentsview>();
             Operationlogs = new HashSet<Operationlogs>();
             Patrolpersonstatelog = new HashSet<Patrolpersonstatelog>();
+            Userpreference = new HashSet<Userpreference>();
             Usersrolesmap = new HashSet<Usersrolesmap>();
         }
 
@@ -35,6 +36,7 @@ namespace MOI.Patrol
         public ICollection<Incidentsview> Incidentsview { get; set; }
         public ICollection<Operationlogs> Operationlogs { get; set; }
         public ICollection<Patrolpersonstatelog> Patrolpersonstatelog { get; set; }
+        public ICollection<Userpreference> Userpreference { get; set; }
         public ICollection<Usersrolesmap> Usersrolesmap { get; set; }
     }
 }

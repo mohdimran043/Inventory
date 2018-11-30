@@ -36,8 +36,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.login();
-    //this.userLogin.rememberMe = this.authService.rememberMe;
+    //alert(this.getShouldRedirect());
+    //if (this.getShouldRedirect()) {
+    //  this.authService.redirectLoginUser();
+    //}
 
+
+    //this.userLogin.rememberMe = this.authService.rememberMe;
     //if (this.getShouldRedirect()) {
     //  this.authService.redirectLoginUser();
     //}
@@ -58,7 +63,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
   getShouldRedirect() {
-    return !this.isModal && this.authService.isLoggedIn && !this.authService.isSessionExpired;
+    //  return !this.isModal && this.authService.isLoggedIn && !this.authService.isSessionExpired;
+    alert(this.authService.isLoggedIn );
+    return this.authService.isLoggedIn && !this.authService.isSessionExpired;
   }
 
 

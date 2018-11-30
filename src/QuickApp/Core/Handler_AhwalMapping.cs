@@ -9,7 +9,7 @@ namespace Core
 {
     public class Handler_AhwalMapping
     {
-        private patrolsContext _context = new patrolsContext();
+        private PatrolsContext _context = new PatrolsContext();
         private Handler_User _user = new Handler_User();
         private Handler_Operations _oper = new Handler_Operations();
         private DataAccess DAL = new DataAccess();

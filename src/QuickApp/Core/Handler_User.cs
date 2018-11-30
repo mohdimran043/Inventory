@@ -11,7 +11,7 @@ namespace Core
 {
     class Handler_User
     {
-        private  patrolsContext _context = new patrolsContext();
+        private  PatrolsContext _context = new PatrolsContext();
 
        
 

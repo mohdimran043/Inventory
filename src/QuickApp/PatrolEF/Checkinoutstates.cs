@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace MOI.Patrol
 {
@@ -11,7 +10,7 @@ namespace MOI.Patrol
             Handheldscheckinout = new HashSet<Handheldscheckinout>();
             Patrolcheckinout = new HashSet<Patrolcheckinout>();
         }
-        [Key]
+
         public long Checkinoutstateid { get; set; }
         public string Name { get; set; }
 

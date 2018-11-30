@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace MOI.Patrol
 {
@@ -10,7 +9,7 @@ namespace MOI.Patrol
         {
             Operationlogs = new HashSet<Operationlogs>();
         }
-        [Key]
+
         public int Opeartionid { get; set; }
         public string Name { get; set; }
 
