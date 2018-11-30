@@ -781,14 +781,15 @@ closeincident()
   selIncidentId: any;
   //gridIncPopupVisible:any;
   IncidentRwclick(e) {
-    console.log(CircularJSON.stringify(e));
-    this.selIncidentId = e.key.incidentid;
+    //console.log('dfdgdfg' + e.key);
+    //console.log('dfdgdfg' + CircularJSON.stringify(e));
+    this.selIncidentId = e.key;
     //this.gridIncPopupVisible = false;
-    console.log('hrd' + this.gridIncidentPopup);
+   // console.log('hrd' + this.gridIncidentPopup);
     // this.gridIncidentPopup.nativeElement.instance.option('visible','false') ;
     // console.log(util.inspect(e) + 'click');
     console.log(this.selIncidentId);
-    console.log(e.key.incidentsourceid);
+    //console.log(e.key.incidentsourceid);
   }
 
   AttahcIncidentSubmitButton_Click(e) {

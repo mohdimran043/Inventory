@@ -175,38 +175,44 @@
 
             <td>
 
-              <dx-select-box width="300"
-                             [dataSource]="incidentsources"
-                             showClearButton="true"
-                             valueExpr="incidentid"
-                             displayExpr="incidentsourcename"
-                             [(value)]="selIncidentId"
-                             searchEnabled="true"
-                             placeholder="Select an Incident"
-                             rtlEnabled="true"
-                             searchExpr= "[incidentid,username,incidentsourcename]"
-                             searchMode="contains"
-                             (onKeyDown) = "onValueChangedIncident($event)">
-                <div *dxTemplate="let item of 'content'">
-                  <dx-data-grid width="600" height="400" id="gridIncidentPopup" #gridIncidentPopupt
-                                [dataSource]="incidentsources"
-                                [columns]="[{caption:'رقم البلاغ ',dataField:'incidentid'},
-                                      {caption:'كاتب البلاغ',dataField:'username'},
-                                      {caption:'جهة البلاغ',dataField:'incidentsourcename'},
-                                      {caption:'البلاغ',dataField:'incidentstypename'},
-                                      {caption:'المكان',dataField:'place'},
-                                      {caption:'تاريخ البلاغ',dataField:'timestamp'}]"
-                                [selection]="{ mode: 'single' }"
-                                [hoverStateEnabled]="true"
-                                [paging]="{ enabled: true, pageSize: 10 }"
-                                [filterRow]="{ visible: false }"
-                                [rtlEnabled]="true"
-                                (onRowClick)="IncidentRwclick($event)">
-                                <dxo-search-panel [searchVisibleColumnsOnly] ="true" [text] = "valuechangetext" [visible]="false"></dxo-search-panel>
+                <dx-select-box width="700" #selectBox
+                [dataSource]="incidentsources"
+                showClearButton="true"
+                valueExpr="incidentid"
+                displayExpr="incidentsourcename"
+                [(value)]="selIncidentId"
+                searchEnabled="true"
+                placeholder="Select an Incident"
+                rtlEnabled="true"
+                openOnFieldClick="true"
 
-                  </dx-data-grid>
-                </div>
-              </dx-select-box>
+                [searchExpr]= "['incidentid','incidentsourcename']"
+                searchMode="contains"
+                >
+   <div *dxTemplate="let data of 'content'">
+    <!--  {{item.incidentid}}           {{item.incidentsourcename}} -->
+     <dx-data-grid width="700" height="400" id="gridIncidentPopup" #gridIncidentPopupt
+                   [dataSource]="incidentsources"
+                   [columns]="[{caption:'رقم البلاغ ',dataField:'incidentid'},
+                         {caption:'كاتب البلاغ',dataField:'username',allowSearch:false},
+                         {caption:'جهة البلاغ',dataField:'incidentsourcename'},
+                         {caption:'البلاغ',dataField:'incidentstypename',allowSearch:false},
+                         {caption:'المكان',dataField:'place',allowSearch:false},
+                         {caption:'تاريخ البلاغ',dataField:'timestamp',allowSearch:false}]"
+                   [selection]="{ mode: 'single' }"
+                   [hoverStateEnabled]="false"
+                   [paging]="{ enabled: true, pageSize: 10 }"
+                   [filterRow]="{ visible: false }"
+                   [rtlEnabled]="true"
+                   keyExpr="incidentid"
+                   [highlightChanges]="true"
+
+                   (onRowClick)="IncidentRwclick($event)">
+                   <dxo-search-panel [searchVisibleColumnsOnly] ="true" [text] = "selectBox.text" [visible]="false"></dxo-search-panel>
+
+     </dx-data-grid>
+   </div>
+ </dx-select-box>
             </td>
           </tr>
           <tr>
