@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   checkLogin(url: string): boolean {
 
     if (this.authService.isLoggedIn) {
-      this.authService.loadLeftNavigation();
+      // this.authService.loadLeftNavigation();
       return true;
     }
 

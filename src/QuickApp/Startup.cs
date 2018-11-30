@@ -87,8 +87,8 @@ namespace AssetManagement
                     options.AllowRefreshTokenFlow();
                     options.AcceptAnonymousClients();
 
-                    options.SetAccessTokenLifetime(TimeSpan.FromMinutes(2));
-                    options.SetRefreshTokenLifetime(TimeSpan.FromMinutes(2));
+                    options.SetAccessTokenLifetime(TimeSpan.FromMinutes(1));
+                    options.SetRefreshTokenLifetime(TimeSpan.FromMinutes(1));
 
                     options.DisableHttpsRequirement(); // Note: Comment this out in production
                     options.RegisterScopes(

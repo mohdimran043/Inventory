@@ -141,10 +141,9 @@ export class AuthService {
 
     console.log(decodedIdToken)
     let permissions: PermissionValues[] = Array.isArray(decodedIdToken.permission) ? decodedIdToken.permission : [decodedIdToken.permission];
-     
+
     if (!this.isLoggedIn)
       this.configurations.import(decodedIdToken.configuration);
-    debugger;
     let user = new User(
       decodedIdToken.sub,
       decodedIdToken.userName,
@@ -159,7 +158,10 @@ export class AuthService {
       Array.isArray(decodedIdToken.role) ? decodedIdToken.role : [decodedIdToken.role]);
     user.isEnabled = true;
 
-    this.saveUserDetails(user, permissions, accessToken, idToken, refreshToken, accessTokenExpiry, rememberMe);
+    console.log(user)
+    let leftNavigationItems = decodedIdToken.userLeftNavigation;
+
+    this.saveUserDetails(user, permissions, accessToken, idToken, refreshToken, accessTokenExpiry, leftNavigationItems, rememberMe);
     this.loadLeftNavigation();
     this.reevaluateLoginStatus(user);
 
@@ -167,36 +169,12 @@ export class AuthService {
   }
 
   public loadLeftNavigation() {
-    let sidebarLeftMenu = [
-      { label: 'الإحصاء', route: 'Home', iconClasses: 'fa fa-pie-chart' },
-      {
-        label: 'الصيانه', route: 'maintainence/patrolcars', iconClasses: 'fa fa-th-list', children: [
-          { label: 'الدوريات', route: 'maintainence/patrolcars', iconClasses: 'fa fa-automobile' },
-          { label: 'تقارير الاستلام والتسليم الأجهزة', route: 'maintainence/patrolcarsinventory', iconClasses: 'fa fa-calendar' },
-          { label: 'الأجهزة', route: 'maintainence/handhelds', iconClasses: 'fa fa-fax' },
-          { label: 'تقارير الاستلام والتسليم الدوريات', route: 'maintainence/handheldsinventory', iconClasses: 'fa fa-calendar' }
-        ]
-      },
-      {
-        label: 'الأحوال', route: 'dispatcher/dispatcher', iconClasses: 'fa fa-industry', children: [
-          { label: 'كشف التوزيع', route: 'dispatcher/dispatcher', iconClasses: 'fa fa-industry' }
-        ]
-      },
-      {
-        label: 'العمليات', route: 'operations/operationsopslive', iconClasses: 'fa fa-user-secret', children: [
-          { label: 'الكشف', route: 'operations/operationsopslive', iconClasses: 'fa fa-user-secret' },
-          { label: 'البلاغات', route: 'operations/incidents', iconClasses: 'fa  fa-file-text-o' },
-          { label: 'Incident Type', route: 'operations/incidenttype', iconClasses: 'fa fa-file-o' }
-
-        ]
-      }
-    ];
-    //setTimeout(() => {
-    //  this.layoutStore.setSidebarLeftMenu(sidebarLeftMenu);
-    //}, 1);
-    this.layoutStore.setSidebarLeftMenu(sidebarLeftMenu);
+    let sidebarLeftMenu = JSON.parse(this.leftNavigationMenu);
+    if (typeof sidebarLeftMenu !== "undefined" && sidebarLeftMenu != null && sidebarLeftMenu != "") {
+      this.layoutStore.setSidebarLeftMenu(sidebarLeftMenu);
+    }    
   }
-  private saveUserDetails(user: User, permissions: PermissionValues[], accessToken: string, idToken: string, refreshToken: string, expiresIn: Date, rememberMe: boolean) {
+  private saveUserDetails(user: User, permissions: PermissionValues[], accessToken: string, idToken: string, refreshToken: string, expiresIn: Date, leftNavigationItems: string, rememberMe: boolean) {
 
     if (rememberMe) {
       this.localStorage.savePermanentData(accessToken, DBkeys.ACCESS_TOKEN);
@@ -205,6 +183,7 @@ export class AuthService {
       this.localStorage.savePermanentData(expiresIn, DBkeys.TOKEN_EXPIRES_IN);
       this.localStorage.savePermanentData(permissions, DBkeys.USER_PERMISSIONS);
       this.localStorage.savePermanentData(user, DBkeys.CURRENT_USER);
+      this.localStorage.savePermanentData(leftNavigationItems, DBkeys.LEFT_NAVIGATION);
 
     }
     else {
@@ -214,6 +193,7 @@ export class AuthService {
       this.localStorage.saveSyncedSessionData(expiresIn, DBkeys.TOKEN_EXPIRES_IN);
       this.localStorage.saveSyncedSessionData(permissions, DBkeys.USER_PERMISSIONS);
       this.localStorage.saveSyncedSessionData(user, DBkeys.CURRENT_USER);
+      this.localStorage.saveSyncedSessionData(leftNavigationItems, DBkeys.LEFT_NAVIGATION);
     }
 
     this.localStorage.savePermanentData(rememberMe, DBkeys.REMEMBER_ME);
@@ -267,6 +247,11 @@ export class AuthService {
     return this.localStorage.getDataObject<PermissionValues[]>(DBkeys.USER_PERMISSIONS) || [];
   }
 
+
+  get leftNavigationMenu(): string {    
+    return this.localStorage.getData(DBkeys.LEFT_NAVIGATION);
+
+  }
   get accessToken(): string {
 
     this.reevaluateLoginStatus();

@@ -16,11 +16,7 @@ import { environment } from '../../environments/environment';
 type UserConfiguration = {
     language: string,
     homeUrl: string,
-    theme: string,
-    showDashboardStatistics: boolean,
-    showDashboardNotifications: boolean,
-    showDashboardTodo: boolean,
-    showDashboardBanner: boolean
+    theme: string
 };
 
 @Injectable()
@@ -30,16 +26,13 @@ export class ConfigurationService {
 
     public baseUrl = environment.baseUrl || Utilities.baseUrl();
     public loginUrl = environment.loginUrl;
-    public fallbackBaseUrl = "http://quickapp.ebenmonney.com";
+    public fallbackBaseUrl = "http://";
 
     //***Specify default configurations here***
     public static readonly defaultLanguage: string = "en";
     public static readonly defaultHomeUrl: string = "/";
     public static readonly defaultTheme: string = "Default";
-    public static readonly defaultShowDashboardStatistics: boolean = true;
-    public static readonly defaultShowDashboardNotifications: boolean = true;
-    public static readonly defaultShowDashboardTodo: boolean = false;
-    public static readonly defaultShowDashboardBanner: boolean = true;
+   
     //***End of defaults***  
 
     private _language: string = null;
@@ -72,18 +65,7 @@ export class ConfigurationService {
 
         if (this.localStorage.exists(DBkeys.THEME))
             this._theme = this.localStorage.getDataObject<string>(DBkeys.THEME);
-
-        if (this.localStorage.exists(DBkeys.SHOW_DASHBOARD_STATISTICS))
-            this._showDashboardStatistics = this.localStorage.getDataObject<boolean>(DBkeys.SHOW_DASHBOARD_STATISTICS);
-
-        if (this.localStorage.exists(DBkeys.SHOW_DASHBOARD_NOTIFICATIONS))
-            this._showDashboardNotifications = this.localStorage.getDataObject<boolean>(DBkeys.SHOW_DASHBOARD_NOTIFICATIONS);
-
-        if (this.localStorage.exists(DBkeys.SHOW_DASHBOARD_TODO))
-            this._showDashboardTodo = this.localStorage.getDataObject<boolean>(DBkeys.SHOW_DASHBOARD_TODO);
-
-        if (this.localStorage.exists(DBkeys.SHOW_DASHBOARD_BANNER))
-            this._showDashboardBanner = this.localStorage.getDataObject<boolean>(DBkeys.SHOW_DASHBOARD_BANNER);
+      
     }
 
 
@@ -110,17 +92,7 @@ export class ConfigurationService {
         if (importValue.theme != null)
             this.theme = importValue.theme;
 
-        if (importValue.showDashboardStatistics != null)
-            this.showDashboardStatistics = importValue.showDashboardStatistics;
-
-        if (importValue.showDashboardNotifications != null)
-            this.showDashboardNotifications = importValue.showDashboardNotifications;
-
-        if (importValue.showDashboardTodo != null)
-            this.showDashboardTodo = importValue.showDashboardTodo;
-
-        if (importValue.showDashboardBanner != null)
-            this.showDashboardBanner = importValue.showDashboardBanner;
+        
     }
 
 
@@ -130,11 +102,7 @@ export class ConfigurationService {
             {
                 language: changesOnly ? this._language : this.language,
                 homeUrl: changesOnly ? this._homeUrl : this.homeUrl,
-                theme: changesOnly ? this._theme : this.theme,
-                showDashboardStatistics: changesOnly ? this._showDashboardStatistics : this.showDashboardStatistics,
-                showDashboardNotifications: changesOnly ? this._showDashboardNotifications : this.showDashboardNotifications,
-                showDashboardTodo: changesOnly ? this._showDashboardTodo : this.showDashboardTodo,
-                showDashboardBanner: changesOnly ? this._showDashboardBanner : this.showDashboardBanner
+                theme: changesOnly ? this._theme : this.theme               
             };
 
         return JSON.stringify(exportValue);
@@ -145,18 +113,12 @@ export class ConfigurationService {
         this._language = null;
         this._homeUrl = null;
         this._theme = null;
-        this._showDashboardStatistics = null;
-        this._showDashboardNotifications = null;
-        this._showDashboardTodo = null;
-        this._showDashboardBanner = null;
+        
 
         this.localStorage.deleteData(DBkeys.LANGUAGE);
         this.localStorage.deleteData(DBkeys.HOME_URL);
         this.localStorage.deleteData(DBkeys.THEME);
-        this.localStorage.deleteData(DBkeys.SHOW_DASHBOARD_STATISTICS);
-        this.localStorage.deleteData(DBkeys.SHOW_DASHBOARD_NOTIFICATIONS);
-        this.localStorage.deleteData(DBkeys.SHOW_DASHBOARD_TODO);
-        this.localStorage.deleteData(DBkeys.SHOW_DASHBOARD_BANNER);
+       
 
         this.resetLanguage();
     }
@@ -212,51 +174,5 @@ export class ConfigurationService {
         return ConfigurationService.defaultTheme;
     }
 
-
-    set showDashboardStatistics(value: boolean) {
-        this._showDashboardStatistics = value;
-        this.saveToLocalStore(value, DBkeys.SHOW_DASHBOARD_STATISTICS);
-    }
-    get showDashboardStatistics() {
-        if (this._showDashboardStatistics != null)
-            return this._showDashboardStatistics;
-
-        return ConfigurationService.defaultShowDashboardStatistics;
-    }
-
-
-    set showDashboardNotifications(value: boolean) {
-        this._showDashboardNotifications = value;
-        this.saveToLocalStore(value, DBkeys.SHOW_DASHBOARD_NOTIFICATIONS);
-    }
-    get showDashboardNotifications() {
-        if (this._showDashboardNotifications != null)
-            return this._showDashboardNotifications;
-
-        return ConfigurationService.defaultShowDashboardNotifications;
-    }
-
-
-    set showDashboardTodo(value: boolean) {
-        this._showDashboardTodo = value;
-        this.saveToLocalStore(value, DBkeys.SHOW_DASHBOARD_TODO);
-    }
-    get showDashboardTodo() {
-        if (this._showDashboardTodo != null)
-            return this._showDashboardTodo;
-
-        return ConfigurationService.defaultShowDashboardTodo;
-    }
-
-
-    set showDashboardBanner(value: boolean) {
-        this._showDashboardBanner = value;
-        this.saveToLocalStore(value, DBkeys.SHOW_DASHBOARD_BANNER);
-    }
-    get showDashboardBanner() {
-        if (this._showDashboardBanner != null)
-            return this._showDashboardBanner;
-
-        return ConfigurationService.defaultShowDashboardBanner;
-    }
+  
 }

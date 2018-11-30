@@ -434,25 +434,25 @@ export class OperationsopsliveComponent implements OnInit {
         e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_Sea ||
         e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_Back ||
         e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_BackFromWalking) {
-        e.rowElement.bgColor = 'LightGreen';
+        e.rowElement.bgColor = '#bcfc99';
 
       }
       if (e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_Land) {
-        e.rowElement.bgColor = 'LightGray';
+        e.rowElement.bgColor = '#eaefef';
 
       }
       if (e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_Away) {
-        e.rowElement.bgColor = 'Yellow';
+        e.rowElement.bgColor = '#e8e69b';
 
       }
       if (e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_Sick ||
         e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_Absent ||
         e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_Off) {
-        e.rowElement.bgColor = 'PaleVioletRed';
+        e.rowElement.bgColor = '#ffd1fe';
 
       }
       if (e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_WalkingPatrol) {
-        e.rowElement.bgColor = 'CadetBlue';
+        e.rowElement.bgColor = '#a0e1ef';
 
       }
       if (e.key.patrolroleid === handler_ahwalMapping.PatrolRole_Associate) {
@@ -462,7 +462,7 @@ export class OperationsopsliveComponent implements OnInit {
 
 
       if (e.key.incidentid !== null && e.key.incidentid !== '') {
-        e.rowElement.bgColor = 'Red';
+        e.rowElement.bgColor = '#edb6ad';
 
       }
 
@@ -475,7 +475,7 @@ export class OperationsopsliveComponent implements OnInit {
           /*  var hours = (DateTime.Now - lastTimeStamp).TotalHours;
            if (hours >= 1)
            {
-               e.Row.ForeColor = System.Drawing.Color.PaleVioletRed;
+               e.Row.ForeColor = System.Drawing.Color.#ffd1fe;
                e.Row.Font.Bold = true;
            } */
         }
@@ -484,7 +484,7 @@ export class OperationsopsliveComponent implements OnInit {
           /* var minutes = (DateTime.Now - lastTimeStamp).TotalMinutes;
           if (minutes >= 11)
           {
-              e.Row.ForeColor = System.Drawing.Color.PaleVioletRed;
+              e.Row.ForeColor = System.Drawing.Color.#ffd1fe;
               e.Row.Font.Bold = true;
           } */
         }
@@ -507,23 +507,23 @@ export class OperationsopsliveComponent implements OnInit {
         e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_Sea ||
         e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_Back ||
         e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_BackFromWalking) {
-        e.rowElement.bgColor = 'LightGreen';
+        e.rowElement.bgColor = '#bcfc99';
 
       }
       if (e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_Land) {
-        e.rowElement.bgColor = 'LightGray';
+        e.rowElement.bgColor = '#eaefef';
 
       }
       if (e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_Away) {
-        e.rowElement.bgColor = 'Yellow';
+        e.rowElement.bgColor = '#e8e69b';
 
       }
       if (e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_Sick || e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_Absent || e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_Off) {
-        e.rowElement.bgColor = 'PaleVioletRed';
+        e.rowElement.bgColor = '#ffd1fe';
 
       }
       if (e.key.patrolpersonstateid === handler_ahwalMapping.PatrolPersonState_WalkingPatrol) {
-        e.rowElement.bgColor = 'CadetBlue';
+        e.rowElement.bgColor = '#a0e1ef';
 
       }
       if (e.key.patrolroleid === handler_ahwalMapping.PatrolRole_Associate) {
@@ -632,15 +632,15 @@ export class OperationsopsliveComponent implements OnInit {
 
 
         if(e.key.incidentstateid === handler_incident.Incident_State_New ) {
-            e.rowElement.bgColor='Red';
+          e.rowElement.bgColor ='#edb6ad';
 
         }
         if(e.key.incidentstateid === handler_incident.Incident_State_Closed ) {
-            e.rowElement.bgColor='LightGray';
+            e.rowElement.bgColor='#eaefef';
 
         }
         if(e.key.incidentstateid === handler_incident.Incident_State_HasComments ) {
-            e.rowElement.bgColor='Yellow';
+            e.rowElement.bgColor='#e8e69b';
 
         }
 

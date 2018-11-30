@@ -30,4 +30,5 @@ export interface IdToken {
   permission: PermissionValues | PermissionValues[];
   configuration: string;
   isEnabled: string;
+  userLeftNavigation: string;
 }
