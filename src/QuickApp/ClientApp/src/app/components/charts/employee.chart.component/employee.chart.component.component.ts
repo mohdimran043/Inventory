@@ -28,14 +28,14 @@ export class EmployeeChartComponentComponent implements OnInit, OnChanges {
     }
   };
 
-  public barChartLabels: string[] = ['Section1', 'Section2'];
+  public barChartLabels: string[] = [];
   public barChartType = 'bar';
 
   public barChartLegend = true;
 
   public barChartData: any[] = [
-    { data: [100, 200, 49], label: 'On Duty', backgroundColor: ['#ff6384'] },
-    { data: [1, 4, 5], label: 'Leave', backgroundColor: ['#ff6384'] }
+    { data: [], label: 'On Duty', backgroundColor: ['#ff6384'] },
+    { data: [], label: 'Leave', backgroundColor: ['#ff6384'] }
   ];
 
   constructor(private svc: CommonService, public configurations: ConfigurationService, private alertService: AlertService,
@@ -62,18 +62,22 @@ export class EmployeeChartComponentComponent implements OnInit, OnChanges {
   //}
   LoadData() {
     //alert('LoadData ahwalid' + this.ahwalId);
-  
+
     this.svc.GetEmployeeStatsChart(parseInt(this.ahwalId)).subscribe(resp => {
       console.log(resp);
-      this.barChartLabels = resp.chartlabel;
-
-      this.chart.chart.config.data.labels = resp.chartlabel;
-      this.barChartData = resp.chartsubdta;
+      var chartObject = JSON.parse(resp);
+      if (typeof chartObject !== "undefined" && chartObject != null) {
+        this.barChartLabels = chartObject.chartlabel;
+        this.chart.chart.config.data.labels = chartObject.chartlabel;
+        this.barChartData = chartObject.chartsubdta;
+      }
+      
 
     }, error => { });
   }
   ngOnInit() {
     //alert('ngonint ' + this.ahwalId);
+    this.LoadData();
   }
   ngOnChanges(changes: SimpleChanges) {
     //alert(this.ahwalId);

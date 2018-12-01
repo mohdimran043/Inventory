@@ -365,16 +365,16 @@ export class CommonService extends EndpointFactory {
 
 
   public GetDeviceAvailabilityChart(ahwalId: number) {
-    return this.http.post(this.api_url + '/api/charts/getdeviceavailability', ahwalId, { responseType: 'json' });
+    return this.http.post(this.api_url + '/api/charts/getdeviceavailability', ahwalId, { responseType: 'text' });
   }
   public GetEmployeeStatsChart(ahwalId: number) {
     //alert('before call' + ahwalId,'test');
-    return this.http.post(this.api_url + '/api/charts/getemployeestats', ahwalId, { responseType: 'json' });
+    return this.http.post(this.api_url + '/api/charts/getemployeestats', ahwalId, { responseType: 'text' });
   }
   public GetIncidentChart(ahwalId: number) {
-    return this.http.post(this.api_url + '/api/charts/getincidentchart', ahwalId, { responseType: 'json' });
+    return this.http.post(this.api_url + '/api/charts/getincidentchart', ahwalId, { responseType: 'text' });
   }
   public GetPatrolStatusChart(ahwalId: number) {
-    return this.http.post(this.api_url + '/api/charts/getpatrolstatus', ahwalId, { responseType: 'json' });
+    return this.http.post(this.api_url + '/api/charts/getpatrolstatus', ahwalId, { responseType: 'text' });
   }
 }

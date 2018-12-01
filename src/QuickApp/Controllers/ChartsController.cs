@@ -24,7 +24,7 @@ namespace MOI.Patrol.Controllers
             return Ok(cvm);
         }
         [HttpPost("getemployeestats")]
-        public ActionResult GetEmployeeStats([FromBody]  int ahwalId)
+        public string GetEmployeeStats([FromBody]  int ahwalId)
         {
             List<string> onDuty = new List<string>();
             List<string> onLeave = new List<string>();
@@ -56,7 +56,7 @@ namespace MOI.Patrol.Controllers
             csd.data = onLeave.ToArray();
             csd.label = "On leave";
             cvm.chartsubdta.Add(csd);
-            return Ok(cvm);
+            return JsonConvert.SerializeObject(cvm);
         }
         [HttpPost("getincidentchart")]
         public ActionResult GetIncidentChart([FromBody]  int ahwalsrcid)
