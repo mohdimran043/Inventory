@@ -18,6 +18,7 @@ export class User {
     this.empRankCode = empRankCode;
     this.empProf = empProf;
     this.empProfCode = empProfCode;
+    this.roles = roles;
   }
 
   public id: string;

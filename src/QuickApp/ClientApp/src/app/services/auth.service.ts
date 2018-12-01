@@ -137,7 +137,7 @@ export class AuthService {
 
     let jwtHelper = new JwtHelper();
     let decodedIdToken = <IdToken>jwtHelper.decodeToken(response.id_token);
-
+    //console.log(decodedIdToken)
 
     //console.log(decodedIdToken)
     let permissions: PermissionValues[] = Array.isArray(decodedIdToken.permission) ? decodedIdToken.permission : [decodedIdToken.permission];
@@ -156,17 +156,18 @@ export class AuthService {
       decodedIdToken.empRankCode,
       decodedIdToken.empProf,
       decodedIdToken.empProfCode,
-      Array.isArray(decodedIdToken.role) ? decodedIdToken.role : [decodedIdToken.role]);
+     // JSON.parse(decodedIdToken.role));
+      Array.isArray(decodedIdToken.role) ? decodedIdToken.role : JSON.parse(decodedIdToken.role));
     user.isEnabled = true;
 
-    // console.log(user)
+    console.log(user)
     let leftNavigationItems = decodedIdToken.userLeftNavigation;
     let configuration = JSON.parse(decodedIdToken.configuration);
 
     this.saveUserDetails(user, permissions, accessToken, idToken, refreshToken, accessTokenExpiry, leftNavigationItems, rememberMe);
     this.loadLeftNavigation();
     this.reevaluateLoginStatus(user);
-    console.log(configuration)
+    
     //this.saveUserConfiguration(configuration, rememberMe);
     this.redirectLoginUser();
     return user;

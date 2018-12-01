@@ -16,12 +16,15 @@ import * as Prism from 'prismjs';
   animations: [fadeInOut]
 })
 export class HomeComponent implements AfterViewInit {
+  ahwalsrc: any;
+  shiftssrc: any;
+  selectedAhwalSrc: string;
 
- 
 
   constructor(public configurations: ConfigurationService, private alertService: AlertService,
     private modalService: ModalService) {
-
+    this.shiftssrc = JSON.parse(window.localStorage.getItem('Shifts'));
+    this.ahwalsrc = JSON.parse(window.localStorage.getItem('Ahwals'));
   }
 
   ngAfterViewInit() {

@@ -148,7 +148,7 @@ namespace AssetManagement.Controllers
         OpenIdConnectConstants.Destinations.AccessToken);
             identity.AddClaim("configuration", PatrolUserManager.GetUserPreferenceByUserId(_user.Userid, userRoles),
       OpenIdConnectConstants.Destinations.AccessToken);
-            identity.AddClaim("role", JsonConvert.SerializeObject(userRoles),
+            identity.AddClaim("role", JsonConvert.SerializeObject(userRoles.ToArray()),
       OpenIdConnectConstants.Destinations.AccessToken);
             //identity.AddClaim(ClaimTypes.Role, "ViewPatrolCarsRole",
             //   OpenIdConnectConstants.Destinations.AccessToken);

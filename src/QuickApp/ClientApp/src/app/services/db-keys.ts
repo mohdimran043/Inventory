@@ -25,4 +25,8 @@ export class DBkeys {
   public static readonly SHOW_DASHBOARD_NOTIFICATIONS = "show_dashboard_notifications";
   public static readonly SHOW_DASHBOARD_TODO = "show_dashboard_todo";
   public static readonly SHOW_DASHBOARD_BANNER = "show_dashboard_banner";
+
+  public static readonly AHWALS = "Ahwals";
+  public static readonly SHIFTS = "Shifts";
+  public static readonly USERID = "UserID";
 }
