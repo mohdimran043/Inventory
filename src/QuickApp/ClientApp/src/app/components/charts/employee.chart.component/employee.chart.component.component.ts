@@ -5,6 +5,7 @@ import { CommonService } from '../../../services/common.service';
 import { AlertService, DialogType, MessageSeverity } from '../../../services/alert.service';
 import { ModalService } from '../../../services/modalservice';
 import { BaseChartDirective } from 'ng2-charts/ng2-charts';
+import { tryParse } from 'selenium-webdriver/http';
 
 @Component({
   selector: 'app-employee-chart',
@@ -16,7 +17,7 @@ export class EmployeeChartComponentComponent implements OnInit, OnChanges {
 
 
   @Input('data')
-  ahwalId: string; 
+  ahwalId: string;
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
@@ -27,7 +28,7 @@ export class EmployeeChartComponentComponent implements OnInit, OnChanges {
     }
   };
 
-  public barChartLabels: string[] = ['Section1','Section2'];
+  public barChartLabels: string[] = ['Section1', 'Section2'];
   public barChartType = 'bar';
 
   public barChartLegend = true;
@@ -60,14 +61,15 @@ export class EmployeeChartComponentComponent implements OnInit, OnChanges {
   //  WindowPrt.close();
   //}
   LoadData() {
-    //alert('LoadData' + this.ahwalId); 
-    this.svc.GetEmployeeStatsChart(this.ahwalId).subscribe(resp => {
+    //alert('LoadData ahwalid' + this.ahwalId);
+  
+    this.svc.GetEmployeeStatsChart(parseInt(this.ahwalId)).subscribe(resp => {
       console.log(resp);
-      this.barChartLabels = resp.chartlabel;     
+      this.barChartLabels = resp.chartlabel;
 
       this.chart.chart.config.data.labels = resp.chartlabel;
       this.barChartData = resp.chartsubdta;
-      
+
     }, error => { });
   }
   ngOnInit() {

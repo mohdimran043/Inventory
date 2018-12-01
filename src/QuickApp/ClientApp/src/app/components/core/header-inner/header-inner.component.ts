@@ -12,11 +12,12 @@ export class HeaderInnerComponent implements OnInit {
     this._accntService = accntService;
    
   }
-
-  ngOnInit(): void {
+  public LoadDisplayName(): void {
     if (typeof this._accntService.currentUser !== "undefined" && this._accntService.currentUser != null) {
       this.UserDisplayName = this._accntService.currentUser.empDisplayName;
     }
-
+  }
+  ngOnInit(): void {
+    this.LoadDisplayName();   
   }
 }

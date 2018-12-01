@@ -13,5 +13,7 @@ namespace MOI.Patrol.Helpers
         public const string ROLE_MANAGE_DISPATCHER = "ManageDispatcher";
         public const string ROLE_MANAGE_MAINTAINANCE = "ManageMaintainance";
         public const string ROLE_MANAGE_SCHEDULING = "ManageScheduling";
+        public const string SCHEMA = "Public";
+        public const string PGSQL_FETCHEMPLOYEESTATBYAHWAL = "FetchEmployeeStatsByAhwal";
     }
 }

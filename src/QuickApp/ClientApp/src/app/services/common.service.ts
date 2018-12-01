@@ -12,6 +12,7 @@ import { user } from '../models/user';
 
 import { EndpointFactory } from './endpoint-factory.service';
 import { ConfigurationService } from './configuration.service';
+import { alert } from 'devextreme/ui/dialog';
 @Injectable()
 
 export class CommonService extends EndpointFactory {
@@ -363,16 +364,17 @@ export class CommonService extends EndpointFactory {
   }
 
 
-  public GetDeviceAvailabilityChart(ahwalsrcid) {
-    return this.http.post(this.api_url + '/api/charts/getdeviceavailability', ahwalsrcid, { responseType: 'json' });
+  public GetDeviceAvailabilityChart(ahwalId: number) {
+    return this.http.post(this.api_url + '/api/charts/getdeviceavailability', ahwalId, { responseType: 'json' });
   }
-  public GetEmployeeStatsChart(ahwalsrcid) {
-    return this.http.post(this.api_url + '/api/charts/getemployeestats', ahwalsrcid, { responseType: 'json' });
+  public GetEmployeeStatsChart(ahwalId: number) {
+    //alert('before call' + ahwalId,'test');
+    return this.http.post(this.api_url + '/api/charts/getemployeestats', ahwalId, { responseType: 'json' });
   }
-  public GetIncidentChart(ahwalsrcid) {
-    return this.http.post(this.api_url + '/api/charts/getincidentchart', ahwalsrcid, { responseType: 'json' });
+  public GetIncidentChart(ahwalId: number) {
+    return this.http.post(this.api_url + '/api/charts/getincidentchart', ahwalId, { responseType: 'json' });
   }
-  public GetPatrolStatusChart(ahwalsrcid) {
-    return this.http.post(this.api_url + '/api/charts/getpatrolstatus', ahwalsrcid, { responseType: 'json' });
+  public GetPatrolStatusChart(ahwalId: number) {
+    return this.http.post(this.api_url + '/api/charts/getpatrolstatus', ahwalId, { responseType: 'json' });
   }
 }
