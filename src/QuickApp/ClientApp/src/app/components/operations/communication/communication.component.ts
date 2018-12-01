@@ -7,10 +7,12 @@ import SelectBox from 'devextreme/ui/select_box';
 import { ModalService } from '../../../services/modalservice';
 import { AlertService, DialogType, MessageSeverity } from '../../../services/alert.service';
 import { debounce } from 'rxjs/operators';
+import { fadeInOut } from '../../../services/animations';
 @Component({
   selector: 'app-communication',
   templateUrl: './communication.component.html',
-  styleUrls: ['./communication.component.css']
+  styleUrls: ['./communication.component.css'],
+  animations: [fadeInOut]
 })
 export class CommunicationComponent implements OnInit {
   @ViewChild(DxDataGridComponent) dataGrid: DxDataGridComponent;

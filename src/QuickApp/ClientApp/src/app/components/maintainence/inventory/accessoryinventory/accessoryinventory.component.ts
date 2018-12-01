@@ -3,11 +3,13 @@ import { CommonService } from '../../../../services/common.service';
 import { DxDataGridComponent } from 'devextreme-angular'
 import notify from 'devextreme/ui/notify';
 
+import { fadeInOut } from '../../../../services/animations';
 
 @Component({
   selector: 'app-accessoryinventory',
   templateUrl: './accessoryinventory.component.html',
-  styleUrls: ['./accessoryinventory.component.css']
+  styleUrls: ['./accessoryinventory.component.css'],
+  animations: [fadeInOut]
 })
 export class AccessoryinventoryComponent implements OnInit {
   @ViewChild(DxDataGridComponent) dataGrid: DxDataGridComponent;

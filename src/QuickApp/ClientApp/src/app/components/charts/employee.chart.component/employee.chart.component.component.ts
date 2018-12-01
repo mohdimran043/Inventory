@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit,Input } from '@angular/core';
 import { fadeInOut } from '../../../services/animations';
 import { ConfigurationService } from '../../../services/configuration.service';
 
@@ -8,9 +8,14 @@ import { ModalService } from '../../../services/modalservice';
 @Component({
   selector: 'app-employee-chart',
   templateUrl: './employee.chart.component.component.html',
-  styleUrls: ['./employee.chart.component.component.css']
+  styleUrls: ['./employee.chart.component.component.css'],
+  animations: [fadeInOut]
 })
 export class EmployeeChartComponentComponent implements OnInit {
+
+
+  @Input()
+  ahwalId: string;
 
   public barChartOptions: any = {
     scaleShowVerticalLines: false,

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [@fadeInOut]>
   <form #f="ngForm" method="post" enctype="multipart/form-data">
     <dx-data-grid id="gridContainer"
                   [width]="auto"
@@ -36,7 +36,7 @@
                      [closeOnOutsideClick]="false"
                      (onShown)="onShown()">
       </dx-load-panel>
-      <dxi-column dataField="incidenttypeid" caption="رقم"  [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'" [allowEditing]="true"></dxi-column>
+      <dxi-column dataField="incidenttypeid" caption="رقم" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'" [allowEditing]="true"></dxi-column>
       <dxi-column dataField="name" caption="اسم" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'" [allowEditing]="true"></dxi-column>
 
       <dxi-column cellTemplate="btncelltemplate"> </dxi-column>

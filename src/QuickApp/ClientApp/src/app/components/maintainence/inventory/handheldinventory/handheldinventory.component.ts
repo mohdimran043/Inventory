@@ -2,10 +2,12 @@ import { Component, OnInit ,ViewChild} from '@angular/core';
 import { CommonService } from '../../../../services/common.service';
 import { DxDataGridComponent } from 'devextreme-angular'
 
+import { fadeInOut } from '../../../../services/animations';
 @Component({
   selector: 'app-handheldinventory',
   templateUrl: './handheldinventory.component.html',
-  styleUrls: ['./handheldinventory.component.css']
+  styleUrls: ['./handheldinventory.component.css'],
+  animations: [fadeInOut]
 })
 export class HandheldinventoryComponent implements OnInit {
   @ViewChild(DxDataGridComponent) dataGrid: DxDataGridComponent;

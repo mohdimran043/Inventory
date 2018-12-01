@@ -7,10 +7,12 @@ import SelectBox from 'devextreme/ui/select_box';
 import { ModalService } from '../../../services/modalservice';
 import { AlertService, DialogType, MessageSeverity } from '../../../services/alert.service';
 
+import { fadeInOut } from '../../../services/animations';
 @Component({
   selector: 'app-patrolcars',
   templateUrl: './patrolcars.component.html',
-  styleUrls: ['./patrolcars.component.css']
+  styleUrls: ['./patrolcars.component.css'],
+  animations: [fadeInOut]
 })
 
 

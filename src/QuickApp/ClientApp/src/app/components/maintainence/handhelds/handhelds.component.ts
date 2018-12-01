@@ -6,10 +6,12 @@ import { ModalService } from '../../../services/modalservice';
 import { THIS_EXPR } from '../../../../../node_modules/@angular/compiler/src/output/output_ast';
 import { AlertService, DialogType, MessageSeverity } from '../../../services/alert.service';
 
+import { fadeInOut } from '../../../services/animations';
 @Component({
   selector: 'app-handhelds',
   templateUrl: './handhelds.component.html',
-  styleUrls: ['./handhelds.component.css']
+  styleUrls: ['./handhelds.component.css'],
+  animations: [fadeInOut]
 })
 export class HandheldsComponent implements OnInit {
 

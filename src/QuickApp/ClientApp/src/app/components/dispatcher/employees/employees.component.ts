@@ -4,10 +4,12 @@ import { DxDataGridComponent } from 'devextreme-angular'
 import notify from 'devextreme/ui/notify';
 import {patrolcars} from '../../../models/patrolcars';
 
+import { fadeInOut } from '../../../services/animations';
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
-  styleUrls: ['./employees.component.css']
+  styleUrls: ['./employees.component.css'],
+  animations: [fadeInOut]
 })
 export class EmployeesComponent implements OnInit {
 

@@ -25,6 +25,10 @@ export class HomeComponent implements AfterViewInit {
     private modalService: ModalService) {
     this.shiftssrc = JSON.parse(window.localStorage.getItem('Shifts'));
     this.ahwalsrc = JSON.parse(window.localStorage.getItem('Ahwals'));
+    if (typeof this.ahwalsrc !== "undefined" && this.ahwalsrc.length > 0) {
+      this.selectedAhwalSrc = this.ahwalsrc[0].ahwalid;
+    }
+   
   }
 
   ngAfterViewInit() {

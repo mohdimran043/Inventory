@@ -1,11 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Input} from '@angular/core';
+import { fadeInOut } from '../../../services/animations';
 
 @Component({
   selector: 'app-patrolstatus',
   templateUrl: './patrolstatus.component.html',
-  styleUrls: ['./patrolstatus.component.css']
+  styleUrls: ['./patrolstatus.component.css'],
+  animations: [fadeInOut]
 })
 export class PatrolstatusComponent implements OnInit {
+
+
+  @Input()
+  ahwalId: string;
+
+
   // Doughnut
   public doughnutChartLabels: string[] = ['Walking', 'Long break', 'Short break', 'Available'];
   public doughnutChartData: number[] = [2, 6, 34, 12];

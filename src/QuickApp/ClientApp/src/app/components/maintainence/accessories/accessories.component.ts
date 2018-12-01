@@ -4,11 +4,13 @@ import { DxDataGridComponent } from 'devextreme-angular';
 import notify from 'devextreme/ui/notify';
 import {accessorycls} from '../../../models/accessorycls';
 
+import { fadeInOut } from '../../../services/animations';
 
 @Component({
   selector: 'app-accessories',
   templateUrl: './accessories.component.html',
-  styleUrls: ['./accessories.component.css']
+  styleUrls: ['./accessories.component.css'],
+  animations: [fadeInOut]
 })
 export class AccessoriesComponent implements OnInit {
 

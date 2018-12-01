@@ -21,11 +21,12 @@ import { operationLog } from '../../../models/operationLog';
 import { handler_operations } from '../../../../environments/handler_operations';
 import { HandheldinventoryComponent } from '../../maintainence/inventory/handheldinventory/handheldinventory.component';
 import { Timestamp } from '../../../../../node_modules/rxjs';
-
+import { fadeInOut } from '../../../services/animations';
 @Component({
   selector: 'app-dispatch',
   templateUrl: './dispatch.component.html',
-  styleUrls: ['./dispatch.component.css']
+  styleUrls: ['./dispatch.component.css'],
+  animations: [fadeInOut]
 })
 
 

@@ -1,13 +1,9 @@
-
-
-    <div style="display: block">
-      <canvas baseChart
-                  [options]="doughnutChartOptions"
-                  [data]="doughnutChartData"
-                  [labels]="doughnutChartLabels"
-                  [chartType]="doughnutChartType"
-                  (chartHover)="chartHovered($event)"
-                  (chartClick)="chartClicked($event)"></canvas>
-    </div>
-
- 
+<div style="display: block" [@fadeInOut]>
+  <canvas baseChart
+          [options]="doughnutChartOptions"
+          [data]="doughnutChartData"
+          [labels]="doughnutChartLabels"
+          [chartType]="doughnutChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+</div>

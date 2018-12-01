@@ -23,12 +23,15 @@ import { HandheldinventoryComponent } from '../../maintainence/inventory/handhel
 import { Timestamp } from '../../../../../node_modules/rxjs';
 import { handler_incident } from '../../../../environments/handler_incidents';
 import { FormGroup, FormControl } from '@angular/forms';
+import { fadeInOut } from '../../../services/animations';
+
 const CircularJSON = require('circular-json');
 
 @Component({
   selector: 'app-operationsopslive',
   templateUrl: './operationsopslive.component.html',
-  styleUrls: ['./operationsopslive.component.css']
+  styleUrls: ['./operationsopslive.component.css'],
+  animations: [fadeInOut]
 })
 export class OperationsopsliveComponent implements OnInit {
 

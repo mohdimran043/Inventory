@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit,Input } from '@angular/core';
 import { fadeInOut } from '../../../services/animations';
 import { ConfigurationService } from '../../../services/configuration.service';
 
@@ -12,6 +12,11 @@ import { ModalService } from '../../../services/modalservice';
   animations: [fadeInOut]
 })
 export class IncidentChartComponentComponent implements OnInit {
+
+
+  @Input()
+  ahwalId: string;
+
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true,

@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container" [@fadeInOut]>
 
-  <div [@fadeInOut]>
+  <div>
     <div class="row">
       <div class="col-sm-6 pull-right">
         <select [ngModel]="selectedAhwalSrc" class="form-control">
@@ -10,18 +10,18 @@
     </div>
     <div class="row">
       <div class="col-sm-6">
-        <app-incident-chart></app-incident-chart>
+        <app-incident-chart [data]="selectedAhwalSrc"></app-incident-chart>
       </div>
       <div class="col-sm-6">
-        <app-employee-chart></app-employee-chart>
+        <app-employee-chart [data]="selectedAhwalSrc"></app-employee-chart>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-6">
-        <app-deviceavailability></app-deviceavailability>
+        <app-deviceavailability [data]="selectedAhwalSrc"></app-deviceavailability>
       </div>
       <div class="col-sm-6">
-        <app-patrolstatus></app-patrolstatus>
+        <app-patrolstatus [data]="selectedAhwalSrc"></app-patrolstatus>
       </div>
     </div>
   </div>

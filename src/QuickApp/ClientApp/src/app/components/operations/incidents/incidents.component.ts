@@ -13,11 +13,12 @@ import {handler_incident} from '../../../../environments/handler_incidents';
 import { FormGroup, FormControl } from '@angular/forms';
 import { RSA_PKCS1_OAEP_PADDING, ESPIPE } from 'constants';
 import responsive_box from '../../../../../node_modules/devextreme/ui/responsive_box';
-
+import { fadeInOut } from '../../../services/animations';
 @Component({
   selector: 'app-incidents',
   templateUrl: './incidents.component.html',
-  styleUrls: ['./incidents.component.css']
+  styleUrls: ['./incidents.component.css'],
+  animations: [fadeInOut]
 })
 export class IncidentsComponent implements OnInit {
   @ViewChild('gridIncidents') incidentGrid: DxDataGridComponent;
