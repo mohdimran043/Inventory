@@ -298,6 +298,7 @@ export class CommonService extends EndpointFactory {
   public GetIncident_View(rqhdr: object) {
     return this.http.post(this.api_url + '/api/operations/incidentview', rqhdr, { responseType: 'json' });
   }
+
   public GetIncidentSourceList() {
     return this.http.post(this.api_url + '/api/operations/incidentsources', null, { responseType: 'json' });
 
@@ -306,6 +307,7 @@ export class CommonService extends EndpointFactory {
   public GetOpsLiveList(rqhr: object) {
     return this.http.post(this.api_url + '/api/operations/opslivelist', rqhr, { responseType: 'json' });
   }
+
   public ChangeOpsPersonState(rqhr: object) {
     return this.http.post(this.api_url + '/api/operations/changeopspersonstate', rqhr, { responseType: 'text' });
   }
@@ -321,12 +323,15 @@ export class CommonService extends EndpointFactory {
   public GetIncidentTypes() {
     return this.http.post(this.api_url + '/api/operations/incidenttypes', null, { responseType: 'json' });
   }
+
   public AddIncidentTypes(rqhdr: object) {
     return this.http.post(this.api_url + '/api/operations/addupdateincidenttypes', rqhdr, { responseType: 'text' });
   }
+
   public DeleteIncidentTypes(rqhdr: object) {
     return this.http.post(this.api_url + '/api/operations/deleteincidenttypes', rqhdr, { responseType: 'text' });
   }
+
   public Addincidents(rqhdr: object) {
     return this.http.post(this.api_url + '/api/operations/addincidents', rqhdr, { responseType: 'text' });
   }
@@ -335,29 +340,39 @@ export class CommonService extends EndpointFactory {
     return this.http.post(this.api_url + '/api/operations/incidentbyid', rqhdr, { responseType: 'text' });
   }
 
-  public GetIncidentBySourceId(rqhdr:object)
-  {
-    return this.http.post(this.api_url + '/api/operations/incidentbysourceid',rqhdr, { responseType: 'json' });
-  }
-  public GetIncidentComments(rqhdr:object)
-  {
-    return this.http.post(this.api_url + '/api/operations/incidentcomments',rqhdr, { responseType: 'json' });
-
+  public GetIncidentBySourceId(rqhdr: object) {
+    return this.http.post(this.api_url + '/api/operations/incidentbysourceid', rqhdr, { responseType: 'json' });
   }
 
-  public CloseIncident(rqhdr:object)
-  {
-    return this.http.post(this.api_url + '/api/operations/closeincident',rqhdr, { responseType: 'text' });
-  }
-
-  public clearIncidentCommentsView(rqhdr:object)
-  {
-    return this.http.post(this.api_url + '/api/operations/clearincidentcommentsview',rqhdr, { responseType: 'text' });
+  public GetIncidentComments(rqhdr: object) {
+    return this.http.post(this.api_url + '/api/operations/incidentcomments', rqhdr, { responseType: 'json' });
 
   }
 
-  public GetIncidentTypesList()
-  {
-    return this.http.post(this.api_url + '/api/operations/incidenttypes',null, { responseType: 'json' });
+  public CloseIncident(rqhdr: object) {
+    return this.http.post(this.api_url + '/api/operations/closeincident', rqhdr, { responseType: 'text' });
+  }
+
+  public clearIncidentCommentsView(rqhdr: object) {
+    return this.http.post(this.api_url + '/api/operations/clearincidentcommentsview', rqhdr, { responseType: 'text' });
+
+  }
+
+  public GetIncidentTypesList() {
+    return this.http.post(this.api_url + '/api/operations/incidenttypes', null, { responseType: 'json' });
+  }
+
+
+  public GetDeviceAvailabilityChart(ahwalsrcid) {
+    return this.http.post(this.api_url + '/api/charts/getdeviceavailability', ahwalsrcid, { responseType: 'json' });
+  }
+  public GetEmployeeStatsChart(ahwalsrcid) {
+    return this.http.post(this.api_url + '/api/charts/getemployeestats', ahwalsrcid, { responseType: 'json' });
+  }
+  public GetIncidentChart(ahwalsrcid) {
+    return this.http.post(this.api_url + '/api/charts/getincidentchart', ahwalsrcid, { responseType: 'json' });
+  }
+  public GetPatrolStatusChart(ahwalsrcid) {
+    return this.http.post(this.api_url + '/api/charts/getpatrolstatus', ahwalsrcid, { responseType: 'json' });
   }
 }

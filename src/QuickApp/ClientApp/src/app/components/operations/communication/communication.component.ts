@@ -78,8 +78,7 @@ export class CommunicationComponent implements OnInit {
     this.LoadData();
 
   }
-  RowAdd(e) {
-    debugger
+  RowAdd(e) {    
     let rqhdr: object = { incidenttypeid: this.incidenttypeid, userid: this.userid, incidenttypename: this.incidenttypename };
     this.svc.AddIncidentTypes(rqhdr).subscribe(resp => { this.LoadData(); }, error => { });
     this.cleardata();

@@ -3,7 +3,7 @@
   <div>
     <div class="row">
       <div class="col-sm-6 pull-right">
-        <select [ngModel]="selectedAhwalSrc" class="form-control">
+        <select [ngModel]="selectedAhwalSrc"  (change)="ahwalChangeEvent($event.target.value)" class="form-control">
           <option *ngFor="let data of ahwalsrc" [value]="data.ahwalid">{{data.name}}</option>
         </select>
       </div>

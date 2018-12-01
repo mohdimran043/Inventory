@@ -7,15 +7,16 @@ import { AccountService } from '../../../services/account.service';
 })
 export class HeaderInnerComponent implements OnInit {
   UserDisplayName: string;
-
+  _accntService: AccountService;
   constructor(private accntService: AccountService) {
-    if (typeof accntService.currentUser !== "undefined" && accntService.currentUser != null) {
-      this.UserDisplayName = accntService.currentUser.empDisplayName;
-    }
-
+    this._accntService = accntService;
+   
   }
 
   ngOnInit(): void {
+    if (typeof this._accntService.currentUser !== "undefined" && this._accntService.currentUser != null) {
+      this.UserDisplayName = this._accntService.currentUser.empDisplayName;
+    }
 
   }
 }

@@ -1,20 +1,21 @@
-import { Component, OnInit, AfterViewInit,Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, OnChanges, SimpleChanges ,ViewChild} from '@angular/core';
 import { fadeInOut } from '../../../services/animations';
 import { ConfigurationService } from '../../../services/configuration.service';
-
+import { CommonService } from '../../../services/common.service';
 import { AlertService, DialogType, MessageSeverity } from '../../../services/alert.service';
 import { ModalService } from '../../../services/modalservice';
-
+import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 @Component({
   selector: 'app-deviceavailability',
   templateUrl: './deviceavailability.component.html',
   styleUrls: ['./deviceavailability.component.css'],
   animations: [fadeInOut]
 })
-export class DeviceavailabilityComponent implements OnInit {
+export class DeviceavailabilityComponent implements OnInit, OnChanges {
 
-  @Input()
+  @Input('data')
   ahwalId: string;
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective;
 
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
@@ -24,16 +25,16 @@ export class DeviceavailabilityComponent implements OnInit {
       display: true
     }
   };
-  public barChartLabels: string[] = ['Section1', 'Section2', 'Section3'];
+  public barChartLabels: string[] = ['Sector1', 'Sector2', 'Sector3'];
   public barChartType: string = 'bar';
   public barChartLegend: boolean = true;
 
   public barChartData: any[] = [
-    { data: [100, 200, 49], label: 'On Duty', backgroundColor: ['#ff6384'] },
-    { data: [1, 4, 5], label: 'Leave', backgroundColor: ['#ff6384'] }
+    { data: [100, 200, 49], label: 'Available', backgroundColor: ['#ff6384'] },
+    { data: [1, 4, 5], label: 'Not available', backgroundColor: ['#ff6384'] }
   ];
 
-  constructor(public configurations: ConfigurationService, private alertService: AlertService,
+  constructor(private svc: CommonService, public configurations: ConfigurationService, private alertService: AlertService,
     private modalService: ModalService) {
   }
   // events
@@ -44,22 +45,11 @@ export class DeviceavailabilityComponent implements OnInit {
   public chartHovered(e: any): void {
     console.log(e);
   }
-
-  public randomize(): void {
-    // Only Change 3 values
-    let data = [
-      Math.round(Math.random() * 100),
-      59,
-      80,
-      (Math.random() * 100),
-      56,
-      (Math.random() * 100),
-      40];
-    let clone = JSON.parse(JSON.stringify(this.barChartData));
-    clone[0].data = data;
-    this.barChartData = clone;
-
+  LoadData() {
+    this.svc.GetDeviceAvailabilityChart(this.ahwalId).subscribe(resp => { console.log(resp); }, error => { });
   }
   ngOnInit() {
+  }
+  ngOnChanges(changes: SimpleChanges) {
   }
 }

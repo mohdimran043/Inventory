@@ -1,22 +1,22 @@
-import { Component, OnInit, AfterViewInit,Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, OnChanges, SimpleChanges ,ViewChild} from '@angular/core';
 import { fadeInOut } from '../../../services/animations';
 import { ConfigurationService } from '../../../services/configuration.service';
-
+import { CommonService } from '../../../services/common.service';
 import { AlertService, DialogType, MessageSeverity } from '../../../services/alert.service';
 import { ModalService } from '../../../services/modalservice';
-
+import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 @Component({
   selector: 'app-incident-chart',
   templateUrl: './incident.chart.component.component.html',
   styleUrls: ['./incident.chart.component.component.css'],
   animations: [fadeInOut]
 })
-export class IncidentChartComponentComponent implements OnInit {
+export class IncidentChartComponentComponent implements OnInit, OnChanges {
 
 
-  @Input()
+  @Input('data')
   ahwalId: string;
-
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective;
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true,
@@ -42,7 +42,7 @@ export class IncidentChartComponentComponent implements OnInit {
     { data: [28, 48, 40, 19, 40, 27, 12], label: 'Closed Incidents' }
   ];
 
-  constructor(public configurations: ConfigurationService, private alertService: AlertService,
+  constructor(private svc: CommonService, public configurations: ConfigurationService, private alertService: AlertService,
     private modalService: ModalService) {
   }
   // events
@@ -53,23 +53,11 @@ export class IncidentChartComponentComponent implements OnInit {
   public chartHovered(e: any): void {
     console.log(e);
   }
-
-  public randomize(): void {
-    // Only Change 3 values
-    let data = [
-      Math.round(Math.random() * 100),
-      59,
-      80,
-      (Math.random() * 100),
-      56,
-      (Math.random() * 100),
-      40];
-    let clone = JSON.parse(JSON.stringify(this.barChartData));
-    clone[0].data = data;
-    this.barChartData = clone;
-
+  LoadData() {
+    this.svc.GetIncidentChart(this.ahwalId).subscribe(resp => { console.log(resp); }, error => { });
   }
   ngOnInit() {
   }
-
+  ngOnChanges(changes: SimpleChanges) {
+  }
 }

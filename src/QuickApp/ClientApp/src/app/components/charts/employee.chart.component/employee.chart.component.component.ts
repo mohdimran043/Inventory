@@ -1,9 +1,10 @@
-import { Component, OnInit, AfterViewInit,Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { fadeInOut } from '../../../services/animations';
 import { ConfigurationService } from '../../../services/configuration.service';
-
+import { CommonService } from '../../../services/common.service';
 import { AlertService, DialogType, MessageSeverity } from '../../../services/alert.service';
 import { ModalService } from '../../../services/modalservice';
+import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 
 @Component({
   selector: 'app-employee-chart',
@@ -11,12 +12,12 @@ import { ModalService } from '../../../services/modalservice';
   styleUrls: ['./employee.chart.component.component.css'],
   animations: [fadeInOut]
 })
-export class EmployeeChartComponentComponent implements OnInit {
+export class EmployeeChartComponentComponent implements OnInit, OnChanges {
 
 
-  @Input()
-  ahwalId: string;
-
+  @Input('data')
+  ahwalId: string; 
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective;
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true,
@@ -25,18 +26,18 @@ export class EmployeeChartComponentComponent implements OnInit {
       display: true
     }
   };
-  
-  public barChartLabels: string[] = ['Section1', 'Section2', 'Section3'];
+
+  public barChartLabels: string[] = ['Section1','Section2'];
   public barChartType = 'bar';
-  
-  public barChartLegend  =true;
+
+  public barChartLegend = true;
 
   public barChartData: any[] = [
     { data: [100, 200, 49], label: 'On Duty', backgroundColor: ['#ff6384'] },
     { data: [1, 4, 5], label: 'Leave', backgroundColor: ['#ff6384'] }
   ];
 
-  constructor(public configurations: ConfigurationService, private alertService: AlertService,
+  constructor(private svc: CommonService, public configurations: ConfigurationService, private alertService: AlertService,
     private modalService: ModalService) {
   }
   // events
@@ -48,31 +49,31 @@ export class EmployeeChartComponentComponent implements OnInit {
     console.log(e);
   }
 
-  public randomize(): void {
-    // Only Change 3 values
-    const data = [
-      Math.round(Math.random() * 100),
-      59,
-      80,
-      (Math.random() * 100),
-      56,
-      (Math.random() * 100),
-      40];
-    const clone = JSON.parse(JSON.stringify(this.barChartData));
-    clone[0].data = data;
-    this.barChartData = clone;
+  //public printstat() {
+  //  const printContent = document.getElementById('barChartDataid');
+  //  const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
+  //  // tslint:disable-next-line:whitespace
+  //  // WindowPrt.document.write('<br><img src=\'' + printContent.toDataURL() + '\'/>');
+  //  WindowPrt.document.close();
+  //  WindowPrt.focus();
+  //  WindowPrt.print();
+  //  WindowPrt.close();
+  //}
+  LoadData() {
+    //alert('LoadData' + this.ahwalId); 
+    this.svc.GetEmployeeStatsChart(this.ahwalId).subscribe(resp => {
+      console.log(resp);
+      this.barChartLabels = resp.chartlabel;     
 
+      this.chart.chart.config.data.labels = resp.chartlabel;
+      this.barChartData = resp.chartsubdta;
+      
+    }, error => { });
   }
-  public printstat() {
-    const printContent = document.getElementById('barChartDataid');
-    const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
-    // tslint:disable-next-line:whitespace
-    // WindowPrt.document.write('<br><img src=\'' + printContent.toDataURL() + '\'/>');
-    WindowPrt.document.close();
-    WindowPrt.focus();
-    WindowPrt.print();
-    WindowPrt.close();
-  }  ngOnInit() {
+  ngOnInit() {
+    //alert('ngonint ' + this.ahwalId);
   }
-
+  ngOnChanges(changes: SimpleChanges) {
+    //alert(this.ahwalId);
+  }
 }
