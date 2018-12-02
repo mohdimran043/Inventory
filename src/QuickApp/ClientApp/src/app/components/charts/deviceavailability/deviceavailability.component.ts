@@ -46,7 +46,7 @@ export class DeviceavailabilityComponent implements OnInit, OnChanges {
     console.log(e);
   }
   LoadData() {
-    this.svc.GetDeviceAvailabilityChart(this.ahwalId).subscribe(resp => { console.log(resp); }, error => { });
+    //this.svc.GetDeviceAvailabilityChart(this.ahwalId).subscribe(resp => { console.log(resp); }, error => { });
   }
   ngOnInit() {
   }

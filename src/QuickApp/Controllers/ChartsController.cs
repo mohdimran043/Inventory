@@ -111,7 +111,7 @@ namespace MOI.Patrol.Controllers
             csd.data = count.ToArray();
             csd.label = "Status";
             cvm.chartsubdta.Add(csd);
-            4return Ok(cvm);
+            return Ok(cvm);
         }
     }
 }
