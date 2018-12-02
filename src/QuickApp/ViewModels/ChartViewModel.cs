@@ -15,6 +15,7 @@ namespace MOI.Patrol.ViewModels
     {
         public string label { get; set; }
         public string[] data { get; set; }
+
         public string backgroundcolor { get; set; }
     }
 }

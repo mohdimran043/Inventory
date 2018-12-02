@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input, OnChanges, SimpleChanges ,ViewChild} from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { fadeInOut } from '../../../services/animations';
 import { ConfigurationService } from '../../../services/configuration.service';
 import { CommonService } from '../../../services/common.service';
@@ -21,7 +21,7 @@ export class IncidentChartComponentComponent implements OnInit, OnChanges {
     scaleShowVerticalLines: false,
     responsive: true,
     title: {
-      text: 'Incident Charts',
+      text: 'احصائيات الحوادث',
       display: true
     }
   };
@@ -33,13 +33,12 @@ export class IncidentChartComponentComponent implements OnInit, OnChanges {
       backgroundColor: 'rgba(30, 169, 224, 0.8)'
     }
   ];
-  public barChartLabels: string[] = ['Jan', 'Feb', 'Mar', 'May', 'Jun', 'July', 'Aug'];
+  public barChartLabels: string[] = [];
   public barChartType: string = 'bar';
   public barChartLegend: boolean = true;
 
   public barChartData: any[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'No Of Incidents' },
-    { data: [28, 48, 40, 19, 40, 27, 12], label: 'Closed Incidents' }
+    { data: [], label: 'حادث' }
   ];
 
   constructor(private svc: CommonService, public configurations: ConfigurationService, private alertService: AlertService,
@@ -54,9 +53,19 @@ export class IncidentChartComponentComponent implements OnInit, OnChanges {
     console.log(e);
   }
   LoadData() {
-    this.svc.GetIncidentChart(this.ahwalId).subscribe(resp => { console.log(resp); }, error => { });
+    this.svc.GetIncidentChart(parseInt(this.ahwalId)).subscribe(resp => {
+      
+      var chartObject = JSON.parse(resp);
+      if (typeof chartObject !== "undefined" && chartObject != null) {
+        this.barChartLabels = chartObject.chartlabel;
+        this.chart.chart.config.data.labels = chartObject.chartlabel;
+        this.barChartData = chartObject.chartsubdta;
+      }
+
+    }, error => { });
   }
   ngOnInit() {
+    this.LoadData();
   }
   ngOnChanges(changes: SimpleChanges) {
   }

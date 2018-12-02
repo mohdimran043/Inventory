@@ -9,7 +9,9 @@ import { ModalService } from '../../services/modalservice';
 import * as Prism from 'prismjs';
 import { alert } from 'devextreme/ui/dialog';
 import { EmployeeChartComponentComponent } from '../charts/employee.chart.component/employee.chart.component.component';
-
+import { IncidentChartComponentComponent } from '../charts/incident.chart.component/incident.chart.component.component';
+import { DeviceavailabilityComponent } from '../charts/deviceavailability/deviceavailability.component';
+import { PatrolstatusComponent } from '../charts/patrolstatus/patrolstatus.component';
 
 @Component({
   selector: 'home',
@@ -23,6 +25,9 @@ export class HomeComponent implements AfterViewInit {
   selectedAhwalSrc: string;
   @Output() emitAhwalChange = new EventEmitter<any[]>();
   @ViewChild(EmployeeChartComponentComponent) empComponet: EmployeeChartComponentComponent;
+  @ViewChild(IncidentChartComponentComponent) incidentComp: IncidentChartComponentComponent;
+ //  @ViewChild(DeviceavailabilityComponent) deviceavailabilityComp: DeviceavailabilityComponent;
+  @ViewChild(PatrolstatusComponent) patrolstatuscomp: PatrolstatusComponent;
 
   constructor(public configurations: ConfigurationService, private alertService: AlertService,
     private modalService: ModalService) {
@@ -38,6 +43,15 @@ export class HomeComponent implements AfterViewInit {
     console.log(id);
     this.empComponet.ahwalId = id;
     this.empComponet.LoadData();
+
+    this.incidentComp.ahwalId = id;
+    this.incidentComp.LoadData();
+
+    //this.deviceavailabilityComp.ahwalId = id;
+    //this.deviceavailabilityComp.LoadData();
+
+    this.patrolstatuscomp.ahwalId = id;
+    this.patrolstatuscomp.LoadData();
   }
   ngAfterViewInit() {
     Prism.highlightAll();

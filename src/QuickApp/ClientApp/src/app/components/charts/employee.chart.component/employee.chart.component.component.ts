@@ -23,7 +23,7 @@ export class EmployeeChartComponentComponent implements OnInit, OnChanges {
     scaleShowVerticalLines: false,
     responsive: true,
     title: {
-      text: 'Employee Charts',
+      text: 'إحصاء الموظف',
       display: true
     }
   };
@@ -34,8 +34,8 @@ export class EmployeeChartComponentComponent implements OnInit, OnChanges {
   public barChartLegend = true;
 
   public barChartData: any[] = [
-    { data: [], label: 'On Duty', backgroundColor: ['#ff6384'] },
-    { data: [], label: 'Leave', backgroundColor: ['#ff6384'] }
+    { data: [], label: 'في الخدمة', backgroundColor: ['#ff6384'] },
+    { data: [], label: 'غادر', backgroundColor: ['#ff6384'] }
   ];
 
   constructor(private svc: CommonService, public configurations: ConfigurationService, private alertService: AlertService,

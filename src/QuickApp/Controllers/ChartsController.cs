@@ -17,7 +17,7 @@ namespace MOI.Patrol.Controllers
     {
 
         [HttpPost("getdeviceavailability")]
-        public ActionResult GetDeviceAvailability([FromBody]  int ahwalsrcid)
+        public ActionResult GetDeviceAvailability([FromBody]  int ahwalId)
         {
             ChartViewModel cvm = new ChartViewModel();
 
@@ -59,16 +59,59 @@ namespace MOI.Patrol.Controllers
             return JsonConvert.SerializeObject(cvm);
         }
         [HttpPost("getincidentchart")]
-        public ActionResult GetIncidentChart([FromBody]  int ahwalsrcid)
+        public ActionResult GetIncidentChart([FromBody]  int ahwalId)
         {
+            List<string> count = new List<string>();
+            List<string> chartLabel = new List<string>();
             ChartViewModel cvm = new ChartViewModel();
+            PostgresWrapper pw = new PostgresWrapper();
+            Dictionary<string, object> keyValuePair = new Dictionary<string, object>();
+            keyValuePair.Add("aid", ahwalId);
+            DataSet pgDataSet = pw.ExecuteStoredProc(PatrolConstants.PGSQL_FETCHINCIDENTSBYAHWAL, keyValuePair);
+            if (pgDataSet != null && pgDataSet.Tables.Count > 0)
+            {
+                foreach (DataRow dr in pgDataSet.Tables[0].Rows)
+                {
+                    chartLabel.Add(Convert.ToString(dr["Month"]));
+                    count.Add(Convert.ToString(dr["IncidentCount"]));
+                }
+            }
+            cvm.chartlabel = chartLabel.ToArray();
+            cvm.chartsubdta = new List<ChartSubDataViewModel>();
+            ChartSubDataViewModel csd = new ChartSubDataViewModel();
+            csd.backgroundcolor = "";
+            csd.data = count.ToArray();
+            csd.label = "Incidents";
+            cvm.chartsubdta.Add(csd);
+
             return Ok(cvm);
         }
         [HttpPost("getpatrolstatus")]
-        public ActionResult GetPatrolStatus([FromBody]  int ahwalsrcid)
+        public ActionResult GetPatrolStatus([FromBody]  int ahwalId)
         {
+            List<string> count = new List<string>();
+            List<string> chartLabel = new List<string>();
             ChartViewModel cvm = new ChartViewModel();
-            return Ok(cvm);
+            PostgresWrapper pw = new PostgresWrapper();
+            Dictionary<string, object> keyValuePair = new Dictionary<string, object>();
+            keyValuePair.Add("aid", ahwalId);
+            DataSet pgDataSet = pw.ExecuteStoredProc(PatrolConstants.PGSQL_FETCHPATROLSTATUSBYAHWAL, keyValuePair);
+            if (pgDataSet != null && pgDataSet.Tables.Count > 0)
+            {
+                foreach (DataRow dr in pgDataSet.Tables[0].Rows)
+                {
+                    chartLabel.Add(Convert.ToString(dr["name"]));
+                    count.Add(Convert.ToString(dr["patrolstatuscount"]));
+                }
+            }
+            cvm.chartlabel = chartLabel.ToArray();
+            cvm.chartsubdta = new List<ChartSubDataViewModel>();
+            ChartSubDataViewModel csd = new ChartSubDataViewModel();
+            csd.backgroundcolor = "";
+            csd.data = count.ToArray();
+            csd.label = "Status";
+            cvm.chartsubdta.Add(csd);
+            4return Ok(cvm);
         }
     }
 }

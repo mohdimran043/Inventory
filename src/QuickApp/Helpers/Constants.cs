@@ -15,5 +15,7 @@ namespace MOI.Patrol.Helpers
         public const string ROLE_MANAGE_SCHEDULING = "ManageScheduling";
         public const string SCHEMA = "Public";
         public const string PGSQL_FETCHEMPLOYEESTATBYAHWAL = "FetchEmployeeStatsByAhwal";
+        public const string PGSQL_FETCHINCIDENTSBYAHWAL = "FetchIncidentCount";
+        public const string PGSQL_FETCHPATROLSTATUSBYAHWAL= "FetchPatrolStatusByAhwal";
     }
 }

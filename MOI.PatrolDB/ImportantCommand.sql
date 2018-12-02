@@ -20,6 +20,7 @@
 -- LANGUAGE 'plpgsql';
 
 
+
 ---- Table: public.userpreference
 ---- DROP TABLE public.userpreference;
 --CREATE TABLE public.userpreference
@@ -53,6 +54,40 @@
 --insert into usersroles values (50,	"ManageScheduling")
 --insert into usersroles values (60,	"ManageCharts")
 
+--**********************************************************************************
+--2nd December changes
+--**********************************************************************************
+
+
+--CREATE OR REPLACE FUNCTION FetchIncidentCount(aid integer)
+-- RETURNS TABLE ( Month VARCHAR, IncidentCount bigint) 
+-- AS  $BODY$ 
+--BEGIN
+--RETURN  QUERY
+--select to_month(date_part('month', timestamp)::int) as Month,count(1) as IncidentCount from incidents i join usersrolesmap u on i.userid=u.userid
+--where u.ahwalid=aid and date_part('year', timestamp) = date_part('year', CURRENT_DATE)
+--group by to_month(date_part('month', timestamp)::int);														   
+--END;
+--$BODY$
+--LANGUAGE 'plpgsql';
+
+--create function to_month(integer) returns varchar as
+--$$
+--    select to_char(to_timestamp(to_char($1, '999'), 'MM'), 'Mon');
+--$$ language sql
+
+
+--CREATE OR REPLACE FUNCTION FetchPatrolStatusByAhwal(aid integer)
+-- RETURNS TABLE ( name VARCHAR, patrolstatuscount BIGint) 
+-- AS  $BODY$ 
+--BEGIN
+--RETURN  QUERY
+--select ps.name,count(1) as patrolstatuscount from ahwalmapping am join patrolpersonstates ps on am.patrolpersonstateid=ps.patrolpersonstateid
+--where am.ahwalid=aid
+--group by ps.name;															   
+--END;
+--$BODY$
+--LANGUAGE 'plpgsql';
 --**********************************************************************************
 --1st December changes
 --**********************************************************************************

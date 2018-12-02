@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input, OnChanges, SimpleChanges ,ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { fadeInOut } from '../../../services/animations';
 import { ConfigurationService } from '../../../services/configuration.service';
 import { CommonService } from '../../../services/common.service';
@@ -11,22 +11,25 @@ import { BaseChartDirective } from 'ng2-charts/ng2-charts';
   styleUrls: ['./patrolstatus.component.css'],
   animations: [fadeInOut]
 })
-export class PatrolstatusComponent implements OnInit, OnChanges  {
+export class PatrolstatusComponent implements OnInit, OnChanges {
 
 
   @Input('data')
   ahwalId: string;
-
+  public chartColors: any[] = [
+    {
+      backgroundColor: ["#FF7360", "#6FC8CE", "#FAFFF2", "#FFFCC4", "#B9E8E0", "#F42A0A", "#95382A", "#97bbad", "#97bb0d"]
+    }];
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
   // Doughnut
-  public doughnutChartLabels: string[] = ['Walking', 'Long break', 'Short break', 'Available'];
-  public doughnutChartData: number[] = [2, 6, 34, 12];
+  public doughnutChartLabels: string[] = [];
+  public doughnutChartData: number[] = [];
   public doughnutChartType = 'doughnut';
   public doughnutChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true,
     title: {
-      text: 'Patrol Status',
+      text: 'دولة باترول',
       display: true
     }
   };
@@ -35,11 +38,21 @@ export class PatrolstatusComponent implements OnInit, OnChanges  {
   }
 
   ngOnInit() {
+    this.LoadData();
   }
   ngOnChanges(changes: SimpleChanges) {
   }
   LoadData() {
-    this.svc.GetPatrolStatusChart(this.ahwalId).subscribe(resp => { console.log(resp); }, error => { });
+    this.svc.GetPatrolStatusChart(parseInt(this.ahwalId)).subscribe(resp => {
+      console.log(resp);
+
+      var chartObject = JSON.parse(resp);
+      if (typeof chartObject !== "undefined" && chartObject != null) {
+        this.doughnutChartLabels = chartObject.chartlabel;       
+        this.doughnutChartData = chartObject.chartsubdta[0].data;
+        this.chart.chart.config.data.labels = chartObject.chartlabel;
+      }
+    }, error => { });
   }
   public chartClicked(e: any): void {
     console.log(e);
