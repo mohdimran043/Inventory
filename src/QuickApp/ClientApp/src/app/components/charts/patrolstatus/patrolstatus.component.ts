@@ -48,9 +48,16 @@ export class PatrolstatusComponent implements OnInit, OnChanges {
 
       var chartObject = JSON.parse(resp);
       if (typeof chartObject !== "undefined" && chartObject != null) {
-        this.doughnutChartLabels = chartObject.chartlabel;       
-        this.doughnutChartData = chartObject.chartsubdta[0].data;
-        this.chart.chart.config.data.labels = chartObject.chartlabel;
+        //this.doughnutChartLabels = chartObject.chartlabel;
+        
+        //if (chartObject.chartsubdta.length > 0) {
+        //  this.doughnutChartData = []
+        //}
+        //else {
+        //  this.doughnutChartData = [];
+        //}
+        
+        //this.chart.chart.config.data.labels = chartObject.chartlabel;
       }
     }, error => { });
   }
