@@ -176,7 +176,7 @@ export class OperationsopsliveComponent implements OnInit {
       //Added by imran to retain the state prior to refresh of the gridS
       this.dataGrid.instance.refresh();
       this.incidentGrid.instance.refresh();
-    }, 10000);
+    },10000);
   }
 
   roleSelection(e) {
@@ -782,17 +782,11 @@ closeincident()
     }
   }
   selIncidentId: any;
-  //gridIncPopupVisible:any;
   IncidentRwclick(e) {
-    //console.log('dfdgdfg' + e.key);
-    //console.log('dfdgdfg' + CircularJSON.stringify(e));
+    this.txtcomments='';
+
     this.selIncidentId = e.key;
-    //this.gridIncPopupVisible = false;
-   // console.log('hrd' + this.gridIncidentPopup);
-    // this.gridIncidentPopup.nativeElement.instance.option('visible','false') ;
-    // console.log(util.inspect(e) + 'click');
-    console.log(this.selIncidentId);
-    //console.log(e.key.incidentsourceid);
+
   }
 
   AttahcIncidentSubmitButton_Click(e) {
@@ -952,7 +946,7 @@ closeincident()
             width: 200,
             placeholder: 'اكتب تعليق جديد',
             rtlEnabled: true,
-            value:this.txtcomments,
+            showClearButton:true,
             onValueChanged: this.commentvalchange.bind(this)
            }
         }
@@ -963,11 +957,28 @@ closeincident()
   commentvalchange(e)
   {
 
+    this.txtcomments= e.value;
   }
-  AddComments()
-  {
+   AddComments()
+{
+  let rqhdr:object;
+  rqhdr = {
+    userid:this.userid,
+    incidentid:this.selIncidentId,
+    commenttext:this.txtcomments
+  };
+  console.log(rqhdr);
+   this.svc.AddIncidentComments(rqhdr).subscribe(resp =>
+    {
+      this.txtcomments ='';
 
-  }
+        notify(resp, 'success', 900);
+
+        this.showCommentsGrid();
+
+  });
+  this.txtcomments='';
+}
   refreshComments() {
   this.showCommentsGrid();
   }
@@ -1045,5 +1056,25 @@ GetDataSources() {
        // console.log(resp);
              this.incidenttypessrc = resp;
       });
+}
+
+IncidentImgUpdate(e)
+{
+  /* let rqhdr:object;
+    rqhdr = {
+      userid:this.userid,
+      incidentid:e.key.incidentid
+    };
+
+  this.svc.GetIncident_View(rqhdr).subscribe(resp => {
+
+          if (resp != null)
+          {
+              return '../../../../assets/img/NewUpdate.png';
+          }
+   }); */
+
+
+return '../../../../assets/img/NoUpdate.png';
 }
 }

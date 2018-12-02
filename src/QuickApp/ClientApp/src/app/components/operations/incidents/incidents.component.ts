@@ -127,26 +127,27 @@ this.svc.GetIncidentsList().subscribe(resp => {
 
 onIncidentRowPrepared(e) {
 
-if(e.rowType ==='data') {
+  if(e.rowType ==='data') {
 
- e.rowElement.bgColor = 'White';
+   e.rowElement.bgColor = 'White';
 
 
-    if(e.key.incidentstateid === handler_incident.Incident_State_New ) {
-        e.rowElement.bgColor='Red';
+      if(e.key.incidentstateid === handler_incident.Incident_State_New ) {
+        e.rowElement.bgColor ='#edb6ad';
+
+      }
+      if(e.key.incidentstateid === handler_incident.Incident_State_Closed ) {
+          e.rowElement.bgColor='#eaefef';
+
+      }
+      if(e.key.incidentstateid === handler_incident.Incident_State_HasComments ) {
+          e.rowElement.bgColor='#e8e69b';
+
+      }
 
     }
-    if(e.key.incidentstateid === handler_incident.Incident_State_Closed ) {
-        e.rowElement.bgColor='LightGray';
+   }
 
-    }
-    if(e.key.incidentstateid === handler_incident.Incident_State_HasComments ) {
-        e.rowElement.bgColor='Yellow';
-
-    }
-
-  }
- }
 
  async  getIncidentImg(incidentId:number) {
     return '../../../../assets/img/NewUpdate.png';
@@ -388,7 +389,7 @@ onCommentsToolbarPreparing(e) {
           width: 200,
           placeholder: 'اكتب تعليق جديد',
           rtlEnabled: true,
-          value:this.txtcomments,
+          showClearButton:true,
           onValueChanged: this.commentvalchange.bind(this)
          }
       }
@@ -398,10 +399,25 @@ onCommentsToolbarPreparing(e) {
 txtcomments:any;
 commentvalchange(e)
 {
-
+  this.txtcomments= e.value;
 }
-AddComments()
+async AddComments()
 {
+  let rqhdr:object;
+  rqhdr = {
+    userid:this.userid,
+    incidentid:this.selIncidentId,
+    commenttext:this.txtcomments
+
+  };
+  await this.svc.AddIncidentComments(rqhdr).toPromise().then(resp =>
+    {
+      this.txtcomments ='';
+        notify(resp, 'success', 900);
+
+this.showCommentsGrid();
+
+  });
 
 }
 refreshComments() {
@@ -420,6 +436,26 @@ this.showCommentsGrid();
     {
 
   });
+}
+
+async IncidentImgUpdate(e)
+{
+  let rqhdr:object;
+    rqhdr = {
+      userid:this.userid,
+      incidentid:e.key.incidentid
+    };
+
+  await this.svc.GetIncident_View(rqhdr).toPromise().then(resp => {
+
+          if (resp != null)
+          {
+              return '../../../../assets/img/NewUpdate.png';
+          }
+   });
+
+
+return '../../../../assets/img/NoUpdate.png';
 }
 
 }

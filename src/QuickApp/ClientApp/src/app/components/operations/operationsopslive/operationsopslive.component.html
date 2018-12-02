@@ -107,7 +107,7 @@
             <dxi-column dataField="lastupdate" dataType="date" width="80" [format]="{ type: 'dd/MM/yyyy hh:mm:ss a' }" caption="آخر تحديث" [allowFiltering]="false"></dxi-column>
             <dxi-column dataField="incidentid" caption="" width="40" [allowFiltering]="false" cellTemplate="incidentTemplate"></dxi-column>
             <div *dxTemplate="let data of 'incidentTemplate'">
-              <img src="../../../../assets/img/NewUpdate.png" />
+                <img [src]="IncidentImgUpdate(data)" />
             </div>
 
             <dxo-paging [pageSize]="80"></dxo-paging>

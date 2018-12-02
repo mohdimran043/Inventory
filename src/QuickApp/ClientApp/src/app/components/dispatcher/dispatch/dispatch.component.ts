@@ -349,7 +349,7 @@ export class DispatchComponent implements OnInit {
       {
       e.editorOptions.dataSource = this.sectorssrc;
   }
-  
+
   } */
 
   onEditorPreparing(e) {
@@ -585,7 +585,7 @@ export class DispatchComponent implements OnInit {
          olog= <operationLog>resp;
          notify( olog.text, 'success', 600);
          this.bindAhwalMappingGrid();
- 
+
      }); */
 
     }
@@ -610,7 +610,7 @@ export class DispatchComponent implements OnInit {
          olog= <operationLog>resp;
          notify( olog.text, 'success', 600);
          this.bindAhwalMappingGrid();
-   
+
      }); */
 
     }
@@ -686,18 +686,8 @@ export class DispatchComponent implements OnInit {
 
 
   RwPopupClick(e) {
-    var component = e.component,
-      prevClickTime = component.lastClickTime;
-    component.lastClickTime = new Date();
-    if (prevClickTime && (component.lastClickTime - prevClickTime < 300)) {
 
-
-    }
-    else {
-      //console.log( e.values[2]);
-
-      this.selectPerson_Mno = e.values[0];
-    }
+      this.selectPerson_Mno = e.key;
 
   }
 
@@ -722,30 +712,20 @@ export class DispatchComponent implements OnInit {
   }
 
   RwAssociatePopupClick(e) {
-    var component = e.component,
-      prevClickTime = component.lastClickTime;
-    component.lastClickTime = new Date();
-    if (prevClickTime && (component.lastClickTime - prevClickTime < 300)) {
-      //Double click code
-
-    }
-    else {
-      //  this.associatePersonMno = e.values[0];
-      // console.log('ahwalassociate' + e.keyExpr);
+console.log(e);
       this.selectedAssociateMapId = e.values[2];
-      this.associatePersonMno = e.values[0];
-    }
+      this.associatePersonMno =  e.key;
 
   }
 
   RwPatrolCheckPopupClick(e) {
     console.log(e);
     //console.log(e.data.patrolid);
-    this.selCheckInOutPatrolPltNo = e.data.platenumber;
+    this.selCheckInOutPatrolPltNo = e.key;
   }
 
   RwHandHeldCheckPopupClick(e) {
-    this.selCheckInOutHHeldSerialNo = e.data.serial;
+    this.selCheckInOutHHeldSerialNo = e.key;
   }
 
   ShowCheckInoutPopup() {
@@ -774,8 +754,8 @@ export class DispatchComponent implements OnInit {
       serial: this.selCheckInOutHHeldSerialNo,
       userid: this.userid
     };
-
-    this.svc.CheckInAhwalMapping(rqhdr).subscribe(resp => {
+console.log(rqhdr);
+   this.svc.CheckInAhwalMapping(rqhdr).subscribe(resp => {
       this.ahwalMapping_CheckInOut_StatusLabel = resp;
       this.bindAhwalMappingGrid();
 
@@ -800,7 +780,7 @@ export class DispatchComponent implements OnInit {
   }
 
   RwPersonCheckPopupClick(e) {
-    this.selCheckInOutPersonMno = e.data.milnumber;
+    this.selCheckInOutPersonMno = e.key;
 
   }
 }

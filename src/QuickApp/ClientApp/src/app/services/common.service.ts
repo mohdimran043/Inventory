@@ -232,7 +232,7 @@ export class CommonService extends EndpointFactory {
           {
             return this.http.put(this.api_url + '/api/dispatch/updatePersonState?selmenu='+ selmenu + '&ahwalmappingid=' +
             ahwalmappingid + '&userid=' + userid , { responseType: 'json' });
-  
+
           } */
 
   public GetCheckinPatrolCarList(ahwalid: number, userid: number) {
@@ -376,5 +376,9 @@ export class CommonService extends EndpointFactory {
   }
   public GetPatrolStatusChart(ahwalId: number) {
     return this.http.post(this.api_url + '/api/charts/getpatrolstatus', ahwalId, { responseType: 'text' });
+  }
+
+  public AddIncidentComments(rqhdr: object) {
+    return this.http.post(this.api_url + '/api/operations/addincidentcomments', rqhdr, { responseType: 'text' });
   }
 }

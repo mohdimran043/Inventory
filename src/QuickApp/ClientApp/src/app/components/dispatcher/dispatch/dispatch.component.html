@@ -98,11 +98,41 @@
           <tr>
             <td><label>الفرد</label></td>
             <td>
-              <dx-drop-down-box [(value)]="selectPerson_Mno"
+                <dx-select-box width="400" #selectBox
+                [dataSource]="personsrc"
+                showClearButton="true"
+                valueExpr="milnumber"
+                displayExpr="name"
+                [(value)]="selectPerson_Mno"
+                searchEnabled="true"
+                placeholder="Select a Person"
+                rtlEnabled="true"
+                openOnFieldClick="true"
+                [searchExpr]= "['milnumber','name']"
+                searchMode="contains"
+                >
+   <div *dxTemplate="let data of 'content'">
+      <dx-data-grid [dataSource]="personsrc"
+      [columns]="[{caption:'الرقم العسكري',dataField:'milnumber'},{caption:'الاسم',dataField:'name'}]"
+      [selection]="{ mode: 'single' }"
+      [hoverStateEnabled]="true"
+      [paging]="{ enabled: true, pageSize: 5 }"
+      [filterRow]="{ visible: false }"
+      [rtlEnabled]="true"
+      keyExpr="milnumber"
+      [focusStateEnabled]="true"
+      (onRowClick)="RwPopupClick($event)">
+                   <dxo-search-panel [searchVisibleColumnsOnly] ="true" [text] = "selectBox.text" [visible]="false"></dxo-search-panel>
+
+     </dx-data-grid>
+   </div>
+ </dx-select-box>
+
+         <!--      <dx-drop-down-box [(value)]="selectPerson_Mno"
                                 valueExpr="milnumber"
                                 [deferRendering]="false"
                                 [displayExpr]="person_displayExpr"
-                                placeholder="Select a value..."
+                                placeholder="c"
                                 [showClearButton]="true"
                                 [dataSource]="personsrc">
                 <div *dxTemplate="let data of 'content'">
@@ -119,7 +149,7 @@
 
                   </dx-data-grid>
                 </div>
-              </dx-drop-down-box>
+              </dx-drop-down-box> -->
             </td>
 
           </tr>
@@ -182,7 +212,36 @@
           <tr>
             <td><label>مرافق ل</label></td>
             <td>
-              <dx-drop-down-box [(value)]="associatePersonMno"
+                <dx-select-box width="400" #selectBox2
+                [dataSource]="associatesrc"
+                showClearButton="true"
+                valueExpr="milnumber"
+                displayExpr="name"
+                [(value)]="associatePersonMno"
+                searchEnabled="true"
+                placeholder="Select a Person"
+                rtlEnabled="true"
+                openOnFieldClick="true"
+                [searchExpr]= "['milnumber','name']"
+                searchMode="contains"
+                >
+   <div *dxTemplate="let data of 'content'">
+      <dx-data-grid [dataSource]="associatesrc"
+      [columns]="[{caption:'الرقم العسكري',dataField:'milnumber'},{caption:'الاسم',dataField:'name'},{dataField:'ahwalmappingid'}]"
+      [selection]="{ mode: 'single' }"
+      [hoverStateEnabled]="true"
+      [paging]="{ enabled: true, pageSize: 5 }"
+      [filterRow]="{ visible: false }"
+      [rtlEnabled]="true"
+      keyExpr="milnumber"
+      [focusStateEnabled]="true"
+      (onRowClick)="RwAssociatePopupClick($event)">
+                   <dxo-search-panel [searchVisibleColumnsOnly] ="true" [text] = "selectBox2.text" [visible]="false"></dxo-search-panel>
+
+     </dx-data-grid>
+   </div>
+ </dx-select-box>
+              <!-- <dx-drop-down-box [(value)]="associatePersonMno"
                                 [dataSource]="associatesrc"
                                 [deferRendering]="false"
                                 [displayExpr]="associateExpr"
@@ -203,7 +262,7 @@
                                 (onRowClick)="RwAssociatePopupClick($event)">
                   </dx-data-grid>
                 </div>
-              </dx-drop-down-box>
+              </dx-drop-down-box> -->
             </td>
           </tr>
           <tr>
@@ -238,7 +297,7 @@
           <tr>
             <td><label>الفرد</label></td>
             <td>
-              <dx-drop-down-box [(value)]="selCheckInOutPersonMno"
+             <!--  <dx-drop-down-box [(value)]="selCheckInOutPersonMno"
                                 [dataSource]="associatesrc"
                                 [deferRendering]="false"
                                 [displayExpr]="checkInassociateExpr"
@@ -259,15 +318,73 @@
                                 (onRowClick)="RwPersonCheckPopupClick($event)">
                   </dx-data-grid>
                 </div>
-              </dx-drop-down-box>
+              </dx-drop-down-box> -->
+              <dx-select-box width="400" #selectBox33
+              [dataSource]="associatesrc"
+              showClearButton="true"
+              valueExpr="milnumber"
+              displayExpr="name"
+              [(value)]="selCheckInOutPersonMno"
+              searchEnabled="true"
+              placeholder="Select a Person"
+              rtlEnabled="true"
+              openOnFieldClick="true"
+              [searchExpr]= "['milnumber','name']"
+              searchMode="contains"
+              >
+ <div *dxTemplate="let data of 'content'">
+    <dx-data-grid [dataSource]="associatesrc"
+    [columns]="[{caption:'الرقم العسكري',dataField:'milnumber'},{caption:'الاسم',dataField:'name'}]"
+    [selection]="{ mode: 'single' }"
+    [hoverStateEnabled]="true"
+    [paging]="{ enabled: true, pageSize: 5 }"
+    [filterRow]="{ visible: false }"
+    [rtlEnabled]="true"
+    [keyExpr]="milnumber"
+    [focusStateEnabled]="true"
+    [highlightChanges]="true"
+    (onRowClick)="RwPersonCheckPopupClick($event)">
+                 <dxo-search-panel [searchVisibleColumnsOnly] ="true" [text] = "selectBox33.text" [visible]="false"></dxo-search-panel>
 
+   </dx-data-grid>
+ </div>
+</dx-select-box>
             </td>
           <tr>
             <td>
               <label>الدورية</label>
             </td>
             <td>
-              <dx-drop-down-box [(value)]="selCheckInOutPatrolPltNo"
+                <dx-select-box width="400" #selectBox4
+                [dataSource]="patrolCarsrc"
+                showClearButton="true"
+                valueExpr="platenumber"
+                displayExpr="platenumber"
+                [(value)]="selCheckInOutPatrolPltNo"
+                searchEnabled="true"
+                placeholder="Select a Car"
+                rtlEnabled="true"
+                openOnFieldClick="true"
+                [searchExpr]= "['platenumber','barcode']"
+                searchMode="contains"
+                >
+   <div *dxTemplate="let data of 'content'">
+      <dx-data-grid [dataSource]="patrolCarsrc"
+      [columns]="[{caption:'رقم اللوحة',dataField:'platenumber'},{caption:'الموديل',dataField:'model'},{caption:'باركود',dataField:'barcode'}]"
+      [selection]="{ mode: 'single' }"
+      [hoverStateEnabled]="true"
+      [paging]="{ enabled: true, pageSize: 5 }"
+      [filterRow]="{ visible: false }"
+      [rtlEnabled]="true"
+      keyExpr="platenumber"
+      [focusStateEnabled]="true"
+      (onRowClick)="RwPatrolCheckPopupClick($event)">
+                   <dxo-search-panel [searchVisibleColumnsOnly] ="true" [text] = "selectBox4.text" [visible]="false"></dxo-search-panel>
+
+     </dx-data-grid>
+   </div>
+  </dx-select-box>
+             <!--  <dx-drop-down-box [(value)]="selCheckInOutPatrolPltNo"
                                 [dataSource]="patrolCarsrc"
                                 [deferRendering]="false"
                                 [displayExpr]="checkPatrolExp"
@@ -289,14 +406,43 @@
                                 (onRowClick)="RwPatrolCheckPopupClick($event)">
                   </dx-data-grid>
                 </div>
-              </dx-drop-down-box>
+              </dx-drop-down-box> -->
             </td>
 
           </tr>
           <tr>
             <td><label>الجهاز</label></td>
             <td>
-              <dx-drop-down-box [(value)]="selCheckInOutHHeldSerialNo"
+                <dx-select-box width="400" #selectBox33
+                [dataSource]="handHeldsrc"
+                showClearButton="true"
+                valueExpr="serial"
+                displayExpr="serial"
+                [(value)]="selCheckInOutHHeldSerialNo"
+                searchEnabled="true"
+                placeholder="Select a HandHeld"
+                rtlEnabled="true"
+                openOnFieldClick="true"
+                [searchExpr]= "['serial','barcode']"
+                searchMode="contains"
+                >
+   <div *dxTemplate="let data of 'content'">
+      <dx-data-grid [dataSource]="handHeldsrc"
+      [columns]="[{caption:'رقم اللوحة',dataField:'serial'},{caption:'باركود',dataField:'barcode'}]"
+      [selection]="{ mode: 'single' }"
+      [hoverStateEnabled]="true"
+      [paging]="{ enabled: true, pageSize: 5 }"
+      [filterRow]="{ visible: false }"
+      [rtlEnabled]="true"
+      keyExpr="serial"
+      [focusStateEnabled]="true"
+      (onRowClick)="RwHandHeldCheckPopupClick($event)">
+                   <dxo-search-panel [searchVisibleColumnsOnly] ="true" [text] = "selectBox33.text" [visible]="false"></dxo-search-panel>
+
+     </dx-data-grid>
+   </div>
+  </dx-select-box>
+            <!--   <dx-drop-down-box [(value)]="selCheckInOutHHeldSerialNo"
                                 [dataSource]="handHeldsrc"
                                 [displayExpr]="checkhandheldexpr"
                                 valueExpr="serial"
@@ -316,7 +462,7 @@
                                 (onRowClick)="RwHandHeldCheckPopupClick($event)">
                   </dx-data-grid>
                 </div>
-              </dx-drop-down-box>
+              </dx-drop-down-box> -->
             </td>
 
           </tr>
