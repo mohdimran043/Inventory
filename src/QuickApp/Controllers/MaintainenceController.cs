@@ -64,12 +64,12 @@ namespace Controllers
         {
 
             string subqry = "";
-            subqry = " and d.ahwalid in (select ahwalid from UsersRolesMap where UserID=6)";
+            subqry = " and d.ahwalid in (select ahwalid from UsersRolesMap where UserID=6 and userroleid=40  limit 1)";
             if (ahwalid != -1)
             {
                 subqry = subqry + " and d.ahwalid = " + ahwalid;
             }
-            String Qry = "select (select a.name from ahwal a where  a.ahwalid = d.ahwalid) ahwalname,d.ahwalid, d.patrolid,d.plateNumber,d.Model,(select codedesc from codemaster where code = typecode)  as type,typecode,d.Defective,d.Rental,d.BarCode,vinnumber from patrolcars d where d.delflag is null  " + subqry;
+            String Qry = "select (select a.name from ahwal a where  a.ahwalid = d.ahwalid) ahwalname,d.ahwalid, d.patrolid,d.plateNumber,d.Model,(select codedesc from codemaster where code = typecode  limit 1)  as type,typecode,d.Defective,d.Rental,d.BarCode,vinnumber from patrolcars d where d.delflag is null  " + subqry;
             List<PatrolCars> ptc = DAL.PostGre_GetData<PatrolCars>(Qry);
             return ptc;
 
@@ -173,12 +173,12 @@ namespace Controllers
         {
 
             string subqry = "";
-            subqry = " and d.ahwalid in (select ahwalid from UsersRolesMap where UserID= " + userid  + " )";
+            subqry = " and d.ahwalid in (select ahwalid from UsersRolesMap where UserID= " + userid  + " limit 1 )";
             if (ahwalid != -1)
             {
                 subqry = subqry + " and d.ahwalid = " + ahwalid;
             }
-            String Qry = "select (select a.name from ahwal a where  a.ahwalid = d.ahwalid) ahwalname,d.ahwalid, d.patrolid,d.plateNumber,d.Model,(select codedesc from codemaster where code = typecode)  as type,typecode,d.Defective,d.Rental,d.BarCode,vinnumber from patrolcars d where d.delflag is null  " + subqry;
+            String Qry = "select (select a.name from ahwal a where  a.ahwalid = d.ahwalid) ahwalname,d.ahwalid, d.patrolid,d.plateNumber,d.Model,(select codedesc from codemaster where code = typecode  limit 1)  as type,typecode,d.Defective,d.Rental,d.BarCode,vinnumber from patrolcars d where d.delflag is null  " + subqry;
             List<PatrolCars> ptc = DAL.PostGre_GetData<PatrolCars>(Qry);
             return ptc;
 

@@ -241,6 +241,7 @@ namespace Core
                 }
                 c.Userid = u.Userid;
                 c.Timestamp = DateTime.Now;
+                c.Incidentcommentid = 0;
                 _context.Incidentscomments.Add(c);
 
                 //we have to change the state of the incident now

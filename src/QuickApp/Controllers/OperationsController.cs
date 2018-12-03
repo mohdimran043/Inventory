@@ -363,7 +363,9 @@ namespace MOI.Patrol.Controllers
         {
             var userid = Convert.ToInt32(Newtonsoft.Json.JsonConvert.DeserializeObject<Int32>(RqHdr["userid"].ToString(), new Newtonsoft.Json.JsonSerializerSettings { NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore }));
             var incidentid = Convert.ToInt64(Newtonsoft.Json.JsonConvert.DeserializeObject<Int64>(RqHdr["incidentid"].ToString(), new Newtonsoft.Json.JsonSerializerSettings { NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore }));
-            var commenttext = Convert.ToString(Newtonsoft.Json.JsonConvert.DeserializeObject<string>(RqHdr["commenttext"].ToString(), new Newtonsoft.Json.JsonSerializerSettings { NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore }));
+            // var commenttext = Convert.ToString(Newtonsoft.Json.JsonConvert.DeserializeObject<string>(RqHdr["commenttext"].ToString(), new Newtonsoft.Json.JsonSerializerSettings { NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore }));
+            var commenttext = RqHdr["commenttext"].ToString();
+
 
             //var user = (User)sessionuser;
             Users user = new Users();
@@ -371,7 +373,7 @@ namespace MOI.Patrol.Controllers
             var newComment = new Incidentscomments();
             newComment.Incidentid = Convert.ToInt64(incidentid.ToString());
             newComment.Text = commenttext;
-
+            newComment.Userid = userid;
             var result = _inc.Add_New_Comment(user, newComment);
             return Ok(result);
         }
