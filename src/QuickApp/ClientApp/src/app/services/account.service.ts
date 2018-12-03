@@ -38,7 +38,7 @@ export class AccountService {
 
   constructor(private router: Router, private http: HttpClient, private authService: AuthService,
     private accountEndpoint: AccountEndpoint, private svc: CommonService) {
-    window.localStorage.setItem('UserID', '6');
+   
     this.svc.GetShiftsList().toPromise().then(resp => {
       window.localStorage.setItem('Shifts', JSON.stringify(resp));
       //console.log(window.localStorage.getItem('Shifts'));

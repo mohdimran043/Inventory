@@ -144,7 +144,7 @@ export class AuthService {
 
 
     this.configurations.import(decodedIdToken.configuration);
-
+    window.localStorage.setItem('UserID', decodedIdToken.sub);
     let user = new User(
       decodedIdToken.sub,
       decodedIdToken.userName,
