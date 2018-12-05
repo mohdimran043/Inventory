@@ -2,7 +2,7 @@
   <form method="post" enctype="multipart/form-data">
     <table>
       <tr>
-        <td style="width: 65%; vertical-align: top;">
+        <td style="width: 65%; vertical-align: top;padding-left:12px">
           <dx-data-grid id="gridContainer"
                         [width]=""
                         [dataSource]="dataSource"
@@ -94,18 +94,18 @@
                            (onIncidentToolbarPreparing)="onIncidentToolbarPreparing($event)">
             </dx-load-panel>
 
-            <dxi-column dataField="incidentid" caption="" [allowFiltering]="false"></dxi-column>
-            <dxi-column dataField="incidentsourceid" [allowFiltering]="false" width="70" caption="جهة البلاغ">
+            <dxi-column dataField="incidentid" caption=""  width="10%" [allowFiltering]="false"></dxi-column>
+            <dxi-column dataField="incidentsourceid" [allowFiltering]="false" width="10%" caption="جهة البلاغ">
               <dxo-lookup [dataSource]="incidentsources"
                           valueExpr="incidentsourceid"
                           displayExpr="name">
               </dxo-lookup>
             </dxi-column>
-            <dxi-column dataField="incidentstypename" width="70" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'" caption="البلاغ"></dxi-column>
-            <dxi-column dataField="place" width="70" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'" caption="المكان"></dxi-column>
-            <dxi-column dataField="timeStamp" caption="وقت البلاغ" width="80" [allowFiltering]="false" dataType="date" [format]="{ type: 'dd/MM/yyyy hh:mm:ss a' }"></dxi-column>
-            <dxi-column dataField="lastupdate" dataType="date" width="80" [format]="{ type: 'dd/MM/yyyy hh:mm:ss a' }" caption="آخر تحديث" [allowFiltering]="false"></dxi-column>
-            <dxi-column dataField="incidentid" caption="" width="40" [allowFiltering]="false" cellTemplate="incidentTemplate"></dxi-column>
+            <dxi-column dataField="incidentstypename" width="20%" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'" caption="البلاغ"></dxi-column>
+            <dxi-column dataField="place"  width="20%" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'" caption="المكان"></dxi-column>
+            <dxi-column dataField="timeStamp" caption="وقت البلاغ"  width="20%" [allowFiltering]="false" dataType="date" [format]="{ type: 'dd/MM/yyyy hh:mm:ss a' }"></dxi-column>
+            <dxi-column dataField="lastupdate" dataType="date"  width="20%" [format]="{ type: 'dd/MM/yyyy hh:mm:ss a' }" caption="آخر تحديث" [allowFiltering]="false"></dxi-column>
+            <dxi-column dataField="incidentid" caption=""  width="5%"[allowFiltering]="false" cellTemplate="incidentTemplate"></dxi-column>
             <div *dxTemplate="let data of 'incidentTemplate'">
                 <img [src]="IncidentImgUpdate(data)" />
             </div>

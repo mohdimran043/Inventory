@@ -61,6 +61,7 @@
   <ItemGroup>
     <None Include="Patrols" />
     <None Include="Patrols_01December18" />
+    <None Include="Patrols_05December18" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="ImportantCommand.sql" />
