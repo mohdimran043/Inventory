@@ -30,7 +30,8 @@ export class PatrolstatusComponent implements OnInit, OnChanges {
     responsive: true,
     title: {
       text: 'دولة باترول',
-      display: true
+      display: true,
+      fontSize: 22
     }
   };
   constructor(private svc: CommonService, public configurations: ConfigurationService, private alertService: AlertService,
@@ -48,16 +49,15 @@ export class PatrolstatusComponent implements OnInit, OnChanges {
 
       var chartObject = JSON.parse(resp);
       if (typeof chartObject !== "undefined" && chartObject != null) {
-        //this.doughnutChartLabels = chartObject.chartlabel;
+        this.doughnutChartLabels = chartObject.chartlabel;        
+        if (chartObject.chartsubdta.length > 0) {
+          this.doughnutChartData = chartObject.chartsubdta;
+        }
+        else {
+          this.doughnutChartData = [];
+        }
         
-        //if (chartObject.chartsubdta.length > 0) {
-        //  this.doughnutChartData = []
-        //}
-        //else {
-        //  this.doughnutChartData = [];
-        //}
-        
-        //this.chart.chart.config.data.labels = chartObject.chartlabel;
+        this.chart.chart.config.data.labels = chartObject.chartlabel;
       }
     }, error => { });
   }

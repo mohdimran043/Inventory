@@ -22,7 +22,11 @@ export class IncidentChartComponentComponent implements OnInit, OnChanges {
     responsive: true,
     title: {
       text: 'احصائيات الحوادث',
-      display: true
+      display: true,
+      fontSize: 22
+    },
+    legend: {
+      fontSize: 15
     }
   };
   public colors = [
@@ -54,7 +58,7 @@ export class IncidentChartComponentComponent implements OnInit, OnChanges {
   }
   LoadData() {
     this.svc.GetIncidentChart(parseInt(this.ahwalId)).subscribe(resp => {
-      
+
       var chartObject = JSON.parse(resp);
       if (typeof chartObject !== "undefined" && chartObject != null) {
         this.barChartLabels = chartObject.chartlabel;

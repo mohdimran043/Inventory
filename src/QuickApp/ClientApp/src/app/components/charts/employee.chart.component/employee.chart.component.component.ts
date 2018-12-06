@@ -24,7 +24,8 @@ export class EmployeeChartComponentComponent implements OnInit, OnChanges {
     responsive: true,
     title: {
       text: 'إحصاء الموظف',
-      display: true
+      display: true,
+      fontSize: 22
     }
   };
 

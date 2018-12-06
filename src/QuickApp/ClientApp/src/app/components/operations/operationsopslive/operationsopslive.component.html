@@ -39,7 +39,7 @@
             </dx-load-panel>
 
             <dxi-column dataField="sectordesc" [groupIndex]="0" caption="القطاع"></dxi-column>
-            <dxi-column type="buttons" dataField="ahwalmappingid" caption="" [width]="110" cellTemplate="customButtonTemplate">
+            <dxi-column type="buttons" dataField="ahwalmappingid" caption="" width="25%" cellTemplate="customButtonTemplate">
             </dxi-column>
             <div *dxTemplate="let data of 'customButtonTemplate'">
 
@@ -51,21 +51,21 @@
               <dxi-button id="BackFromWalking"  [class]="ComandBtnVisible('BackFromWalking',data)"   (click)="customBtnclick('BackFromWalking',data.value)"> <img tooltip="عودة من مترجله" src="../../../../assets/img/Back.png" />  </dxi-button>
 
             </div>
-            <dxi-column dataField="milnumber" width="60" caption="الرقم العسكري" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'"></dxi-column>
-            <dxi-column dataField="rankname" width="60" caption="الرتبه" [allowFiltering]="false"></dxi-column>
-            <dxi-column dataField="personname" width="60" caption="الاسم" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'">
+            <dxi-column dataField="milnumber" width="10%" caption="الرقم العسكري" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'"></dxi-column>
+            <dxi-column dataField="rankname" width="10%" caption="الرتبه" [allowFiltering]="false"></dxi-column>
+            <dxi-column dataField="personname" width="15%" caption="الاسم" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'">
 
             </dxi-column>
-            <dxi-column dataField="patrolrolename" width="60" caption="المسؤولية" [allowFiltering]="false"></dxi-column>
+            <dxi-column dataField="patrolrolename" width="15%" caption="المسؤولية" [allowFiltering]="false"></dxi-column>
             <dxi-column dataField="citygroupname" [groupIndex]="1" caption="المنطقة"></dxi-column>
 
-            <dxi-column dataField="callerid" width="50" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'" caption="النداء"></dxi-column>
-            <dxi-column dataField="platenumber" width="70" [filterOperations]="['contains', '=']" caption="الدورية" [selectedFilterOperation]="'contains'"></dxi-column>
+            <dxi-column dataField="callerid" width="10%" [filterOperations]="['contains', '=']" [selectedFilterOperation]="'contains'" caption="النداء"></dxi-column>
+            <dxi-column dataField="platenumber" width="15%" [filterOperations]="['contains', '=']" caption="الدورية" [selectedFilterOperation]="'contains'"></dxi-column>
             <dxi-column dataField="serial" width="70" [filterOperations]="['contains', '=']" caption="الجهاز" [selectedFilterOperation]="'contains'"></dxi-column>
-            <dxi-column dataField="patrolpersonstatename" width="50" caption="الحالة" [allowFiltering]="false"></dxi-column>
-            <dxi-column dataField="laststatechangetimestamp" width="100" [allowFiltering]="false" caption="وقت الحالة" dataType="date" [format]="{ type: 'dd/MM/yyyy hh:mm:ss a' }"></dxi-column>
+            <dxi-column dataField="patrolpersonstatename" width="15%" caption="الحالة" [allowFiltering]="false"></dxi-column>
+            <dxi-column dataField="laststatechangetimestamp" width="15%" [allowFiltering]="false" caption="وقت الحالة" dataType="date" [format]="{ type: 'dd/MM/yyyy hh:mm:ss a' }"></dxi-column>
 
-            <dxi-column dataField="personmobile" caption="الجوال" [filterOperations]="['contains', '=']" width="50" [selectedFilterOperation]="'contains'"></dxi-column>
+            <dxi-column dataField="personmobile" caption="الجوال" [filterOperations]="['contains', '=']" width="10%" [selectedFilterOperation]="'contains'"></dxi-column>
           </dx-data-grid>
         </td>
         <td style="width: 35%; vertical-align: top;">

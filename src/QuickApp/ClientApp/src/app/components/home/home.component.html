@@ -3,17 +3,22 @@
   <div>
     <div class="row">
       <div class="col-sm-6 pull-right">
-        <select [ngModel]="selectedAhwalSrc"  (change)="ahwalChangeEvent($event.target.value)" class="form-control">
+        <select [ngModel]="selectedAhwalSrc" (change)="ahwalChangeEvent($event.target.value)" class="form-control">
           <option *ngFor="let data of ahwalsrc" [value]="data.ahwalid">{{data.name}}</option>
         </select>
+        <br/>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-6">
-        <app-incident-chart [data]="selectedAhwalSrc"></app-incident-chart>
+        <div class="box box-primary">
+          <app-incident-chart [data]="selectedAhwalSrc"></app-incident-chart>
+        </div>
       </div>
       <div class="col-sm-6">
-        <app-employee-chart [data]="selectedAhwalSrc"></app-employee-chart>
+        <div class="box box-primary">
+          <app-employee-chart [data]="selectedAhwalSrc"></app-employee-chart>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -21,7 +26,9 @@
         <app-deviceavailability [data]="selectedAhwalSrc"></app-deviceavailability>
       </div>-->
       <div class="col-sm-6">
-        <app-patrolstatus [data]="selectedAhwalSrc"></app-patrolstatus>
+        <div class="box box-primary">
+          <app-patrolstatus [data]="selectedAhwalSrc"></app-patrolstatus>
+        </div>
       </div>
     </div>
   </div>

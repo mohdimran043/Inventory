@@ -22,7 +22,8 @@ export class DeviceavailabilityComponent implements OnInit, OnChanges {
     responsive: true,
     title: {
       text: 'Device availablity',
-      display: true
+      display: true,
+      fontSize: 22
     }
   };
   public barChartLabels: string[] = ['Sector1', 'Sector2', 'Sector3'];
