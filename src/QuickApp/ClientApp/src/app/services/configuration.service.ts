@@ -39,7 +39,7 @@ export class ConfigurationService {
   private _homeUrl: string = null;
   private _theme: string = null;
   private _showDashboardStatistics: boolean = null;
-  private _showDashboardNotifications: boolean = null;
+  _showDashboardNotifications: boolean = null;
   private _showDashboardTodo: boolean = null;
   private _showDashboardBanner: boolean = null;
 

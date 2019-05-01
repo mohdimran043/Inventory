@@ -3,7 +3,7 @@
 
 
     <dx-data-grid id="gridContainer"
-                  [width]="auto"
+                  [width]="'auto'"
                   [dataSource]="dataSource"
                   [showBorders]="true"
                   [rtlEnabled]="true"
@@ -84,8 +84,8 @@
          valueExpr="sectorid"
          displayExpr="name">  -->
     <dx-popup class="popup"
-              [width]="auto"
-              [height]="auto"
+              [width]="'auto'"
+              [height]="'auto'"
               [showTitle]="true"
               title=""
               [showCloseButton]="true"
@@ -283,8 +283,8 @@
     </dx-popup>
 
     <dx-popup class="popup"
-              [width]="auto"
-              [height]="auto"
+              [width]="'auto'"
+              [height]="'auto'"
               [showTitle]="true"
               title=""
               [showCloseButton]="true"
@@ -340,7 +340,7 @@
     [paging]="{ enabled: true, pageSize: 5 }"
     [filterRow]="{ visible: false }"
     [rtlEnabled]="true"
-    [keyExpr]="milnumber"
+    keyExpr="milnumber"
     [focusStateEnabled]="true"
     [highlightChanges]="true"
     (onRowClick)="RwPersonCheckPopupClick($event)">
