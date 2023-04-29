@@ -48,7 +48,7 @@
     "font-awesome": "^4.7.0",
     "ionicons": "^4.4.6",
     "jquery": "^3.3.1",
-    "jszip": "^3.1.5",
+    "jszip": "^3.8.0",
     "mapbox-gl": "^0.47.0",
     "ng2-charts": "^1.6.0",
     "ng2-fan-menu": "^1.0.1",
